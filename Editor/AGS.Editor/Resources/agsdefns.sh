@@ -2009,24 +2009,24 @@ managed struct Character {
   import attribute int  SpeechColor;
   /// Gets/sets the character's speech view.
   import attribute int  SpeechView;
-  /// Gets/sets the character's thinking view.
+  /// Retourne / défini la thinking view du personnage.
   import attribute int  ThinkView;
-  /// Gets/sets the character's current transparency level.
+  /// Retourne / défini la transparence du personnage.
   import attribute int  Transparency;
-  /// Gets/sets whether the character turns on the spot to face the correct direction before walking.
+  /// Retourne / défini si le personnage se tourne avant de commencer à marcher.
   import attribute bool TurnBeforeWalking;
-  /// Gets the character's current view number.
+  /// Retourne le numéro de view actuelle du personnage.
   readonly import attribute int View;
-  /// Gets the character's X movement speed.
+  /// Retourne la vitesse X du personnage.
   readonly import attribute int WalkSpeedX;
-  /// Gets the character's Y movement speed.
+  /// Retourne la vitesse Y du personnage.
   readonly import attribute int WalkSpeedY;
 #ifdef STRICT
-  /// The character's current X-position.
+  /// Coordinée X actuelle du personnage.
   import attribute int  x;
-  /// The character's current Y-position.
+  /// Coordinée Y actuelle du personnage.
   import attribute int  y;
-  /// The character's current Z-position.
+  /// Coordinée Z actuelle du personnage.
   import attribute int  z;
   readonly int reserved_a[28];   // $AUTOCOMPLETEIGNORE$
   readonly short reserved_f[MAX_INV];  // $AUTOCOMPLETEIGNORE$
