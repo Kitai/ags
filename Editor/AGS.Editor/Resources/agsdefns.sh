@@ -1975,27 +1975,27 @@ managed struct Character {
   import attribute bool IgnoreWalkbehinds; 
   /// Accesses the number of each inventory item that the character currently has.
   import attribute int  InventoryQuantity[];
-  /// Gets/sets the character's current loop number within its current view.
+  /// Retourne / définit le numéro de loop actuel du personnage dans la view actuelle.
   import attribute int  Loop;
-  /// Gets/sets whether the character uses manually specified scaling instead of using walkable area scaling.
+  /// Retourne / définit si la mise à l'échelle du personnage est spécifié manuellement et non définie par celle de la walking area.
   import attribute bool ManualScaling;
-  /// Gets/sets whether the character only moves when their animation frame changes.
+  /// Retourne / définit si le personnage ne se déplace que lorsque ses frames d'animations changent.
   import attribute bool MovementLinkedToAnimation;
-  /// Gets whether the character is currently moving.
+  /// Retourne si le personnage est en train de se déplacer.
   readonly import attribute bool Moving;
-  /// Gets/sets the character's name.
+  /// Retourne / définit le nom du personnage.
   import attribute String Name;
-  /// Gets the character's normal walking view.
+  /// Retourne le numéro de la walking view normale du personnage.
   readonly import attribute int NormalView;
-  /// Gets the room number that the character was in before this one.
+  /// Retourne le numéro de la room dans laquelle le personnage était juste avant.
   readonly import attribute int PreviousRoom;
-  /// Gets the room number that the character is currently in.
+  /// Reourne le numéro de la room dans lequel le personnage est actuellement.
   readonly import attribute int Room;
-  /// Gets/sets whether the character's movement speed is adjusted in line with its scaling level.
+  /// Retourne / définit si la vitesse de déplacement du personnage est associé à sa mise à l'échelle.
   import attribute bool ScaleMoveSpeed;
-  /// Retourne / définit whether the volume of frame-linked sounds for the character are adjusted in line with its scaling level.
+  /// Retourne / définit si le volume des sons associés aux frames d'animation du personnage est ajusté à la mise à l'échelle de ce dernier.
   import attribute bool ScaleVolume;
-  ///  Retourne / définit le niveau actuelle de mise à l'echelle du personnage.
+  /// Retourne / définit le niveau actuelle de mise à l'echelle du personnage.
   import attribute int  Scaling;
   /// Retourne / définit si le personnage bloque les objets ou autres personnages en les empéchant de les traverser.
   import attribute bool Solid;
