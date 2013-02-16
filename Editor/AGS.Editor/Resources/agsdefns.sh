@@ -1938,15 +1938,15 @@ managed struct Character {
   import function Walk(int x, int y, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
   /// Moves the character in a straight line as far as possible towards the co-ordinates. Useful for keyboard movement.
   import function WalkStraight(int x, int y, BlockingStyle=eNoBlock);
-  /// Gets/sets the character's current inventory item. null if no item selected.
+  /// Retourne / définit l'objet d'inventaire séléctionné par le personnage. null si aucun objet d'inventaire n'est séléctionné.
   import attribute InventoryItem* ActiveInventory;
-  /// Gets whether the character is currently animating.
+  /// Retourne si le personnage est actuellement en animation.
   readonly import attribute bool Animating;
-  /// Gets/sets the character's animation speed.
+  /// Retourne / définit la vitesse d'animation du personnage.
   import attribute int  AnimationSpeed;
-  /// Gets/sets a specific baseline for the character. 0 means character's Y-pos will be used.
+  /// Retourne / définit la ligne de base (baseline) du personnage. 0 signifie que la position Y du personnage sera utilisé.
   import attribute int  Baseline;
-  /// Gets/sets the interval at which the character will blink while talking, in game loops.
+  /// Retourne / définit le temps entre deux cligotements, exprimé en nombre de boucles de jeu.
   import attribute int  BlinkInterval;
   /// Retourne / définit la vue clignement du personnage. -1 pour la désactiver.
   import attribute int  BlinkView;
