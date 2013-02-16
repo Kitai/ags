@@ -1993,27 +1993,27 @@ managed struct Character {
   readonly import attribute int Room;
   /// Gets/sets whether the character's movement speed is adjusted in line with its scaling level.
   import attribute bool ScaleMoveSpeed;
-  /// Gets/sets whether the volume of frame-linked sounds for the character are adjusted in line with its scaling level.
+  /// Retourne / définit whether the volume of frame-linked sounds for the character are adjusted in line with its scaling level.
   import attribute bool ScaleVolume;
-  /// Gets/sets the character's current scaling level.
+  ///  Retourne / définit le niveau actuelle de mise à l'echelle du personnage.
   import attribute int  Scaling;
-  /// Gets/sets whether this character blocks other objects and characters from moving through it.
+  /// Retourne / définit si le personnage bloque les objets ou autres personnages en les empéchant de les traverser.
   import attribute bool Solid;
-  /// Gets whether the character is currently in the middle of a Say command.
+  /// Retourne si le personnage est en train d'exécuter un commande Say.
   readonly import attribute bool Speaking;
-  /// Gets the current frame of the character's speaking animation (only valid when Speaking is true)
+  /// Retourne la frame actuelle de l'animation de parole du personnage (seulment si Speaking est vrai).
   readonly import attribute int SpeakingFrame;
-  /// Gets/sets the character's speech animation delay.
+  /// Retourne / définit le delay d'animation de la speech view du personnage.
   import attribute int  SpeechAnimationDelay;
-  /// Gets/sets the character's speech text colour.
+  /// Retourne / définit la couleur des paroles du personnage.
   import attribute int  SpeechColor;
-  /// Gets/sets the character's speech view.
+  /// Retourne / définit la speech view du personnage.
   import attribute int  SpeechView;
-  /// Retourne / défini la thinking view du personnage.
+  /// Retourne / définit la thinking view du personnage.
   import attribute int  ThinkView;
-  /// Retourne / défini la transparence du personnage.
+  /// Retourne / définit la transparence du personnage.
   import attribute int  Transparency;
-  /// Retourne / défini si le personnage se tourne avant de commencer à marcher.
+  /// Retourne / définit si le personnage se tourne avant de commencer à marcher.
   import attribute bool TurnBeforeWalking;
   /// Retourne le numéro de view actuelle du personnage.
   readonly import attribute int View;
