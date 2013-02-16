@@ -1948,15 +1948,15 @@ managed struct Character {
   import attribute int  Baseline;
   /// Gets/sets the interval at which the character will blink while talking, in game loops.
   import attribute int  BlinkInterval;
-  /// Gets/sets the view used for the character's blinking animation. -1 to disable.
+  /// Retourne / définit la vue clignement du personnage. -1 pour la désactiver.
   import attribute int  BlinkView;
-  /// Gets/sets whether the character will blink while thinking as well as talking.
+  /// Retourne / définit si le personnage peut cligner des yeux pendant qu'il pense ou parle.
   import attribute bool BlinkWhileThinking;
-  /// Allows you to manually specify the height of the blocking area at the character's feet.
+  /// Permet de spécifier manuellemnt la hauteure de la zone de blocage des pieds du personnage.
   import attribute int  BlockingHeight;
-  /// Allows you to manually specify the width of the blocking area at the character's feet.
+  /// Permet de spécifier manuellemnt la largeure de la zone de blocage des pieds du personnage.
   import attribute int  BlockingWidth;
-  /// Gets/sets whether the mouse can be clicked on the character, or whether it passes straight through.
+  /// Retourne / définit si le personnage est clicable (ou bien si les clics le traversent).
   import attribute bool Clickable;
   /// Retourne / définit si le personnage à une vue de déplacement à 8 séquences (dont les séquences diagonnales).
   import attribute bool DiagonalLoops;
