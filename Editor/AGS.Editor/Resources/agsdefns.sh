@@ -1958,26 +1958,26 @@ managed struct Character {
   import attribute int  BlockingWidth;
   /// Gets/sets whether the mouse can be clicked on the character, or whether it passes straight through.
   import attribute bool Clickable;
-  /// Gets/sets whether this character has an 8-loop walking view with diagonal loops.
+  /// Retourne / définit si le personnage à une vue de déplacement à 8 séquences (dont les séquences diagonnales).
   import attribute bool DiagonalLoops;
-  /// Gets/sets the character's current frame number within its current view.
+  /// Retourne / définit le numéro de vignette (frame) actuelle dans la vue actuelle du personnage.
   import attribute int  Frame;
-  /// Gets whether the character has an explicit tint set.
+  /// Retourne si le personnage à une teinte définie explicitement.
   readonly import attribute bool HasExplicitTint;
-  /// Gets the character's ID number.
+  /// Retourne le numéro ID du personnage.
   readonly import attribute int ID;
-  /// Gets the character's idle view (-1 if none).
+  /// Retourne la vue d'attente du personnage (-1 s'il n'en a pas).
   readonly import attribute int IdleView;
-  /// Gets/sets whether the character ignores region tints and lighting.
+  /// Retourne / définit si le personnage ignore la teinte et l'éclairage de la région.
   import attribute bool IgnoreLighting;
   import attribute bool IgnoreScaling;       // obsolete. $AUTOCOMPLETEIGNORE$
-  /// Gets/sets whether the character ignores walk-behind areas and is always placed on top.
+  /// Retourne / définit si le personnage ignore les plans intermédiaires (walk-behind areas) et donc se place toujours au premier plan.
   import attribute bool IgnoreWalkbehinds; 
-  /// Accesses the number of each inventory item that the character currently has.
+  /// Retourne le nombre de chaque objet d'inventaire que le personnage posséde.
   import attribute int  InventoryQuantity[];
-  /// Retourne / définit le numéro de loop actuel du personnage dans la view actuelle.
+  /// Retourne / définit le numéro de séquence actuelle du personnage dans la vue actuelle.
   import attribute int  Loop;
-  /// Retourne / définit si la mise à l'échelle du personnage est spécifié manuellement et non définie par celle de la walking area.
+  /// Retourne / définit si la mise à l'échelle du personnage est spécifié manuellement et non définie par celle de la zone de déplacement.
   import attribute bool ManualScaling;
   /// Retourne / définit si le personnage ne se déplace que lorsque ses frames d'animations changent.
   import attribute bool MovementLinkedToAnimation;
@@ -1985,11 +1985,11 @@ managed struct Character {
   readonly import attribute bool Moving;
   /// Retourne / définit le nom du personnage.
   import attribute String Name;
-  /// Retourne le numéro de la walking view normale du personnage.
+  /// Retourne le numéro de la vue normale (de marche) du personnage.
   readonly import attribute int NormalView;
-  /// Retourne le numéro de la room dans laquelle le personnage était juste avant.
+  /// Retourne le numéro de la pièce dans laquelle le personnage était juste avant.
   readonly import attribute int PreviousRoom;
-  /// Reourne le numéro de la room dans lequel le personnage est actuellement.
+  /// Reourne le numéro de la pièce dans lequel le personnage est actuellement.
   readonly import attribute int Room;
   /// Retourne / définit si la vitesse de déplacement du personnage est associé à sa mise à l'échelle.
   import attribute bool ScaleMoveSpeed;
@@ -1997,25 +1997,25 @@ managed struct Character {
   import attribute bool ScaleVolume;
   /// Retourne / définit le niveau actuelle de mise à l'echelle du personnage.
   import attribute int  Scaling;
-  /// Retourne / définit si le personnage bloque les objets ou autres personnages en les empéchant de les traverser.
+  /// Retourne / définit si le personnage bloque les objets ou autres personnages en les empéchant de le traverser.
   import attribute bool Solid;
-  /// Retourne si le personnage est en train d'exécuter un commande Say.
+  /// Retourne si le personnage est en train d'exécuter un commande Say (dire).
   readonly import attribute bool Speaking;
-  /// Retourne la frame actuelle de l'animation de parole du personnage (seulment si Speaking est vrai).
+  /// Retourne la frame actuelle de l'animation de discours du personnage (seulment si Speaking est vrai).
   readonly import attribute int SpeakingFrame;
-  /// Retourne / définit le delay d'animation de la speech view du personnage.
+  /// Retourne / définit le delai d'animation de la vue de discours du personnage.
   import attribute int  SpeechAnimationDelay;
-  /// Retourne / définit la couleur des paroles du personnage.
+  /// Retourne / définit la couleur des discours du personnage.
   import attribute int  SpeechColor;
-  /// Retourne / définit la speech view du personnage.
+  /// Retourne / définit la vue de discours du personnage.
   import attribute int  SpeechView;
-  /// Retourne / définit la thinking view du personnage.
+  /// Retourne / définit la vue pensive du personnage.
   import attribute int  ThinkView;
   /// Retourne / définit la transparence du personnage.
   import attribute int  Transparency;
   /// Retourne / définit si le personnage se tourne avant de commencer à marcher.
   import attribute bool TurnBeforeWalking;
-  /// Retourne le numéro de view actuelle du personnage.
+  /// Retourne le numéro de vue actuelle du personnage.
   readonly import attribute int View;
   /// Retourne la vitesse X du personnage.
   readonly import attribute int WalkSpeedX;
