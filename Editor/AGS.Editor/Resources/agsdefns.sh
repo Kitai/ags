@@ -1861,48 +1861,48 @@ managed struct Object {
 };
 
 managed struct Character {
-  /// Adds the specified item to the character's inventory.
+  /// Ajoute l'objet d'inventaire spécifié à l'inventiare du personnage.
   import function AddInventory(InventoryItem *item, int addAtIndex=SCR_NO_VALUE);
-  /// Manually adds a waypoint to the character's movement path.
+  /// Ajoute manuellement un point de passage au déplacemeny du personnage.
   import function AddWaypoint(int x, int y);
-  /// Animates the character using its current locked view.
+  /// Anime le personnage en utilisant la vue bloqué actuelle.
   import function Animate(int loop, int delay, RepeatStyle=eOnce, BlockingStyle=eBlock, Direction=eForwards);
-  /// Moves the character to another room. If this is the player character, the game will also switch to that room.
+  /// Change la pièce dans laquelle le personnage se trouve. S'il s'agit du personnage joueur, alors le jeu ira dans la nouvelle pièce.
   import function ChangeRoom(int room, int x=SCR_NO_VALUE, int y=SCR_NO_VALUE);
-  /// Moves the character to another room, using the old-style position variable
+  /// Change la pièce dans laquelle le personnage se trouve,et le positionne le long d'un des bords de la pièce.
   import function ChangeRoomAutoPosition(int room, int position=0);
-  /// Changes the character's normal walking view.
+  /// Change le numéro de la vue normale du personnage.
   import function ChangeView(int view);
-  /// Turns this character to face the other character.
+  /// Tourne le personnage en direction du personnage spécifié.
   import function FaceCharacter(Character* , BlockingStyle=eBlock);
-  /// Turns this character to face the specified location in the room.
+  /// Tourne le personnage en direction de la coordinnée spécifiée.
   import function FaceLocation(int x, int y, BlockingStyle=eBlock);
-  /// Turns this character to face the specified object.
+  /// Tourne le personnage en direction de l'objet spécifié.
   import function FaceObject(Object* , BlockingStyle=eBlock);
-  /// Starts this character following the other character.
+  /// Dit au personnage de suivre le personnage spécifié.
   import function FollowCharacter(Character*, int dist=10, int eagerness=97);
-  /// Returns the character that is at the specified position on the screen.
+  /// Vérifie et retourne s'il y a un personnage aux coordonnées (X,Y) de l'écran.
   import static Character* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
-  /// Gets a numeric custom property for this character.
+  /// Retourne la valeur définie pour la propriété personnalisé du personnage spécifié.
   import function GetProperty(const string property);
 #ifndef STRICT_STRINGS
   import void     GetPropertyText(const string property, string buffer);
 #endif
-  /// Gets a text custom property for this character.
+  /// Retourne le texte définie par la propriété personnalisé du personnage spécifié. 
   import String   GetTextProperty(const string property);
-  /// Checks whether the character currently has the specified inventory item.
+  /// Vérifie si le personnage possède actuellement l'objet d'inventaire spécifié.
   import bool     HasInventory(InventoryItem *item);
-  /// Checks whether this character is in collision with the other character.
+  /// Vérifie si le personnage touche le personnage spécifié.
   import function IsCollidingWithChar(Character*);
-  /// Checks whether this character is in collision with the object.
+  /// Vérifie si le personnage touche l'objet spécifié.
   import function IsCollidingWithObject(Object* );
-  /// Locks the character to this view, ready for doing animations.
+  /// Définit la vue du personnage, pour lancer une animation.
   import function LockView(int view);
-  /// Locks the character to this view, and aligns it against one side of the existing sprite.
+  /// Définit et bloque la vue (animation) du personnage, et l'aligne avec le bord de l'image pré-existante.
   import function LockViewAligned(int view, int loop, Alignment);
-  /// Locks the character to the specified view frame
+  /// Définie et bloque la vignette (frame) de la vue du personnage.
   import function LockViewFrame(int view, int loop, int frame);
-  /// Locks the character to is view, with high-resolution position adjustment.
+  /// Définit la vue du personnage, comme le fait LockView, avec un décalage (X,Y).
   import function LockViewOffset(int view, int xOffset, int yOffset);
   /// Supprime l'objet d'inventaire spécifié de l'inventaire du personnage. 
   import function LoseInventory(InventoryItem *item);
