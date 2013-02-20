@@ -1918,25 +1918,25 @@ managed struct Character {
   import function Say(const string message, ...);
   /// Says the specified text at the specified position on the screen using the character's speech settings.
   import function SayAt(int x, int y, int width, const string message);
-  /// Displays the text as lucasarts-style speech but does not block the game.
+  /// Affiche le texte de façon simmilaire à la fonction Say mais sans bloquer le jeux.
   import Overlay* SayBackground(const string message);
-  /// Makes this character the player character.
+  /// Fait de ce personnage le personnage jouable.
   import function SetAsPlayer();
-  /// Changes the character's idle view.
+  /// Change la vue d'attente du personnage.
   import function SetIdleView(int view, int delay);
-  /// Changes the character's movement speed.
+  /// Change la vitesse de déplacement du personnage.
   import function SetWalkSpeed(int x, int y);
-  /// Stops the character from moving.
+  /// Arrête les déplacements du personnage.
   import function StopMoving();
-  /// The specified text is displayed in a thought-bubble GUI.
+  /// Affiche le texte spécifié comme une pensée au-dessus de la tête du personnage.
   import function Think(const string message, ...);
-  /// Tints the character to the specified colour.
+  /// Teinte le personnage de la couleur et de la saturation spécifiée.
   import void     Tint(int red, int green, int blue, int saturation, int luminance);
-  /// Unlocks the view after an animation has finished.
+  /// Débloque la vue (animation) après avoir terminé une animation LockView.
   import function UnlockView();
-  /// Moves the character to the destination, automatically playing his walking animation.
+  /// Déplace le personnage jusqu'aux coordonnées (X,Y) tout en utilisant son animation de déplacement.
   import function Walk(int x, int y, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
-  /// Moves the character in a straight line as far as possible towards the co-ordinates. Useful for keyboard movement.
+  /// Déplace le personnage en ligne droite autant que possible vers les coordinsées. Utile pour les déplacements au clavier.
   import function WalkStraight(int x, int y, BlockingStyle=eNoBlock);
   /// Retourne / définit l'objet d'inventaire séléctionné par le personnage. null si aucun objet d'inventaire n'est séléctionné.
   import attribute InventoryItem* ActiveInventory;
