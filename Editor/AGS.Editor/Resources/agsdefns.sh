@@ -1904,19 +1904,19 @@ managed struct Character {
   import function LockViewFrame(int view, int loop, int frame);
   /// Locks the character to is view, with high-resolution position adjustment.
   import function LockViewOffset(int view, int xOffset, int yOffset);
-  /// Removes the item from this character's inventory.
+  /// Supprime l'objet d'inventaire spécifié de l'inventaire du personnage. 
   import function LoseInventory(InventoryItem *item);
-  /// Moves the character to the destination, without playing his walking animation.
+  /// Déplace le personnage depuis sa position actuelle vers (X,Y) sans jouer l'animation de déplacement du personnage.
   import function Move(int x, int y, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
-  /// Moves the character to the nearest walkable area.
+  /// Place le personnage sur la zone de déplacement libre la plus proche.
   import function PlaceOnWalkableArea();
-  /// Removes an existing colour tint from the character.
+  /// Annule les effets de la commande Tint sur le personnage.
   import void     RemoveTint();
-  /// Runs one of the character's interaction events.
+  /// Déclanche l'interaction avec le personnage spécifié par le CoursorMode.
   import function RunInteraction(CursorMode);
-  /// Says the specified text using the character's speech settings.
+  /// Affiche le texte spécifié en utilisant la mise en forme des discours du personnage.
   import function Say(const string message, ...);
-  /// Says the specified text at the specified position on the screen using the character's speech settings.
+  /// Affiche le texte spécifié à la position spécifiée en utilisant la mise en forme des discours de ce personnage.
   import function SayAt(int x, int y, int width, const string message);
   /// Affiche le texte de façon simmilaire à la fonction Say mais sans bloquer le jeux.
   import Overlay* SayBackground(const string message);
