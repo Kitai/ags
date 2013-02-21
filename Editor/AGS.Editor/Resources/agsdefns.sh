@@ -1861,172 +1861,172 @@ managed struct Object {
 };
 
 managed struct Character {
-  /// Adds the specified item to the character's inventory.
-  import function AddInventory(InventoryItem *item, int addAtIndex=SCR_NO_VALUE);
-  /// Manually adds a waypoint to the character's movement path.
+  /// Ajoute l'objet d'inventaire spécifié à l'inventaire du personnage.
+  import function AddInventory(InventoryItem *objet_inventaire, int addAtIndex=SCR_NO_VALUE);
+  /// Ajoute manuellement un point de passage au déplacement du personnage.
   import function AddWaypoint(int x, int y);
-  /// Animates the character using its current locked view.
-  import function Animate(int loop, int delay, RepeatStyle=eOnce, BlockingStyle=eBlock, Direction=eForwards);
-  /// Moves the character to another room. If this is the player character, the game will also switch to that room.
-  import function ChangeRoom(int room, int x=SCR_NO_VALUE, int y=SCR_NO_VALUE);
-  /// Moves the character to another room, using the old-style position variable
-  import function ChangeRoomAutoPosition(int room, int position=0);
-  /// Changes the character's normal walking view.
-  import function ChangeView(int view);
-  /// Turns this character to face the other character.
-  import function FaceCharacter(Character* , BlockingStyle=eBlock);
-  /// Turns this character to face the specified location in the room.
-  import function FaceLocation(int x, int y, BlockingStyle=eBlock);
-  /// Turns this character to face the specified object.
-  import function FaceObject(Object* , BlockingStyle=eBlock);
-  /// Starts this character following the other character.
-  import function FollowCharacter(Character*, int dist=10, int eagerness=97);
-  /// Returns the character that is at the specified position on the screen.
+  /// Anime le personnage en utilisant la vue bloquée (LockView) actuelle.
+  import function Animate(int sequence, int delai, Repetition=eOnce, Blocage=eBlock, Direction=eForwards);
+  /// Change la pièce dans laquelle le personnage se trouve. S'il s'agit du personnage joueur, alors le jeu ira dans la nouvelle pièce.
+  import function ChangeRoom(int piece, int x=SCR_NO_VALUE, int y=SCR_NO_VALUE);
+  /// Change la pièce dans laquelle le personnage se trouve, et le positionne le long d'un des bords de la pièce.
+  import function ChangeRoomAutoPosition(int piece, int position=0);
+  /// Change le numéro de la vue normale du personnage.
+  import function ChangeView(int vue);
+  /// Tourne le personnage en direction du personnage spécifié.
+  import function FaceCharacter(Character* perso, Blocage=eBlock);
+  /// Tourne le personnage en direction de la coordonnée spécifiée.
+  import function FaceLocation(int x, int y, Blocage=eBlock);
+  /// Tourne le personnage en direction de l'objet spécifié.
+  import function FaceObject(Object* objet, Blocage=eBlock);
+  /// Dit au personnage de suivre le personnage spécifié.
+  import function FollowCharacter(Character* perso, int dist=10, int ardeur=97);
+  /// Vérifie et retourne s'il y a un personnage aux coordonnées (X,Y) de l'écran.
   import static Character* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
-  /// Gets a numeric custom property for this character.
-  import function GetProperty(const string property);
+  /// Retourne la valeur définie pour la propriété personnalisée du personnage spécifié.
+  import function GetProperty(const string propriete);
 #ifndef STRICT_STRINGS
-  import void     GetPropertyText(const string property, string buffer);
+  import void     GetPropertyText(const string propriete, string tampon);
 #endif
-  /// Gets a text custom property for this character.
-  import String   GetTextProperty(const string property);
-  /// Checks whether the character currently has the specified inventory item.
-  import bool     HasInventory(InventoryItem *item);
-  /// Checks whether this character is in collision with the other character.
-  import function IsCollidingWithChar(Character*);
-  /// Checks whether this character is in collision with the object.
-  import function IsCollidingWithObject(Object* );
-  /// Locks the character to this view, ready for doing animations.
-  import function LockView(int view);
-  /// Locks the character to this view, and aligns it against one side of the existing sprite.
-  import function LockViewAligned(int view, int loop, Alignment);
-  /// Locks the character to the specified view frame
-  import function LockViewFrame(int view, int loop, int frame);
-  /// Locks the character to is view, with high-resolution position adjustment.
-  import function LockViewOffset(int view, int xOffset, int yOffset);
-  /// Removes the item from this character's inventory.
-  import function LoseInventory(InventoryItem *item);
-  /// Moves the character to the destination, without playing his walking animation.
-  import function Move(int x, int y, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
-  /// Moves the character to the nearest walkable area.
+  /// Retourne le texte défini par la propriété personnalisée du personnage spécifié. 
+  import String   GetTextProperty(const string propriete);
+  /// Vérifie si le personnage possède actuellement l'objet d'inventaire spécifié.
+  import bool     HasInventory(InventoryItem *objet_inventaire);
+  /// Vérifie si le personnage touche le personnage spécifié.
+  import function IsCollidingWithChar(Character* perso);
+  /// Vérifie si le personnage touche l'objet spécifié.
+  import function IsCollidingWithObject(Object* objet);
+  /// Définit la vue du personnage, pour lancer une animation.
+  import function LockView(int vue);
+  /// Définit et bloque la vue (animation) du personnage, et l'aligne avec l'image pré-existante selon Alignment.
+  import function LockViewAligned(int vue, int sequence, Alignment);
+  /// Définit et bloque la vignette (frame) de la vue du personnage.
+  import function LockViewFrame(int vue, int sequence, int vignette);
+  /// Définit la vue du personnage, comme le fait LockView, avec un décalage (X,Y).
+  import function LockViewOffset(int vue, int xDecalage, int yDecalage);
+  /// Supprime l'objet d'inventaire spécifié de l'inventaire du personnage. 
+  import function LoseInventory(InventoryItem *objet_inventaire);
+  /// Déplace le personnage depuis sa position actuelle vers (X,Y) sans jouer l'animation de déplacement du personnage.
+  import function Move(int x, int y, Blocage=eNoBlock, ZonesEmpruntables=eWalkableAreas);
+  /// Place le personnage sur la zone de déplacement la plus proche.
   import function PlaceOnWalkableArea();
-  /// Removes an existing colour tint from the character.
+  /// Annule les effets de la commande Tint sur le personnage.
   import void     RemoveTint();
-  /// Runs one of the character's interaction events.
+  /// Déclenche l'interaction avec le personnage spécifiée pour le mode de curseur (CoursorMode).
   import function RunInteraction(CursorMode);
-  /// Says the specified text using the character's speech settings.
+  /// Affiche le texte spécifié en utilisant la mise en forme des discours du personnage.
   import function Say(const string message, ...);
-  /// Says the specified text at the specified position on the screen using the character's speech settings.
-  import function SayAt(int x, int y, int width, const string message);
-  /// Displays the text as lucasarts-style speech but does not block the game.
+  /// Affiche le texte spécifié à la position spécifiée en utilisant la mise en forme des discours de ce personnage.
+  import function SayAt(int x, int y, int largeur, const string message);
+  /// Affiche le texte de façon simmilaire à la fonction Say mais sans bloquer le jeux.
   import Overlay* SayBackground(const string message);
-  /// Makes this character the player character.
+  /// Fait de ce personnage le personnage joueur.
   import function SetAsPlayer();
-  /// Changes the character's idle view.
-  import function SetIdleView(int view, int delay);
-  /// Changes the character's movement speed.
+  /// Change la vue d'attente du personnage.
+  import function SetIdleView(int vue, int delai);
+  /// Change la vitesse de déplacement du personnage.
   import function SetWalkSpeed(int x, int y);
-  /// Stops the character from moving.
+  /// Arrête les déplacements du personnage.
   import function StopMoving();
-  /// The specified text is displayed in a thought-bubble GUI.
+  /// Affiche le texte spécifié comme une pensée au-dessus de la tête du personnage.
   import function Think(const string message, ...);
-  /// Tints the character to the specified colour.
-  import void     Tint(int red, int green, int blue, int saturation, int luminance);
-  /// Unlocks the view after an animation has finished.
+  /// Teinte le personnage de la couleur et de la saturation spécifiée.
+  import void     Tint(int rouge, int vert, int bleu, int saturation, int luminosite);
+  /// Débloque la vue (animation) après avoir terminé une animation lancée suite à une commande LockView.
   import function UnlockView();
-  /// Moves the character to the destination, automatically playing his walking animation.
-  import function Walk(int x, int y, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
-  /// Moves the character in a straight line as far as possible towards the co-ordinates. Useful for keyboard movement.
-  import function WalkStraight(int x, int y, BlockingStyle=eNoBlock);
-  /// Gets/sets the character's current inventory item. null if no item selected.
+  /// Déplace le personnage jusqu'aux coordonnées (X,Y) tout en utilisant son animation de déplacement.
+  import function Walk(int x, int y, Blocage=eNoBlock, ZonesEmpruntables=eWalkableAreas);
+  /// Déplace le personnage en ligne droite autant que possible vers les coordonnées. Utile pour les déplacements au clavier.
+  import function WalkStraight(int x, int y, Blocage=eNoBlock);
+  /// Retourne/Définit l'objet d'inventaire séléctionné par le personnage. Vaut null si aucun objet d'inventaire n'est séléctionné.
   import attribute InventoryItem* ActiveInventory;
-  /// Gets whether the character is currently animating.
+  /// Retourne si le personnage est actuellement en animation.
   readonly import attribute bool Animating;
-  /// Gets/sets the character's animation speed.
+  /// Retourne/Définit la vitesse d'animation du personnage.
   import attribute int  AnimationSpeed;
-  /// Gets/sets a specific baseline for the character. 0 means character's Y-pos will be used.
+  /// Retourne/Définit la ligne de base (baseline) du personnage. 0 signifie que la position Y du personnage sera utilisée.
   import attribute int  Baseline;
-  /// Gets/sets the interval at which the character will blink while talking, in game loops.
+  /// Retourne/Définit le temps entre deux cligotements, exprimé en nombre de cycles de jeu.
   import attribute int  BlinkInterval;
-  /// Gets/sets the view used for the character's blinking animation. -1 to disable.
+  /// Retourne/Définit la vue de clignement du personnage. -1 pour la désactiver.
   import attribute int  BlinkView;
-  /// Gets/sets whether the character will blink while thinking as well as talking.
+  /// Retourne/Définit si le personnage peut cligner des yeux pendant qu'il pense ou parle.
   import attribute bool BlinkWhileThinking;
-  /// Allows you to manually specify the height of the blocking area at the character's feet.
+  /// Permet de spécifier manuellemnt la hauteur de la zone de blocage des pieds du personnage.
   import attribute int  BlockingHeight;
-  /// Allows you to manually specify the width of the blocking area at the character's feet.
+  /// Permet de spécifier manuellemnt la largeur de la zone de blocage des pieds du personnage.
   import attribute int  BlockingWidth;
-  /// Gets/sets whether the mouse can be clicked on the character, or whether it passes straight through.
+  /// Retourne/Définit si on peut cliquer sur le personnage (ou bien si les clics le traversent).
   import attribute bool Clickable;
-  /// Gets/sets whether this character has an 8-loop walking view with diagonal loops.
+  /// Retourne/Définit si le personnage à une vue de déplacement à 8 séquences (dont les séquences diagonales).
   import attribute bool DiagonalLoops;
-  /// Gets/sets the character's current frame number within its current view.
+  /// Retourne/Définit le numéro de vignette (frame) actuelle dans la vue actuelle du personnage.
   import attribute int  Frame;
-  /// Gets whether the character has an explicit tint set.
+  /// Retourne si le personnage à une teinte définie explicitement.
   readonly import attribute bool HasExplicitTint;
-  /// Gets the character's ID number.
+  /// Retourne le numéro ID du personnage.
   readonly import attribute int ID;
-  /// Gets the character's idle view (-1 if none).
+  /// Retourne la vue d'attente du personnage (-1 s'il n'en a pas).
   readonly import attribute int IdleView;
-  /// Gets/sets whether the character ignores region tints and lighting.
+  /// Retourne/Définit si le personnage ignore la teinte et l'éclairage de la région.
   import attribute bool IgnoreLighting;
   import attribute bool IgnoreScaling;       // obsolete. $AUTOCOMPLETEIGNORE$
-  /// Gets/sets whether the character ignores walk-behind areas and is always placed on top.
+  /// Retourne/Définit si le personnage ignore les plans intermédiaires (walk-behind areas) et donc se place toujours au premier plan.
   import attribute bool IgnoreWalkbehinds; 
-  /// Accesses the number of each inventory item that the character currently has.
+  /// Retourne le nombre de chaque objet d'inventaire que le personnage possède.
   import attribute int  InventoryQuantity[];
-  /// Gets/sets the character's current loop number within its current view.
+  /// Retourne/Définit le numéro de séquence actuelle du personnage dans la vue actuelle.
   import attribute int  Loop;
-  /// Gets/sets whether the character uses manually specified scaling instead of using walkable area scaling.
+  /// Retourne/Définit si la mise à l'échelle du personnage est spécifiée manuellement et non définie par celle de la zone de déplacement.
   import attribute bool ManualScaling;
-  /// Gets/sets whether the character only moves when their animation frame changes.
+  /// Retourne/Définit si le personnage ne se déplace que lorsque ses vignettes d'animation (frames) changent.
   import attribute bool MovementLinkedToAnimation;
-  /// Gets whether the character is currently moving.
+  /// Retourne si le personnage est en train de se déplacer.
   readonly import attribute bool Moving;
-  /// Gets/sets the character's name.
+  /// Retourne/Définit le nom du personnage.
   import attribute String Name;
-  /// Gets the character's normal walking view.
+  /// Retourne le numéro de la vue normale (de marche) du personnage.
   readonly import attribute int NormalView;
-  /// Gets the room number that the character was in before this one.
+  /// Retourne le numéro de la pièce dans laquelle le personnage était juste avant.
   readonly import attribute int PreviousRoom;
-  /// Gets the room number that the character is currently in.
+  /// Reourne le numéro de la pièce dans laquelle le personnage est actuellement.
   readonly import attribute int Room;
-  /// Gets/sets whether the character's movement speed is adjusted in line with its scaling level.
+  /// Retourne/Définit si la vitesse de déplacement du personnage est associée à sa mise à l'échelle.
   import attribute bool ScaleMoveSpeed;
-  /// Gets/sets whether the volume of frame-linked sounds for the character are adjusted in line with its scaling level.
+  /// Retourne/Définit si le volume des sons associés aux vignettes d'animation (frames) du personnage est ajusté à la mise à l'échelle de ce dernier.
   import attribute bool ScaleVolume;
-  /// Gets/sets the character's current scaling level.
+  /// Retourne/Définit le niveau actuel de mise à l'echelle du personnage.
   import attribute int  Scaling;
-  /// Gets/sets whether this character blocks other objects and characters from moving through it.
+  /// Retourne/Définit si le personnage bloque les objets ou autres personnages en les empéchant de le traverser.
   import attribute bool Solid;
-  /// Gets whether the character is currently in the middle of a Say command.
+  /// Retourne si le personnage est en train d'exécuter une commande Say (Dire).
   readonly import attribute bool Speaking;
-  /// Gets the current frame of the character's speaking animation (only valid when Speaking is true)
+  /// Retourne la vignette (frame) actuelle de l'animation de discours du personnage (seulement si Speaking vaut true).
   readonly import attribute int SpeakingFrame;
-  /// Gets/sets the character's speech animation delay.
+  /// Retourne/Définit le delai d'animation de la vue de discours du personnage.
   import attribute int  SpeechAnimationDelay;
-  /// Gets/sets the character's speech text colour.
+  /// Retourne/Définit la couleur des discours du personnage.
   import attribute int  SpeechColor;
-  /// Gets/sets the character's speech view.
+  /// Retourne/Définit la vue de discours du personnage.
   import attribute int  SpeechView;
-  /// Gets/sets the character's thinking view.
+  /// Retourne/Définit la vue pensive du personnage.
   import attribute int  ThinkView;
-  /// Gets/sets the character's current transparency level.
+  /// Retourne/Définit la transparence du personnage.
   import attribute int  Transparency;
-  /// Gets/sets whether the character turns on the spot to face the correct direction before walking.
+  /// Retourne/Définit si le personnage se tourne avant de commencer à marcher.
   import attribute bool TurnBeforeWalking;
-  /// Gets the character's current view number.
+  /// Retourne le numéro de vue actuelle du personnage.
   readonly import attribute int View;
-  /// Gets the character's X movement speed.
+  /// Retourne la vitesse X du personnage.
   readonly import attribute int WalkSpeedX;
-  /// Gets the character's Y movement speed.
+  /// Retourne la vitesse Y du personnage.
   readonly import attribute int WalkSpeedY;
 #ifdef STRICT
-  /// The character's current X-position.
+  /// Coordonnée X actuelle du personnage.
   import attribute int  x;
-  /// The character's current Y-position.
+  /// Coordonnée Y actuelle du personnage.
   import attribute int  y;
-  /// The character's current Z-position.
+  /// Coordonnée Z actuelle du personnage.
   import attribute int  z;
   readonly int reserved_a[28];   // $AUTOCOMPLETEIGNORE$
   readonly short reserved_f[MAX_INV];  // $AUTOCOMPLETEIGNORE$
