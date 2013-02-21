@@ -1812,49 +1812,49 @@ managed struct Object {
   import function SetPosition(int x, int y);
   /// Sets the object to use the specified view, ahead of doing an animation.
   import function SetView(int view, int loop=-1, int frame=-1);
-  /// Stops any currently running animation on the object.
+  /// Stoppe l'animation éventuel de l'objet.
   import function StopAnimating();
-  /// Stops any currently running move on the object.
+  /// Stoppe le déplacement éventuel de l'objet.
   import function StopMoving();
-  /// Tints the object to the specified colour.
+  /// Teinte l'objet de la couleur et de la saturation spécifiée.
   import function Tint(int red, int green, int blue, int saturation, int luminance);
-  /// Gets whether the object is currently animating.
+  /// Retourne si l'objet spécifié est actuellement animé.
   readonly import attribute bool Animating;
-  /// Gets/sets the object's baseline. This can be 0 to use the object's Y position as its baseline.
+  /// Retourne/Définit la ligne de base de l'objet. 0 pour utiliser la coordonnée Y de l'objet.
   import attribute int  Baseline;
-  /// Allows you to manually specify the blocking height of the base of the object.
+  /// Retourne/Définit la hauteur de la zone blocage de l'objet.
   import attribute int  BlockingHeight;
-  /// Allows you to manually specify the blocking width of the base of the object.
+  /// Retourne/Définit la largeur de la zone de blocage de l'objet.
   import attribute int  BlockingWidth;
-  /// Gets/sets whether the mouse can be clicked on this object or whether it passes straight through.
+  /// Retourne/Définit si l'objet est considéré comme un élément cliquable.
   import attribute bool Clickable;
-  /// Gets the current frame number during an animation.
+  /// Retourne le numéro de la vignette (Frame) actuellement affichée.
   readonly import attribute int  Frame;
-  /// Gets/sets the sprite number that is currently displayed on the object.
+  /// Retourne/Définit le numéro de l'image (sprite) que l'objet utilise actuellement.
   import attribute int  Graphic;
-  /// Gets the object's ID number.
+  /// Retourne le numéro ID de l'objet.
   readonly import attribute int ID;
-  /// Gets/sets whether the object ignores walkable area scaling.
+  /// Retourne/Définit si l'objet est concerné par la mise à l'échelle des zones de déplacement. 
   import attribute bool IgnoreScaling;
-  /// Gets/sets whether the object ignores walk-behind areas.
+  /// éfinit si l'objet ignore les zones “passe-derriére”.
   import attribute bool IgnoreWalkbehinds;
-  /// Gets the current loop number during an animation.
+  /// Retourne la séquence correspondant actuellement à l'objet.
   readonly import attribute int  Loop;
-  /// Gets whether the object is currently moving.
+  /// Retourne si l'objet se déplace actuellement.
   readonly import attribute bool Moving;
-  /// Gets the object's description.
+  /// Retourne le nom de l'objet (description).
   readonly import attribute String Name;
-  /// Gets/sets whether other objects and characters can move through this object.
+  /// Retourne/Définit si l'objet peut être traversé ou non par les personnages et autres objets mobiles.
   import attribute bool Solid;
-  /// Gets/sets the object's transparency.
+  /// Retourne/Définit le niveau de transparence de l'objet.
   import attribute int  Transparency;
-  /// Gets the current view number during an animation.
+  /// Retourne la vue (animation) actuellement définie pour l'objet.
   readonly import attribute int View;
-  /// Gets/sets whether the object is currently visible.
+  /// Retourne/Définit si l'objet est actuellement visible.
   import attribute bool Visible;
-  /// Gets/sets the X co-ordinate of the object's bottom-left hand corner.
+  /// Retourne/Définit la coordonnée X de l'objet, qui correspond à la gauche de l'image de l'objet.
   import attribute int  X;
-  /// Gets/sets the Y co-ordinate of the object's bottom-left hand corner.
+  /// Retourne/Définit la coordonnée Y de l'objet, qui correspond au bas de l'image de l'objet.
   import attribute int  Y;
 
   int reserved[2];  // $AUTOCOMPLETEIGNORE$
