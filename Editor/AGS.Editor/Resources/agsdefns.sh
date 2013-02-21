@@ -1786,31 +1786,31 @@ enum WalkWhere {
 };
 
 managed struct Object {
-  /// Animates the object using its current view.
+  /// Anime l'objet en utilisant sa vue actuelle.
   import function Animate(int loop, int delay, RepeatStyle=eOnce, BlockingStyle=eBlock, Direction=eForwards);
-  /// Gets the object that is on the screen at the specified co-ordinates.
+  /// Vérifie et retourne s'il y a un objet aux coordonnées (X,Y) de l'écran.
   import static Object* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
 #ifndef STRICT_STRINGS
 	import void     GetName(string buffer);
   import function GetPropertyText(const string property, string buffer);
 #endif
-  /// Gets an integer Custom Property for this object.
+  /// Retourne la valeur de la propriété personnalisée spécifié de l'objet.
   import function GetProperty(const string property);
-  /// Gets a text Custom Property for this object.
+  /// Retourne le texte défini par la propriété personnalisée spécifiée de l'objet.
   import String   GetTextProperty(const string property);
-  /// Checks whether this object is colliding with another.
+  /// Vérifie si l'objet touche l'objet spécifié.
   import bool IsCollidingWithObject(Object*);
-  /// Merges the object's image into the room background, and disables the object.
+  /// Passe l'objet en tant qu'élément d'arrière-plan pour la pièce.
   import function MergeIntoBackground();
-  /// Starts the object moving towards the specified co-ordinates.
+  /// Commence à déplacer l'objet depuis sa position actuelle vers les coordonnées spécifiées.
   import function Move(int x, int y, int speed, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
-  /// Removes a specific object tint, and returns the object to using the ambient room tint.
+  /// Annule les effets de la commande Tint, et réutilise la teinte ambiante de la pièce sur l'objet.
   import function RemoveTint();
-  /// Runs the event handler for the specified event.
+  /// Lance l'interaction spécifié.
   import function RunInteraction(CursorMode);
-  /// Instantly moves the object to have its bottom-left at the new co-ordinates.
+  /// Déplace l'objet pour que son coin inférieur gauche ai les coordonnées spécifiées.
   import function SetPosition(int x, int y);
-  /// Sets the object to use the specified view, ahead of doing an animation.
+  /// Définit la vue de l'objet (et éventuellement la séquence et la vignette) pour pouvoir l'animer.
   import function SetView(int view, int loop=-1, int frame=-1);
   /// Stoppe l'animation éventuel de l'objet.
   import function StopAnimating();
@@ -1888,7 +1888,7 @@ managed struct Character {
 #ifndef STRICT_STRINGS
   import void     GetPropertyText(const string propriete, string tampon);
 #endif
-  /// Retourne le texte défini par la propriété personnalisée du personnage spécifié. 
+  /// Retourne le texte défini par la propriété personnalisée spécifiée du personnage. 
   import String   GetTextProperty(const string propriete);
   /// Vérifie si le personnage possède actuellement l'objet d'inventaire spécifié.
   import bool     HasInventory(InventoryItem *objet_inventaire);
