@@ -1787,37 +1787,37 @@ enum WalkWhere {
 
 managed struct Object {
   /// Anime l'objet en utilisant sa vue actuelle.
-  import function Animate(int loop, int delay, RepeatStyle=eOnce, BlockingStyle=eBlock, Direction=eForwards);
+  import function Animate(int sequence, int delai, Repetition=eOnce, Blocage=eBlock, Direction=eForwards);
   /// Vérifie et retourne s'il y a un objet aux coordonnées (X,Y) de l'écran.
   import static Object* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
 #ifndef STRICT_STRINGS
-	import void     GetName(string buffer);
-  import function GetPropertyText(const string property, string buffer);
+	import void     GetName(string tampon);
+  import function GetPropertyText(const string propriete, string tampon);
 #endif
-  /// Retourne la valeur de la propriété personnalisée spécifié de l'objet.
-  import function GetProperty(const string property);
+  /// Retourne la valeur de la propriété personnalisée spécifiée de l'objet.
+  import function GetProperty(const string propriete);
   /// Retourne le texte défini par la propriété personnalisée spécifiée de l'objet.
-  import String   GetTextProperty(const string property);
+  import String   GetTextProperty(const string propriete);
   /// Vérifie si l'objet touche l'objet spécifié.
-  import bool IsCollidingWithObject(Object*);
+  import bool IsCollidingWithObject(Object* objet);
   /// Passe l'objet en tant qu'élément d'arrière-plan pour la pièce.
   import function MergeIntoBackground();
   /// Commence à déplacer l'objet depuis sa position actuelle vers les coordonnées spécifiées.
-  import function Move(int x, int y, int speed, BlockingStyle=eNoBlock, WalkWhere=eWalkableAreas);
+  import function Move(int x, int y, int vitesse, Blocage=eNoBlock, ZonesEmpruntables=eWalkableAreas);
   /// Annule les effets de la commande Tint, et réutilise la teinte ambiante de la pièce sur l'objet.
   import function RemoveTint();
-  /// Lance l'interaction spécifié.
+  /// Lance l'interaction associée à l'objet pour le mode de curseur (CursorMode) spécifié.
   import function RunInteraction(CursorMode);
-  /// Déplace l'objet pour que son coin inférieur gauche ai les coordonnées spécifiées.
+  /// Déplace l'objet pour que son coin inférieur gauche se trouve aux les coordonnées spécifiées.
   import function SetPosition(int x, int y);
   /// Définit la vue de l'objet (et éventuellement la séquence et la vignette) pour pouvoir l'animer.
-  import function SetView(int view, int loop=-1, int frame=-1);
-  /// Stoppe l'animation éventuel de l'objet.
+  import function SetView(int vue, int sequence=-1, int vignette=-1);
+  /// Stoppe l'animation éventuelle de l'objet.
   import function StopAnimating();
   /// Stoppe le déplacement éventuel de l'objet.
   import function StopMoving();
-  /// Teinte l'objet de la couleur et de la saturation spécifiée.
-  import function Tint(int red, int green, int blue, int saturation, int luminance);
+  /// Teinte l'objet de la couleur, à la saturation et avec la luminosité spécifiées.
+  import function Tint(int rouge, int vert, int bleu, int saturation, int luminosite);
   /// Retourne si l'objet spécifié est actuellement animé.
   readonly import attribute bool Animating;
   /// Retourne/Définit la ligne de base de l'objet. 0 pour utiliser la coordonnée Y de l'objet.
@@ -1836,9 +1836,9 @@ managed struct Object {
   readonly import attribute int ID;
   /// Retourne/Définit si l'objet est concerné par la mise à l'échelle des zones de déplacement. 
   import attribute bool IgnoreScaling;
-  /// éfinit si l'objet ignore les zones “passe-derriére”.
+  /// Définit si l'objet ignore les zones de plan intermédiaire (WalkBehind Areas).
   import attribute bool IgnoreWalkbehinds;
-  /// Retourne la séquence correspondant actuellement à l'objet.
+  /// Retourne la séquence d'animation correspondant actuellement à l'objet.
   readonly import attribute int  Loop;
   /// Retourne si l'objet se déplace actuellement.
   readonly import attribute bool Moving;
