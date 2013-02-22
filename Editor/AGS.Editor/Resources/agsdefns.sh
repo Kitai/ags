@@ -1734,41 +1734,41 @@ struct System {
 #ifndef STRICT_STRINGS
   readonly char version[10];
 #endif
-  /// Gets whether Caps Lock is currently on.
+  /// Retourne si Caps Lock est actif.
   readonly import static attribute bool CapsLock;
-  /// Gets a specific audio channel instance.
+  /// Retourne un pointeur vers la chaine audio spécifée.
   readonly import static attribute AudioChannel *AudioChannels[];   // $AUTOCOMPLETESTATICONLY$
-  /// Gets the number of audio channels supported by AGS.
+  /// Retourne le nombre de chaines audio supportés part AGS.
   readonly import static attribute int  AudioChannelCount;   // $AUTOCOMPLETESTATICONLY$
-  /// Gets the colour depth that the game is running at.
+  /// Retourne la profondeur de couleur à laquelle le jeu est exécuté.
   readonly import static attribute int  ColorDepth;
-  /// Gets/sets the gamma correction level.
+  /// Retourne/définit le niveau Gamma du jeu.
   import static attribute int  Gamma;
-  /// Gets whether the game is running with 3D Hardware Acceleration.
+  /// Retourne si le jeu est en mode accélération matérielle.
   readonly import static attribute bool HardwareAcceleration;
-  /// Gets whether Num Lock is currently on.
+  /// Retourne si Num Lock est activé.
   readonly import static attribute bool NumLock;
-  /// Gets which operating system the game is running on.
+  /// Retourne le système d'exploitation sous lequel tourne le jeu actuellement.
   readonly import static attribute eOperatingSystem OperatingSystem;
-  /// Gets the screen height of the current resolution.
+  /// Retourne la hauteur de l'écran selon la résolution actuelle.
   readonly import static attribute int  ScreenHeight;
-  /// Gets the screen width of the current resolution.
+  /// Retourne la largeur de l'écran selon la résolution actuelle.
   readonly import static attribute int  ScreenWidth;
-  /// Gets whether Scroll Lock is currently on.
+  /// Retourne si Arrêt Défilement (Scroll Lock) est actuellement activé sur le système du joueur.
   readonly import static attribute bool ScrollLock;
-  /// Gets whether the player's system supports gamma adjustment.
+  /// Retourne si le PC du joueur supporte la configuration du gamma.
   readonly import static attribute bool SupportsGammaControl;
-  /// Gets the AGS engine version number.
+  /// Retourne le numéro de version du moteur d'AGS.
   readonly import static attribute String Version;
-  /// Gets the height of the visible area in which the game is displayed.
+  /// Retourne la hauteur actuelle de la fenêtre, selon le systéme de coordonnées du jeu
   readonly import static attribute int  ViewportHeight;
-  /// Gets the width of the visible area in which the game is displayed.
+  /// Retourne la largeur actuelle de la fenêtre, selon le systéme de coordonnées du jeu
   readonly import static attribute int  ViewportWidth;
-  /// Gets/sets the audio output volume, from 0-100.
+  /// Retourne/définit le volume sonore, de 0 à 100.
   import static attribute int  Volume;
-  /// Gets/sets whether waiting for the vertical sync is enabled.
+  /// Retourne/définit si AGS effectue une synchronisation verticale avant d'afficher chaque image.
   import static attribute bool VSync;
-  /// Gets whether the game is running in a window.
+  /// Retourne si le jeu tourne actuellement en mode fenêtré.
   readonly import static attribute bool Windowed;
 };
 
