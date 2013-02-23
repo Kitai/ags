@@ -1683,27 +1683,27 @@ managed struct DialogOptionsRenderingInfo {
 };
 
 managed struct AudioChannel {
-  /// Changes playback to continue from the specified position into the sound.
+  /// Va à POSITION dans la séquence actuellement jouée sur ce canal.
   import void Seek(int position);
-  /// Sets the audio to have its location at (x,y); it will get quieter the further away the player is.
+  /// Définit la séquence en cours de lecture comme un son spacialisé, provenant de (x,y). 
   import void SetRoomLocation(int x, int y);
-  /// Stops the sound currently playing on this channel.
+  /// Stoppe le son en cours de lecture sur le canal audio. 
   import void Stop();
-  /// The channel ID of this channel (for use with legacy script).
+  /// Retourne le numéro ID de ce canal audio.
   readonly import attribute int ID;
-  /// Whether this channel is currently playing something.
+  /// Retourne si le canal audio joue actuellement un son.
   readonly import attribute bool IsPlaying;
-  /// The length of the currently playing audio clip, in milliseconds.
+  /// Retourne la durée en milliseconde de la séquence jouée sur le canal. 
   readonly import attribute int LengthMs;
-  /// The stereo panning of the channel, from -100 to 100.
+  /// Retourne/définit l'équilibrage stéréo du canal, de -100 à 100.
   import attribute int Panning;
-  /// The audio clip that is currently being played on this channel, or null if none.
+  /// Retourne la séquence audio jouée sur le canal.
   readonly import attribute AudioClip* PlayingClip;
-  /// The current offset into the sound. What this represents depends on the audio type.
+  /// Retourne la position actuelle de la séquence jouée sur le canal. Ce que signifie la position dépend du type de fichier.
   readonly import attribute int Position;
-  /// The current offset into the sound, in milliseconds.
+  /// Retourne la position actuelle de la séquence jouée sur le canal, en millisecondes.
   readonly import attribute int PositionMs;
-  /// The volume of this sound channel, from 0 to 100.
+  /// Retourne/définit le volume de ce canal audio, de 0 à 100.
   import attribute int Volume;
 };
 
