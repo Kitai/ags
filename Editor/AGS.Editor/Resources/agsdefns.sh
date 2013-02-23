@@ -1708,19 +1708,19 @@ managed struct AudioChannel {
 };
 
 managed struct AudioClip {
-  /// Plays this audio clip.
+  /// Joue la séquence audio.
   import AudioChannel* Play(AudioPriority=SCR_NO_VALUE, RepeatStyle=SCR_NO_VALUE);
-  /// Plays this audio clip, starting from the specified offset.
+  /// Joue la séquence audio en démarrant depuis la position spécifiée.
   import AudioChannel* PlayFrom(int position, AudioPriority=SCR_NO_VALUE, RepeatStyle=SCR_NO_VALUE);
-  /// Plays this audio clip, or queues it if all channels are busy.
+  /// oue la séquence audio, ou la met à la file afin qu'elle soit jouée plus tard si ce n'est pas possible actuellement. 
   import AudioChannel* PlayQueued(AudioPriority=SCR_NO_VALUE, RepeatStyle=SCR_NO_VALUE);
-  /// Stops all currently playing instances of this audio clip.
+  /// Coupe toutes les diffusions en cours de cette séquence audio.
   import void Stop();
-  /// Gets the file type of the sound.
+  /// Retourne le type de fichier de la séquence audio.
   readonly import attribute AudioFileType FileType;
-  /// Checks whether this audio file is available on the player's system.
+  /// Retourne si la séquence audio est disponible sur l'ordinateur du joueur. 
   readonly import attribute bool IsAvailable;
-  /// Gets the type of audio that this clip contains.
+  /// Retourne le type de la séquence audio, telle que définie dans l'éditeur.
   readonly import attribute AudioType Type;
 };
 
