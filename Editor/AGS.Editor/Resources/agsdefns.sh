@@ -1708,19 +1708,19 @@ managed struct AudioChannel {
 };
 
 managed struct AudioClip {
-  /// Plays this audio clip.
-  import AudioChannel* Play(AudioPriority=SCR_NO_VALUE, RepeatStyle=SCR_NO_VALUE);
-  /// Plays this audio clip, starting from the specified offset.
-  import AudioChannel* PlayFrom(int position, AudioPriority=SCR_NO_VALUE, RepeatStyle=SCR_NO_VALUE);
-  /// Plays this audio clip, or queues it if all channels are busy.
-  import AudioChannel* PlayQueued(AudioPriority=SCR_NO_VALUE, RepeatStyle=SCR_NO_VALUE);
-  /// Stops all currently playing instances of this audio clip.
+  /// Joue la séquence audio.
+  import AudioChannel* Play(PrioriteAudio=SCR_NO_VALUE, Repetition=SCR_NO_VALUE);
+  /// Joue la séquence audio, en démarrant depuis la position spécifiée.
+  import AudioChannel* PlayFrom(int position, PrioriteAudio=SCR_NO_VALUE, Repetition=SCR_NO_VALUE);
+  /// Joue la séquence audio, ou la met à la file si aucun canal n'est libre.
+  import AudioChannel* PlayQueued(PrioriteAudio=SCR_NO_VALUE, Repetition=SCR_NO_VALUE);
+  /// Arrête toute diffusion en cours de cette séquence audio.
   import void Stop();
-  /// Gets the file type of the sound.
+  /// Retourne le type du fichier audio de la séquence.
   readonly import attribute AudioFileType FileType;
-  /// Checks whether this audio file is available on the player's system.
+  /// Vérifie si ce fichier audio est accessible sur le système du joueur.
   readonly import attribute bool IsAvailable;
-  /// Gets the type of audio that this clip contains.
+  /// Retourne le type audio de cette séquence.
   readonly import attribute AudioType Type;
 };
 
@@ -1734,19 +1734,19 @@ struct System {
 #ifndef STRICT_STRINGS
   readonly char version[10];
 #endif
-  /// Retourne si Caps Lock est actif.
+  /// Retourne si le verouillage majuscules (Caps Lock) est actif.
   readonly import static attribute bool CapsLock;
-  /// Retourne un pointeur vers la chaine audio spécifée.
+  /// Retourne un pointeur vers le canal audio spécifé.
   readonly import static attribute AudioChannel *AudioChannels[];   // $AUTOCOMPLETESTATICONLY$
-  /// Retourne le nombre de chaines audio supportés part AGS.
+  /// Retourne le nombre de canaux audio supportés part AGS.
   readonly import static attribute int  AudioChannelCount;   // $AUTOCOMPLETESTATICONLY$
-  /// Retourne la profondeur de couleur à laquelle le jeu est exécuté.
+  /// Retourne la profondeur de couleurs à laquelle le jeu est exécuté.
   readonly import static attribute int  ColorDepth;
-  /// Retourne/définit le niveau Gamma du jeu.
+  /// Retourne/Définit le niveau gamma du jeu.
   import static attribute int  Gamma;
   /// Retourne si le jeu est en mode accélération matérielle.
   readonly import static attribute bool HardwareAcceleration;
-  /// Retourne si Num Lock est activé.
+  /// Retourne si le verrouillage numérique (Num Lock) est activé.
   readonly import static attribute bool NumLock;
   /// Retourne le système d'exploitation sous lequel tourne le jeu actuellement.
   readonly import static attribute eOperatingSystem OperatingSystem;
@@ -1764,9 +1764,9 @@ struct System {
   readonly import static attribute int  ViewportHeight;
   /// Retourne la largeur actuelle de la fenêtre, selon le systéme de coordonnées du jeu
   readonly import static attribute int  ViewportWidth;
-  /// Retourne/définit le volume sonore, de 0 à 100.
+  /// Retourne/Définit le volume sonore, de 0 à 100.
   import static attribute int  Volume;
-  /// Retourne/définit si AGS effectue une synchronisation verticale avant d'afficher chaque image.
+  /// Retourne/Définit si AGS effectue une synchronisation verticale avant d'afficher chaque image.
   import static attribute bool VSync;
   /// Retourne si le jeu tourne actuellement en mode fenêtré.
   readonly import static attribute bool Windowed;
