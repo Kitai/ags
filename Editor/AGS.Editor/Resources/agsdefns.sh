@@ -1660,25 +1660,25 @@ managed struct DateTime {
 };
 
 managed struct DialogOptionsRenderingInfo {
-  /// The option that the mouse is currently positioned over
+  /// Retourne/Définit l'option active courante de l'écran d'options du dialogue.
   import attribute int ActiveOptionID;
-  /// The dialog that is to have its options rendered
+  /// Retourne le dialogue qui doit être affiché.
   readonly import attribute Dialog* DialogToRender;
-  /// The height of the dialog options
+  /// etourne/Définit la hauteur de la zone affichant les options de dialogue.
   import attribute int Height;
-  /// The width of the text box for typing parser input, if enabled
+  /// Retourne/Définit la largeur de la zone de saisie (textbox) de l'analyseur de texte (parser).
   import attribute int ParserTextBoxWidth;
-  /// The X co-ordinate of the top-left corner of the text box for typing input
+  /// Retourne/Définit la position X de la gauche de la zone de saisie (textbox) de l'analyseur de texte (parser).
   import attribute int ParserTextBoxX;
-  /// The Y co-ordinate of the top-left corner of the text box for typing input
+  /// Retourne/Définit la position Y du haut de la zone de saisie (textbox) de l'analyseur de texte (parser).
   import attribute int ParserTextBoxY;
-  /// The surface that the dialog options need to be rendered to
+  /// Retourne la surface de dessin (drawing surface) qui est utilisée pour dessiner la fenêtre affichant les options du dialogue.
   readonly import attribute DrawingSurface* Surface;
-  /// The width of the dialog options
+  /// Retourne/Définit la largeur de la surface de la fenêtre affichant les options du dialogue.
   import attribute int Width;
-  /// The X co-ordinate of the top-left corner of the dialog options
+  /// Retourne/Définit la coordonnée horizontale du coin supérieur gauche de la zone d'options du dialogue.
   import attribute int X;
-  /// The Y co-ordinate of the top-left corner of the dialog options
+  /// Retourne/Définit la coordonnée verticale du coin supérieur gauche de la zone d'options du dialogue.
   import attribute int Y;
 };
 
