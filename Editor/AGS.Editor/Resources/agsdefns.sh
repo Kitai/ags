@@ -1554,23 +1554,23 @@ managed struct Region {
   import static Region* GetAtRoomXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
   /// Runs the event handler for the specified event for this region.
   import void RunInteraction(int event);
-  /// Sets the region tint which will apply to characters that are standing on the region.
+  /// Attribue la teinte RGB spécifiée qui sera apliquée aux personnage passant sur cette région.
   import void Tint(int red, int green, int blue, int amount);
-  /// Gets/sets whether this region is enabled.
+  /// Retourne/Définit si la région est activée.
   import attribute bool Enabled;
-  /// Gets the ID number for this region.
+  /// Retourne le numéro ID de cette région.
   readonly import attribute int ID;
-  /// Gets/sets the light level for this region.
+  /// Retourne/Définit le niveau de luminosité de la région.
   import attribute int  LightLevel;
-  /// Gets whether a colour tint is set for this region.
+  /// Retourne si la région est actuellement affectée par une teinte.
   readonly import attribute bool TintEnabled;
-  /// Gets the Blue component of this region's colour tint.
+  /// Retourne le niveau de Bleu de la teinte actuelle de la région.
   readonly import attribute int  TintBlue;
-  /// Gets the Green component of this region's colour tint.
+  /// Retourne le niveau de Vert de la teinte actuelle de la région.
   readonly import attribute int  TintGreen;
-  /// Gets the Red component of this region's colour tint.
+  /// Retourne le niveau de Rouge de la teinte actuelle de la région.
   readonly import attribute int  TintRed;
-  /// Gets the Saturation of this region's colour tint.
+  /// Retourne la saturation de la teinte actuelle de la région.
   readonly import attribute int  TintSaturation;
   int reserved[2];   // $AUTOCOMPLETEIGNORE$
 };
