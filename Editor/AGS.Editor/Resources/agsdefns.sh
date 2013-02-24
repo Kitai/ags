@@ -1641,21 +1641,21 @@ managed struct Maths {
 };
 
 managed struct DateTime {
-  /// Gets the current date and time on the player's system.
+  /// Retourne l'heure et la date actuelles du système.
   readonly import static attribute DateTime* Now;   // $AUTOCOMPLETESTATICONLY$
-  /// Gets the Year component of the date.
+  /// etourne l'année représentée dans l'objet DateTime.
   readonly import attribute int Year;
-  /// Gets the Month (1-12) component of the date.
+  /// Retourne le mois (1-12) représenté par l'objet DateTime.
   readonly import attribute int Month;
-  /// Gets the DayOfMonth (1-31) component of the date.
+  /// Retourne le jour du mois (1-31) représenté dans l'objet DateTime.
   readonly import attribute int DayOfMonth;
-  /// Gets the Hour (0-23) component of the time.
+  /// Retourne l'heure (0-23) représentée dans l'objet DateTime.
   readonly import attribute int Hour;
-  /// Gets the Minute (0-59) component of the time.
+  /// Retourne les minutes (0-59) représentées dans l'objet DateTime.
   readonly import attribute int Minute;
-  /// Gets the Second (0-59) component of the time.
+  /// Retourne les secondes (0-59) représentées dans l'objet DateTime.
   readonly import attribute int Second;
-  /// Gets the raw time value, useful for calculating elapsed time periods.
+  /// Retourne le temps écoulé depuis le 1er janvier 1970 (temps système).
   readonly import attribute int RawTime;
 };
 
