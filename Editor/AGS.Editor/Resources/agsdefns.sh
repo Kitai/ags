@@ -1576,23 +1576,23 @@ managed struct Region {
 };
 
 managed struct Dialog {
-  /// Displays the options for this dialog and returns which one the player selected.
+  /// Présente les options de ce dialogue à l'utilisateur et retourne le numéro de l'option sélectionné par le joueur.
   import int DisplayOptions(DialogOptionSayStyle = eSayUseOptionSetting);
-  /// Gets the enabled state for the specified option in this dialog.
+  /// Retourne si une option d'une conversation est disponible pour le joueur.
   import DialogOptionState GetOptionState(int option);
-  /// Gets the text of the specified option in this dialog.
+  /// Retourne le texte de l'option de dialogue spécifiée.
   import String GetOptionText(int option);
-  /// Checks whether the player has chosen this option before.
+  /// Retourne si le joueur a déjà choisi l'option spécifiée dans ce dialogue.
   import bool HasOptionBeenChosen(int option);
-  /// Sets the enabled state of the specified option in this dialog.
+  /// Active/Désactive une option dans une conversation.
   import void SetOptionState(int option, DialogOptionState);
-  /// Runs the dialog interactively.
+  /// Lance le dialogue spécifié.
   import void Start();
-  /// Gets the dialog's ID number for interoperating with legacy code.
+  /// Retourne le numéro ID du dialogue tel qu'affiché dans l'éditeur.
   readonly import attribute int ID;
-  /// Gets the number of options that this dialog has.
+  /// Retourne le nombre d'option que contient ce dialogue.
   readonly import attribute int OptionCount;
-  /// Gets whether this dialog allows the player to type in text.
+  /// Retourne si le dialogue propose une zone de saisie permettant au joueur d'entrer du texte.
   readonly import attribute bool ShowTextParser;
   
   int reserved[2];   // $AUTOCOMPLETEIGNORE$
