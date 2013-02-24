@@ -1602,33 +1602,33 @@ managed struct Dialog {
 //import int IsSpeechVoxAvailable();  // make autocomplete recognise
 
 managed struct Maths {
-  /// Calculates the Arc Cosine of the specified value.
+  /// Calcule l'ArcCosinus, en radians, de la valeur spécifiée.
   import static float ArcCos(float value);
-  /// Calculates the Arc Sine of the specified value.
+  /// Calcule l'ArcSinus, en radians, de la valeur spécifiée.
   import static float ArcSin(float value);
-  /// Calculates the Arc Tan of the specified value.
+  /// Calcule l'ArcTangente, en radians, de la valeur spécifiée.
   import static float ArcTan(float value);
-  /// Calculates the Arc Tan of y/x.
+  /// Calcule l'ArcTangente de Y / X.
   import static float ArcTan2(float y, float x);
-  /// Calculates the cosine of the specified angle.
+  /// Calcule le cosinus de l'angle spécifié (en radians).
   import static float Cos(float radians);
-  /// Calculates the hyperbolic cosine of the specified angle.
+  /// Calcule le cosinus hyperbolique de l'angle spécifié (en radians).
   import static float Cosh(float radians);
-  /// Converts the angle from degrees to radians.
+  /// Convertit l'angle entrée en degrés en angle en radians équivalent.
   import static float DegreesToRadians(float degrees);
-  /// Calculates the value of e to the power x.
+  /// Calcul l'exponentiel de la valeur spécifié.
   import static float Exp(float x);
-  /// Calculates the natural logarithm (base e) of x.
+  /// Calcule le logarithme népérien (en base e) de la valeur spécifié.
   import static float Log(float x);
-  /// Calculates the base-10 logarithm of x.
+  /// Calcul le lograrithme en base dix de la valeur spécifiée.
   import static float Log10(float x);
-  /// Converts the angle from radians to degrees.
+  /// Convertit l'angle entré en radians en angle en degrés équivalent.
   import static float RadiansToDegrees(float radians);
-  /// Calculates the base raised to the power of the exponent.
+  /// Calcule la valeur de base élevée à la puissance exposant.
   import static float RaiseToPower(float base, float exponent);
-  /// Calculates the sine of the angle.
+  /// Calcule le sinus de l'angle spécifié (en radians).
   import static float Sin(float radians);
-  /// Calculates the hyperbolic sine of the specified angle.
+  /// Calcule le sinus hyperbolique de l'angle spécifié (en radians).
   import static float Sinh(float radians);
   /// Calcule la racine carrée de la valeur entrée.
   import static float Sqrt(float value);
