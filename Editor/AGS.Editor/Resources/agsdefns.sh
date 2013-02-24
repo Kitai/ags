@@ -1630,13 +1630,13 @@ managed struct Maths {
   import static float Sin(float radians);
   /// Calculates the hyperbolic sine of the specified angle.
   import static float Sinh(float radians);
-  /// Calculates the square root of the value.
+  /// Calcule la racine carrée de la valeur entrée.
   import static float Sqrt(float value);
-  /// Calculates the tangent of the angle.
+  /// Calcule la tangente de l'angle spécifié (en radians).
   import static float Tan(float radians);
-  /// Calculates the hyperbolic tangent of the specified angle.
+  /// Calcule la tangente hyperbolique de l'angle spécifié (en radians).
   import static float Tanh(float radians);
-  /// Gets the value of PI
+  /// Retourne la valeur de Pi.
   readonly import static attribute float Pi;
 };
 
