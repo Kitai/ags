@@ -1488,71 +1488,71 @@ managed struct ListBox extends GUIControl {
 };
 
 managed struct GUI {
-  /// Moves the GUI to be centred on the screen.
+  /// Centre le GUI au milieu de l'écran.
   import void Centre();
-  /// Gets the topmost GUI visible on the screen at the specified co-ordinates.
+  /// Retourne le GUI au premier plan se situant aux coordonnées (x,y) spécifiées.
   import static GUI* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
-  /// Moves the GUI to have its top-left corner at the specified position.
+  /// Place le coin supérieur gauche du GUI aux nouvelles coordonnées (x,y) à l'écran.
   import void SetPosition(int x, int y);
-  /// Changes the size of the GUI.
-  import void SetSize(int width, int height);
-  /// Gets/sets the sprite used to draw the GUI's background image.
+  /// Change la taille du GUI spécifié pour la Largeur et la Hauteur spécifiées.
+  import void SetSize(int Largeur, int Hauteur);
+  /// Retourne/Définit l'image de fond du GUI.
   import attribute int  BackgroundGraphic;
-  /// Gets/sets whether the GUI can be clicked on, or whether clicks pass straight through.
+  /// Retourne/Définit si le GUI est cliquable.
   import attribute bool Clickable;
-  /// Accesses the controls that are on this GUI.
+  /// Accéde aux contrôles du GUI par leur numéro d'index.
   readonly import attribute GUIControl *Controls[];
-  /// Gets the number of controls on this GUI.
+  /// Retourne le nombre de contrôles que contient le GUI.
   readonly import attribute int  ControlCount;
-  /// Gets/sets the height of the GUI.
+  /// Retourne/Définit la hauteur du GUI.
   import attribute int  Height;
-  /// Gets the ID number of the GUI.
+  /// Retourne le numéro ID du GUI.
   readonly import attribute int  ID;
-  /// Gets/sets the transparency of the GUI.
+  /// Retourne/Définit la transparence du GUI, en pourcentage.
   import attribute int  Transparency;
-  /// Gets/sets whether the GUI is visible.
+  /// Retourne/Définit si le GUI est visible.
   import attribute bool Visible;
-  /// Gets/sets the width of the GUI.
+  /// Retourne/Définit la largeur du GUI.
   import attribute int  Width;
-  /// Gets/sets the X co-ordinate of the GUI's top-left corner.
+  /// Retourne/Définit la position X du coin supérieure gauche du GUI.
   import attribute int  X;
-  /// Gets/sets the Y co-ordinate of the GUI's top-left corner.
+  /// Retourne/Définit la position Y du coin supérieure gauche du GUI.
   import attribute int  Y;
-  /// Gets/sets the GUI's z-order relative to other GUIs.
+  /// Retourne/Définit le ZOrder (plan relatif) du GUI (plan relatif).
   import attribute int  ZOrder;
   int   reserved[2];   // $AUTOCOMPLETEIGNORE$
 };
 
 managed struct Hotspot {
-  /// Gets the hotspot that is at the specified position on the screen.
+  /// Retourne le hotspot se situant aux coordonnées (X,Y) spécifiée de la piéce actuelle.
   import static Hotspot* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
 #ifndef STRICT_STRINGS
   import void GetName(string buffer);
   import void GetPropertyText(const string property, string buffer);
 #endif
-  /// Gets an integer Custom Property for this hotspot.
+  /// Retourne la valeur de la propriété personnalisée spécifiée du hotspot.
   import int  GetProperty(const string property);
-  /// Gets a text Custom Property for this hotspot.
+  /// Retourne le texte défini par la propriété personnalisée spécifiée du hotspot.
   import String GetTextProperty(const string property);
-  /// Runs the specified event handler for this hotspot.
+  /// Lance l'interaction associée au hotspot pour le mode de curseur (CursorMode) spécifié.
   import void RunInteraction(CursorMode);
-  /// Gets/sets whether this hotspot is enabled.
+  /// Retourne/Définit si le hotspot est activé.
   import attribute bool Enabled;
-  /// Gets the ID of the hotspot.
+  /// Retourne le numéro ID de ce hotspot.
   readonly import attribute int ID;
-  /// Gets the name of the hotspot.
+  /// Retourne le nom du hotspot.
   readonly import attribute String Name;
-  /// Gets the X co-ordinate of the walk-to point for this hotspot.
+  /// Retourne la coordonnée de pièce X du point d'accès au hotspot (walk-to point).
   readonly import attribute int WalkToX;
-  /// Gets the Y co-ordinate of the walk-to point for this hotspot.
+  /// Retourne la coordonnée de pièce Y du point d'accès au hotspot (walk-to point).
   readonly import attribute int WalkToY;
   int reserved[2];   // $AUTOCOMPLETEIGNORE$
 };
 
 managed struct Region {
-  /// Gets the region at the specified location within this room.
+  /// Retourne la région se situant aux coordonnées (X,Y) spécifiée de la piéce actuelle.
   import static Region* GetAtRoomXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
-  /// Runs the event handler for the specified event for this region.
+  ///  Lance l'interaction associée à la région pour le mode de curseur (CursorMode) spécifié.
   import void RunInteraction(int event);
   /// Attribue la teinte RGB spécifiée qui sera apliquée aux personnage passant sur cette région.
   import void Tint(int red, int green, int blue, int amount);
