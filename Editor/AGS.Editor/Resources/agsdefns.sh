@@ -1465,25 +1465,25 @@ managed struct ListBox extends GUIControl {
 	import void RemoveItem(int listIndex);
 	/// Scrolls the list down one row.
 	import void ScrollDown();
-	/// Scrolls the list up one row.
+	/// Fait défiler la liste d'un cran vers le haut.
 	import void ScrollUp();
-	/// Gets/sets the font used to draw the list items.
+	///  Retourne/Définit la police utilisée par la liste spécifiée.
 	import attribute FontType Font;
-	/// Gets/sets whether the border around the list box is hidden.
+	///  Retourne/Définit si les bordures de la liste sont cachées.
 	import attribute bool HideBorder;
-	/// Gets/sets whether the clickable scroll arrows are hidden.
+	///  Retourne/Définit si les flèches de défilement sont cachées.
 	import attribute bool HideScrollArrows;
-	/// Gets the number of items currently in the list.
+	/// Retourne le nombre de lignes dans la liste spécifiée. 
 	readonly import attribute int ItemCount;
-	/// Accesses the text for the items in the list.
+	///  Retourne/Définit le texte de la ligne spécifiée de la liste.
 	import attribute String Items[];
-	/// Gets the number of visible rows that the listbox can display.
+	/// Retourne le nombre de lignes qui peuvent être affichées dans la liste.
 	readonly import attribute int RowCount;
-	/// Gets the save game number that each row in the list corresponds to, after using FillSaveGameList.
+	///  Retourne le bloc de sauvegarde correspondant pour chaque ligne dans la liste.
 	readonly import attribute int SaveGameSlots[];
-	/// Gets/sets the currently selected item.
+	/// Retourne/Définit l'élément de liste de la ligne actuellement sélectionnée.
 	import attribute int  SelectedIndex;
-	/// Gets/sets the first visible item in the list.
+	/// Retourne/Définit la ligne la plus haut dans la liste. 
 	import attribute int  TopItem;
 };
 
