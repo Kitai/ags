@@ -1481,81 +1481,81 @@ managed struct ListBox extends GUIControl {
 	readonly import attribute int RowCount;
 	///  Retourne le bloc de sauvegarde correspondant pour chaque ligne dans la liste.
 	readonly import attribute int SaveGameSlots[];
-	/// Retourne/Définit l'élément de liste de la ligne actuellement sélectionnée.
+	/// Retourne/Définit le numéro de la ligne actuellement sélectionnée dans la liste.
 	import attribute int  SelectedIndex;
-	/// Retourne/Définit la ligne la plus haut dans la liste. 
+	/// Retourne/Définit la ligne au plus haut dans la liste. 
 	import attribute int  TopItem;
 };
 
 managed struct GUI {
-  /// Centre le GUI au milieu de l'écran.
+  /// Centre le GUI (interface) au milieu de l'écran.
   import void Centre();
-  /// Retourne le GUI au premier plan se situant aux coordonnées (x,y) spécifiées.
+  /// Retourne le GUI (interface) se situant au premier plan aux coordonnées (x,y) spécifiées.
   import static GUI* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
-  /// Place le coin supérieur gauche du GUI aux nouvelles coordonnées (x,y) à l'écran.
+  /// Place le coin supérieur gauche du GUI (interface) aux nouvelles coordonnées (x,y) à l'écran.
   import void SetPosition(int x, int y);
-  /// Change la taille du GUI spécifié pour la Largeur et la Hauteur spécifiées.
-  import void SetSize(int Largeur, int Hauteur);
-  /// Retourne/Définit l'image de fond du GUI.
+  /// Change la taille du GUI (interface) spécifié pour la largeur et la hauteur spécifiées.
+  import void SetSize(int largeur, int hauteur);
+  /// Retourne/Définit l'image de fond du GUI (interface).
   import attribute int  BackgroundGraphic;
-  /// Retourne/Définit si le GUI est cliquable.
+  /// Retourne/Définit si les clics sur le GUI (interface) peuvent avoir un effet.
   import attribute bool Clickable;
-  /// Accéde aux contrôles du GUI par leur numéro d'index.
+  /// Accéde aux contrôles du GUI (interface) par leur numéro d'index (ID).
   readonly import attribute GUIControl *Controls[];
-  /// Retourne le nombre de contrôles que contient le GUI.
+  /// Retourne le nombre de contrôles que contient le GUI (interface).
   readonly import attribute int  ControlCount;
-  /// Retourne/Définit la hauteur du GUI.
+  /// Retourne/Définit la hauteur du GUI (interface).
   import attribute int  Height;
-  /// Retourne le numéro ID du GUI.
+  /// Retourne le numéro ID du GUI (interface).
   readonly import attribute int  ID;
-  /// Retourne/Définit la transparence du GUI, en pourcentage.
+  /// Retourne/Définit la transparence du GUI (interface), en pourcentage.
   import attribute int  Transparency;
-  /// Retourne/Définit si le GUI est visible.
+  /// Retourne/Définit si le GUI (interface) est visible.
   import attribute bool Visible;
-  /// Retourne/Définit la largeur du GUI.
+  /// Retourne/Définit la largeur du GUI (interface).
   import attribute int  Width;
-  /// Retourne/Définit la position X du coin supérieure gauche du GUI.
+  /// Retourne/Définit la position X du coin supérieure gauche du GUI (interface).
   import attribute int  X;
-  /// Retourne/Définit la position Y du coin supérieure gauche du GUI.
+  /// Retourne/Définit la position Y du coin supérieure gauche du GUI (interface).
   import attribute int  Y;
-  /// Retourne/Définit le ZOrder (plan relatif) du GUI (plan relatif).
+  /// Retourne/Définit le ZOrder (plan relatif) du GUI (interface).
   import attribute int  ZOrder;
   int   reserved[2];   // $AUTOCOMPLETEIGNORE$
 };
 
 managed struct Hotspot {
-  /// Retourne le hotspot se situant aux coordonnées (X,Y) spécifiée de la piéce actuelle.
+  /// Retourne la zone interactive (hotspot) se situant aux coordonnées (X,Y) spécifiées de la piéce actuelle.
   import static Hotspot* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
 #ifndef STRICT_STRINGS
-  import void GetName(string buffer);
-  import void GetPropertyText(const string property, string buffer);
+  import void GetName(string tampon);
+  import void GetPropertyText(const string propriete, string tampon);
 #endif
-  /// Retourne la valeur de la propriété personnalisée spécifiée du hotspot.
-  import int  GetProperty(const string property);
-  /// Retourne le texte défini par la propriété personnalisée spécifiée du hotspot.
-  import String GetTextProperty(const string property);
-  /// Lance l'interaction associée au hotspot pour le mode de curseur (CursorMode) spécifié.
+  /// Retourne la valeur de la propriété personnalisée spécifiée de la zone interactive (hotspot).
+  import int  GetProperty(const string propriete);
+  /// Retourne le texte défini par la propriété personnalisée spécifiée de la zone interactive (hotspot).
+  import String GetTextProperty(const string propriete);
+  /// Lance l'interaction associée à la zone interactive (hotspot) pour le mode de curseur (CursorMode) spécifié.
   import void RunInteraction(CursorMode);
-  /// Retourne/Définit si le hotspot est activé.
+  /// Retourne/Définit si la zone interactive (hotspot) est activée.
   import attribute bool Enabled;
-  /// Retourne le numéro ID de ce hotspot.
+  /// Retourne le numéro ID de la zone interactive (hotspot).
   readonly import attribute int ID;
-  /// Retourne le nom du hotspot.
+  /// Retourne le nom de la zone interactive (hotspot).
   readonly import attribute String Name;
-  /// Retourne la coordonnée de pièce X du point d'accès au hotspot (walk-to point).
+  /// Retourne la coordonnée de pièce X du point d'accès (walk-to point) à la zone interactive (hotspot).
   readonly import attribute int WalkToX;
-  /// Retourne la coordonnée de pièce Y du point d'accès au hotspot (walk-to point).
+  /// Retourne la coordonnée de pièce Y du point d'accès (walk-to point) à la zone interactive (hotspot).
   readonly import attribute int WalkToY;
   int reserved[2];   // $AUTOCOMPLETEIGNORE$
 };
 
 managed struct Region {
-  /// Retourne la région se situant aux coordonnées (X,Y) spécifiée de la piéce actuelle.
+  /// Retourne la région se situant aux coordonnées (X,Y) spécifiées dans la piéce actuelle.
   import static Region* GetAtRoomXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
   ///  Lance l'interaction associée à la région pour le mode de curseur (CursorMode) spécifié.
-  import void RunInteraction(int event);
-  /// Attribue la teinte RGB spécifiée qui sera apliquée aux personnage passant sur cette région.
-  import void Tint(int red, int green, int blue, int amount);
+  import void RunInteraction(int curseur);
+  /// Attribue la teinte RVB spécifiée qui sera apliquée aux personnage passant sur cette région.
+  import void Tint(int rouge, int vert, int bleu, int taux);
   /// Retourne/Définit si la région est activée.
   import attribute bool Enabled;
   /// Retourne le numéro ID de cette région.
@@ -1576,7 +1576,7 @@ managed struct Region {
 };
 
 managed struct Dialog {
-  /// Présente les options de ce dialogue à l'utilisateur et retourne le numéro de l'option sélectionné par le joueur.
+  /// Présente les options de ce dialogue à l'utilisateur et retourne le numéro de l'option sélectionnée par le joueur.
   import int DisplayOptions(DialogOptionSayStyle = eSayUseOptionSetting);
   /// Retourne si une option d'une conversation est disponible pour le joueur.
   import DialogOptionState GetOptionState(int option);
@@ -1590,7 +1590,7 @@ managed struct Dialog {
   import void Start();
   /// Retourne le numéro ID du dialogue tel qu'affiché dans l'éditeur.
   readonly import attribute int ID;
-  /// Retourne le nombre d'option que contient ce dialogue.
+  /// Retourne le nombre d'options que contient ce dialogue.
   readonly import attribute int OptionCount;
   /// Retourne si le dialogue propose une zone de saisie permettant au joueur d'entrer du texte.
   readonly import attribute bool ShowTextParser;
@@ -1603,35 +1603,35 @@ managed struct Dialog {
 
 managed struct Maths {
   /// Calcule l'ArcCosinus, en radians, de la valeur spécifiée.
-  import static float ArcCos(float value);
+  import static float ArcCos(float valeur);
   /// Calcule l'ArcSinus, en radians, de la valeur spécifiée.
-  import static float ArcSin(float value);
+  import static float ArcSin(float valeur);
   /// Calcule l'ArcTangente, en radians, de la valeur spécifiée.
-  import static float ArcTan(float value);
+  import static float ArcTan(float valeur);
   /// Calcule l'ArcTangente de Y / X.
   import static float ArcTan2(float y, float x);
   /// Calcule le cosinus de l'angle spécifié (en radians).
   import static float Cos(float radians);
   /// Calcule le cosinus hyperbolique de l'angle spécifié (en radians).
   import static float Cosh(float radians);
-  /// Convertit l'angle entrée en degrés en angle en radians équivalent.
-  import static float DegreesToRadians(float degrees);
-  /// Calcul l'exponentiel de la valeur spécifié.
+  /// Convertit l'angle entré en degrés en angle en radians équivalent.
+  import static float DegreesToRadians(float degres);
+  /// Calcul l'exponentiel de la valeur spécifiée.
   import static float Exp(float x);
-  /// Calcule le logarithme népérien (en base e) de la valeur spécifié.
+  /// Calcule le logarithme népérien (en base e) de la valeur spécifiée.
   import static float Log(float x);
   /// Calcul le lograrithme en base dix de la valeur spécifiée.
   import static float Log10(float x);
   /// Convertit l'angle entré en radians en angle en degrés équivalent.
   import static float RadiansToDegrees(float radians);
   /// Calcule la valeur de base élevée à la puissance exposant.
-  import static float RaiseToPower(float base, float exponent);
+  import static float RaiseToPower(float base, float exposant);
   /// Calcule le sinus de l'angle spécifié (en radians).
   import static float Sin(float radians);
   /// Calcule le sinus hyperbolique de l'angle spécifié (en radians).
   import static float Sinh(float radians);
   /// Calcule la racine carrée de la valeur entrée.
-  import static float Sqrt(float value);
+  import static float Sqrt(float valeur);
   /// Calcule la tangente de l'angle spécifié (en radians).
   import static float Tan(float radians);
   /// Calcule la tangente hyperbolique de l'angle spécifié (en radians).
@@ -1643,7 +1643,7 @@ managed struct Maths {
 managed struct DateTime {
   /// Retourne l'heure et la date actuelles du système.
   readonly import static attribute DateTime* Now;   // $AUTOCOMPLETESTATICONLY$
-  /// etourne l'année représentée dans l'objet DateTime.
+  /// Retourne l'année représentée dans l'objet DateTime.
   readonly import attribute int Year;
   /// Retourne le mois (1-12) représenté par l'objet DateTime.
   readonly import attribute int Month;
@@ -1660,11 +1660,11 @@ managed struct DateTime {
 };
 
 managed struct DialogOptionsRenderingInfo {
-  /// Retourne/Définit l'option active courante de l'écran d'options du dialogue.
+  /// Retourne/Définit l'option actuellement active dans l'écran d'options du dialogue.
   import attribute int ActiveOptionID;
   /// Retourne le dialogue qui doit être affiché.
   readonly import attribute Dialog* DialogToRender;
-  /// etourne/Définit la hauteur de la zone affichant les options de dialogue.
+  /// Retourne/Définit la hauteur de la zone affichant les options de dialogue.
   import attribute int Height;
   /// Retourne/Définit la largeur de la zone de saisie (textbox) de l'analyseur de texte (parser).
   import attribute int ParserTextBoxWidth;
@@ -1685,7 +1685,7 @@ managed struct DialogOptionsRenderingInfo {
 managed struct AudioChannel {
   /// Va à POSITION dans la séquence actuellement jouée sur ce canal.
   import void Seek(int position);
-  /// Définit la séquence en cours de lecture comme un son spacialisé, provenant de (x,y). 
+  /// Définit la séquence en cours de lecture comme un son spatialisé, provenant de (x,y). 
   import void SetRoomLocation(int x, int y);
   /// Stoppe le son en cours de lecture sur le canal audio. 
   import void Stop();
@@ -1695,7 +1695,7 @@ managed struct AudioChannel {
   readonly import attribute bool IsPlaying;
   /// Retourne la durée en milliseconde de la séquence jouée sur le canal. 
   readonly import attribute int LengthMs;
-  /// Retourne/définit l'équilibrage stéréo du canal, de -100 à 100.
+  /// Retourne/Définit l'équilibrage stéréo du canal, de -100 à 100.
   import attribute int Panning;
   /// Retourne la séquence audio jouée sur le canal.
   readonly import attribute AudioClip* PlayingClip;
@@ -1703,7 +1703,7 @@ managed struct AudioChannel {
   readonly import attribute int Position;
   /// Retourne la position actuelle de la séquence jouée sur le canal, en millisecondes.
   readonly import attribute int PositionMs;
-  /// Retourne/définit le volume de ce canal audio, de 0 à 100.
+  /// Retourne/Définit le volume de ce canal audio, de 0 à 100.
   import attribute int Volume;
 };
 
@@ -1720,7 +1720,7 @@ managed struct AudioClip {
   readonly import attribute AudioFileType FileType;
   /// Vérifie si la séquence audio est disponible sur l'ordinateur du joueur. 
   readonly import attribute bool IsAvailable;
-  /// Retourne le type de la séquence audio, telle que définie dans l'éditeur.
+  /// Retourne le type de la séquence audio, tel que défini dans l'éditeur.
   readonly import attribute AudioType Type;
 };
 
