@@ -1335,23 +1335,23 @@ managed struct GUIControl {
   readonly import attribute Slider*  AsSlider;   // $AUTOCOMPLETENOINHERIT$
   /// If this control is a text box, returns the TextBox interface; otherwise null.
   readonly import attribute TextBox* AsTextBox;  // $AUTOCOMPLETENOINHERIT$
-  /// Gets/sets whether this control can be clicked on or whether clicks pass straight through it.
+  /// Retourne/Définit si l'on peut cliquer sur le contrôle du GUI.
   import attribute bool Clickable;
-  /// Gets/sets whether this control is currently enabled.
+  /// Retourne/Définit si le contrôle de GUI est activé.
   import attribute bool Enabled;
-  /// Gets/sets the height of the control.
+  /// Retourne/Définit la hauteur du contrôle de GUI.
   import attribute int  Height;
-  /// Gets the ID number of the control within its owning GUI.
+  /// Retourne le numéro d'identification (ID_ du contrôle de GUI.
   readonly import attribute int  ID;
-  /// Gets the GUI that this control is placed onto.
+  /// Retourne le GUI qui contient le contrôle.
   readonly import attribute GUI* OwningGUI;
-  /// Gets/sets whether this control is currently visible.
+  /// Retourne/Définit si le contrôle de GUI est visible.
   import attribute bool Visible;
-  /// Gets/sets the width of the control.
+  /// Retourne/Définit la largeur du contrôle du GUI.
   import attribute int  Width;
-  /// Gets/sets the X position of the control's top-left corner.
+  /// Retourne/Définit la position X du contrôle de GUI.
   import attribute int  X;
-  /// Gets/sets the Y position of the control's top-left corner.
+  /// Retourne/Définit la position Y du contrôle de GUI.
   import attribute int  Y;
 };
 
@@ -1360,51 +1360,51 @@ managed struct Label extends GUIControl {
   import void GetText(string buffer);
   import void SetText(const string text);
 #endif
-  /// Gets/sets the font that is used to draw the label text.
+  /// Retourne/Détermine la police utilisée pour afficher le texte de l'étiquette.
   import attribute FontType Font;
-  /// Gets/sets the text that is shown on the label.
+  /// Retourne/Définit le texte affiché dans l'étiquette.
   import attribute String Text;
-  /// Gets/sets the colour in which the label text is drawn.
+  /// Retourne/Définit la couleur du texte utilisée pour afficher le texte de l'étiquette.
   import attribute int  TextColor;
 };
 
 managed struct Button extends GUIControl {
-  /// Animates the button graphic using the specified view loop.
+  /// Anime le bouton GUI en jouant la séquence de la vue spécifiées.
   import void Animate(int view, int loop, int delay, RepeatStyle);
 #ifndef STRICT_STRINGS
   import void GetText(string buffer);
   import void SetText(const string text);
 #endif
-  /// Gets/sets whether the image is clipped to the size of the control.
+  ///  Retourne/Définit si l'image du bouton est rogneé à son cadre.
   import attribute bool ClipImage;
-  /// Gets/sets the font used to display text on the button.
+  /// Retourne/Définit la police utilisée pour le texte du bouton.
   import attribute FontType Font;
-  /// Gets the currently displayed sprite number.
+  /// Retourne le numéro de l'image actuelle du bouton.
   readonly import attribute int  Graphic;
-  /// Gets/sets the image that is shown when the player moves the mouse over the button (-1 if none)
+  /// Retourne/Définit l'image du bouton lors de son surlvol par la souris.
   import attribute int  MouseOverGraphic;
-  /// Gets/sets the image that is shown when the button is not pressed or mouse-overed
+  /// Retourne/Définit l'image normale du bouton.
   import attribute int  NormalGraphic;
-  /// Gets/sets the image that is shown when the button is pressed
+  /// Retourne/Définit l'image du bouton lorqu'il est pressé.
   import attribute int  PushedGraphic;
-  /// Gets/sets the colour in which the button text is drawn.
+  /// Retourne/Définit la couleur utilisée pour afficher le texte du bouton.
   import attribute int  TextColor;
-  /// Gets/sets the text to be drawn on the button.
+  /// Retourne/Définit le texte affiché sur le bouton.
   import attribute String Text;
 };
 
 managed struct Slider extends GUIControl {
-  /// Gets/sets the image that is tiled to make up the background of the slider.
+  /// Retourne/Définit l'image utilisée pour l'arrière-plan de la barre.
   import attribute int  BackgroundGraphic;
-  /// Gets/sets the image used for the 'handle' that represents the current slider position.
+  /// Retourne/Définit l'image utilisée pour dessiner le curseur sur la barre.
   import attribute int  HandleGraphic;
-  /// Gets/sets the pixel offset at which the handle is drawn.
+  /// Retourne/Définit le décalage à utiliser (en pixel) pour l'image du curseur.
   import attribute int  HandleOffset;
-  /// Gets/sets the maximum value that the slider can have.
+  /// Retourne/Définit la valeur maximum de la barre de GUI spécifiée.
   import attribute int  Max;
-  /// Gets/sets the minimum value that the slider can have.
+  /// Retourne/Définit la valeur minimum de la barre de GUI spécifiée.
   import attribute int  Min;
-  /// Gets/sets the current value of the slider.
+  /// Retourne/Définit la valeur de la barre de défilement spécifiée.
   import attribute int  Value;
 };
 
@@ -1413,11 +1413,11 @@ managed struct TextBox extends GUIControl {
   import void GetText(string buffer);
   import void SetText(const string text);
 #endif
-  /// Gets/sets the font used to draw the text in the text box.
+  /// Retourne/Définit la police utilisée par la zone de saisie.
   import attribute FontType Font;
-  /// Gets/sets the text that is currently in the text box.
+  /// Retourne/Définit le contenu de la zone de saisie.
   import attribute String Text;
-  /// Gets/sets the color of the text in the text box.
+  /// Retourne/Définit la couleur utiliée pour dessiner la zone de saisie.
   import attribute int TextColor;
 };
 
