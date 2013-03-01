@@ -1422,60 +1422,60 @@ managed struct TextBox extends GUIControl {
 };
 
 managed struct InvWindow extends GUIControl {
-  /// Scrolls the inventory window down one row.
+  /// Fait défiler la fenêtre d'inventaire d'une ligne vers le bas.
   import void ScrollDown();
-  /// Scrolls the inventory window up one row.
+  /// Fait défiler la fenêtre d'inventaire d'une ligne vers le haut.
   import void ScrollUp();
-  /// Gets/sets which character's inventory is displayed in this window.
+  /// Retourne/Définit le personnage dont la fenêtre affiche actuellement l'inventaire.
   import attribute Character* CharacterToUse;
-  /// Gets the inventory item at the specified index in the window.
+  /// Retourne l'objet d'inventaire qui est actuellement affiché à la position spécifiée dans la fenêtre d'inventaire.
   readonly import attribute InventoryItem* ItemAtIndex[];
-  /// Gets the number of inventory items currently shown in the window.
+  /// Retourne le nombre total d'objets contenus dans la fenêtre d'inventaire.
   readonly import attribute int ItemCount;
-  /// Gets the height of each row of items.
+  /// Retourne la taille d'une ligne de la fenêtre d'inventaire.
   import attribute int ItemHeight;
-  /// Gets the width of each column of items.
+  /// Retourne la taille d'une ligne de la fenêtre d'inventaire.
   import attribute int ItemWidth;
-  /// Gets the index of the first visible item in the window.
+  /// Retourne l'indice du premier objet actuellement visible dans la fenêtre d'inventaire.
   import attribute int TopItem;
-  /// Gets the number of items shown per row in this inventory window.
+  /// Retourne le nombre d'objets qui peuvent être affichés dans chaque ligne de la fenêtre d'inventaire.
   readonly import attribute int ItemsPerRow;
-  /// Gets the number of visible rows in this inventory window.
+  /// Retourne le nombre de lignes qui peuvent être affichées dans la fenêtre d'inventaire.
   readonly import attribute int RowCount;
 };
 
 managed struct ListBox extends GUIControl {
-	/// Adds a new item to the bottom of the list with the specified text.
+	/// Ajoute une nouvelle ligne à la liste spécifiée. La ligne sera ajoutée à la fin de la liste.
 	import bool AddItem(const string text);
-	/// Removes all the items from the list.
+	/// Supprime toutes les lignes de la liste.
 	import void Clear();
-	/// Fills the list box with all the filenames that match the specified file mask.
+	/// Remplit la liste avec les noms de fichiers correspondant à FILEMASK dans le répertoire courant.
 	import void FillDirList(const string fileMask);
-	/// Fills the list box with all the current user's saved games.
+	/// Remplit la liste avec les parties précédement sauvegardées.
 	import int  FillSaveGameList();
-	/// Gets the item index at the specified screen co-ordinates, if they lie within the list box.
+	/// Détermine quelle ligne dans la liste est aux coordonnées (X,Y) spécifiées.
 	import int  GetItemAtLocation(int x, int y);
 #ifndef STRICT_STRINGS
 	import void GetItemText(int listIndex, string buffer);
 	import void SetItemText(int listIndex, const string newText);
 #endif
-	/// Inserts a new item before the specified index.
+	/// Insère une nouvelle ligne dans la liste, juste avant l'index spécifié.
 	import bool InsertItemAt(int listIndex, const string text);
-	/// Removes the specified item from the list.
+	/// Supprime la ligne spécifiée de la liste.
 	import void RemoveItem(int listIndex);
-	/// Scrolls the list down one row.
+	/// Fait défiler la liste d'un cran vers le bas.
 	import void ScrollDown();
 	/// Fait défiler la liste d'un cran vers le haut.
 	import void ScrollUp();
-	///  Retourne/Définit la police utilisée par la liste spécifiée.
+	/// Retourne/Définit la police utilisée par la liste spécifiée.
 	import attribute FontType Font;
-	///  Retourne/Définit si les bordures de la liste sont cachées.
+	/// Retourne/Définit si les bordures de la liste sont cachées.
 	import attribute bool HideBorder;
-	///  Retourne/Définit si les flèches de défilement sont cachées.
+	/// Retourne/Définit si les flèches de défilement sont cachées.
 	import attribute bool HideScrollArrows;
 	/// Retourne le nombre de lignes dans la liste spécifiée. 
 	readonly import attribute int ItemCount;
-	///  Retourne/Définit le texte de la ligne spécifiée de la liste.
+	/// Retourne/Définit le texte de la ligne spécifiée de la liste.
 	import attribute String Items[];
 	/// Retourne le nombre de lignes qui peuvent être affichées dans la liste.
 	readonly import attribute int RowCount;
