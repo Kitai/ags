@@ -1222,13 +1222,13 @@ import int  GetGlobalInt(int globalInt);
 import void FlipScreen(int way);
 /// Fast-forwards the game until the specified character finishes moving.
 import void SkipUntilCharacterStops(CHARID);
-/// Specifies the start of a skippable cutscene.
+/// Marque le début d'une cinématique.
 import void StartCutscene(CutsceneSkipType);
-/// Specifies the end of a skippable cutscene.
+/// Marque la fin d'une cinématique.
 import int  EndCutscene();
-/// Prevents further event handlers running for this event.
+/// Empéche l'accomplissement d'autresévénements associés à ce déclancheur.
 import void ClaimEvent();
-// Changes the GUI used to render standard game text windows.
+// Change le GUI utilisé comme fenêtre de texte pour le nouveau GUI spécifié.
 import void SetTextWindowGUI (int gui);
 import int  FindGUIID(const string);  // $AUTOCOMPLETEIGNORE$
 
@@ -1313,27 +1313,27 @@ managed struct ListBox;
 managed struct Character;
 
 managed struct GUIControl {
-  /// Brings this control to the front of the z-order, in front of all other controls.
+  /// Place le contrôle de GUI au-dessus de tous les autres.
   import void BringToFront();
-  /// Gets the GUI Control that is visible at the specified location on the screen, or null.
+  /// Retourne le contrôle de GUI situés aux coordonnées spécifiées (X,Y) de l'écran.
   import static GUIControl* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$  $AUTOCOMPLETENOINHERIT$
-  /// Sends this control to the back of the z-order, behind all other controls.
+  /// Place le contrôle de GUI à l'arrière-plan.
   import void SendToBack();
-  /// Moves the control to the specified position within the GUI.
+  /// Déplace le coin supérieur gauche du contrôle de GUI aux coordonnées spécifiées (X,Y).
   import void SetPosition(int x, int y);
-  /// Changes the control to the specified size.
-  import void SetSize(int width, int height);
-  /// If this control is a button, returns the Button interface; otherwise null.
+  /// Redimensionne le contrôle de GUI spécifié aux dimensions LARGEUR x HAUTEUR.
+  import void SetSize(int largeur, int hauteur);
+  /// Convertie un pointeur GUIControl* générique en une variable du type Boutton, et la retourne.
   readonly import attribute Button*  AsButton;   // $AUTOCOMPLETENOINHERIT$
-  /// If this control is a inventory window, returns the InvWindow interface; otherwise null.
+  /// Convertie un pointeur GUIControl* générique en une variable du type Fenêtre d'inventaire, et la retourne.
   readonly import attribute InvWindow* AsInvWindow;  // $AUTOCOMPLETENOINHERIT$
-  /// If this control is a label, returns the Label interface; otherwise null.
+  /// Convertie un pointeur GUIControl* générique en une variable du type étiquette, et la retourne.
   readonly import attribute Label*   AsLabel;    // $AUTOCOMPLETENOINHERIT$
-  /// If this control is a list box, returns the ListBox interface; otherwise null.
+  /// Convertie un pointeur GUIControl* générique en une variable du type Liste, et la retourne.
   readonly import attribute ListBox* AsListBox;  // $AUTOCOMPLETENOINHERIT$
-  /// If this control is a slider, returns the Slider interface; otherwise null.
+  /// Convertie un pointeur GUIControl* générique en une variable du type slider, et la retourne.
   readonly import attribute Slider*  AsSlider;   // $AUTOCOMPLETENOINHERIT$
-  /// If this control is a text box, returns the TextBox interface; otherwise null.
+  /// Convertie un pointeur GUIControl* générique en une variable du type Fenêtre d'entrée de texte, et la retourne.
   readonly import attribute TextBox* AsTextBox;  // $AUTOCOMPLETENOINHERIT$
   /// Retourne/Définit si l'on peut cliquer sur le contrôle du GUI.
   import attribute bool Clickable;
