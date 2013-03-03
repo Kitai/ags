@@ -1134,14 +1134,14 @@ import void SetAreaScaling(int area, int min, int max);
 import void DisableGroundLevelAreas(int disableTints);
 /// Re-enables region events, light levels and tints.
 import void EnableGroundLevelAreas();
-/// Changes the baseline of the specified walk-behind area.
+/// Donne à la zone couvrante (Walkbehind area) spécifié une nouvelle BASELINE.
 import void SetWalkBehindBase(int area, int baseline);
-/// Performs various commands to start and stop an audio CD.
+/// Cette fonction vous permet de jouer et de contrôle un CD audio dans votre jeu.
 import int  CDAudio(eCDAudioFunction, int data);
-/// Plays a FLI/FLC animation.
+/// Joue une animation FLI/FLC.
 import void PlayFlic(int flcNumber, int options);
-/// Plays an AVI/MPG video.
-import void PlayVideo(const string filename, VideoSkipStyle, int flags);
+/// Joue une vidéo AVI/MPG.
+import void PlayVideo(const string nomdufichier, VideoSkipStyle, int flags);
 
 #ifndef STRICT_AUDIO
 // **** OLD MUSIC/SOUND FUNCTIONS ****
@@ -1199,12 +1199,12 @@ import void StopMusic();
 #endif
 
 import int  IsVoxAvailable();
-/// Changes the voice speech volume.
+/// Change le volume sonore des voix.
 import void SetSpeechVolume(int volume);
-/// Checks whether a MUSIC.VOX file was found.
+/// Retourne si un fichier MUSIC.VOX est détécté par le jeu.
 import int  IsMusicVoxAvailable();
-/// Saves a screenshot of the current game position to a file.
-import int  SaveScreenShot(const string filename);
+/// Prend une capture d'écran et la sauve sur le disque.
+import int  SaveScreenShot(const string nomdifichier);
 /// Met le jeu en pause. (Stoppe le processus de la machine, les animations et déplacements du personnage, etc.)
 import void PauseGame();
 /// Reprend le jeu après une pause.
