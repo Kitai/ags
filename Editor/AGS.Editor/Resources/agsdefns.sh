@@ -1205,22 +1205,22 @@ import void SetSpeechVolume(int volume);
 import int  IsMusicVoxAvailable();
 /// Saves a screenshot of the current game position to a file.
 import int  SaveScreenShot(const string filename);
-/// Pauses the game, which stops all animations and movement.
+/// Met le jeu en pause. (Stoppe le processus de la machine, les animations et déplacements du personnage, etc.)
 import void PauseGame();
-/// Resumes the game after it was paused earlier.
+/// Reprend le jeu après une pause.
 import void UnPauseGame();
-/// Blocks the script for the specified number of game loops.
+/// Marque une pause dans l'exécution du script jusqu'à la fin du temps spécifié
 import void Wait(int waitLoops);
-/// Blocks the script for the specified number of game loops, unless a key is pressed.
+/// Marque une pause dans l'exécution du script jusqu'à la fin du temps spécifié, ou bien si une touches est enfoncée.
 import int  WaitKey(int waitLoops);
-/// Blocks the script for the specified number of game loops, unless a key is pressed or the mouse is clicked.
+/// Marque une pause dans l'exécution du script jusqu'à la fin du temps spécifié, ou bien si une touches est enfoncée, ou bien si un clic est réalisé.
 import int  WaitMouseKey(int waitLoops);
-/// Checks whether the specified key is currently held down.
+/// Vérifie si la touche du clavier spécifiée est actuellement pressée.
 import bool IsKeyPressed(eKeyCode);
 import void SetGlobalInt(int globalInt, int value);
 import int  GetGlobalInt(int globalInt);
 import void FlipScreen(int way);
-/// Fast-forwards the game until the specified character finishes moving.
+/// Saute la séquence de déplacement du personnage spécifié.
 import void SkipUntilCharacterStops(CHARID);
 /// Marque le début d'une cinématique.
 import void StartCutscene(CutsceneSkipType);
