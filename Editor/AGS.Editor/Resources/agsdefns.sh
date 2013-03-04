@@ -1092,49 +1092,49 @@ managed struct DynamicSprite {
 };
 
 // Palette FX
-/// Fades the screen in from black to the normal palette.
-import void FadeIn(int speed);
-/// Fades the screen out to the current fade colour.
-import void FadeOut(int speed);
-/// Cycles the palette entries between start and end. (8-bit games only)
+/// Passe d'un écran noir à un affichage normale selon la vitesse spécifié.
+import void FadeIn(int vitesse);
+/// Noircit totalement l'écran en fondu selon la vitesse spécifiée.
+import void FadeOut(int vitesse);
+/// Les indices  de début à fin de la palette sont décalés d'un bloc en cycle (jeux en couleur 8-bit uniquement).
 import void CyclePalette(int start, int end);
-/// Changes the RGB colour of a palette slot. (8-bit games only)
-import void SetPalRGB(int slot, int r, int g, int b);
-/// Updates the screen with manual changes to the palette. (8-bit games only)
+/// Change les valeurs RVB du bloc spécifié de la palette (jeux en couleur 8-bit uniquement).
+import void SetPalRGB(int bloc, int rouge, int vert, int bleu);
+/// Applique les changements que vous avez effectués sur la palette du jeu (jeux en couleur 8-bit uniquement).
 import void UpdatePalette();
-/// Tints the whole screen to the specified colour.
-import void TintScreen (int red, int green, int blue);
-/// Sets an ambient tint that affects all objects and characters in the room.
-import void SetAmbientTint(int red, int green, int blue, int saturation, int luminance);
-/// Returns a random number between 0 and MAX, inclusive.
+/// Teinte tout l'écran avec la couleur RGB spécifiée.
+import void TintScreen (int rouge, int vert, int bleu);
+/// Teinte tous les objets et personnages à l'écran selon la couleure RGB spécifiée, avec la saturation et la luminosité spécifié.
+import void SetAmbientTint(int rouge, int vert, int bleu, int saturation, int luminosite);
+/// Retourne un nombre entier aléatoire entre 0 et max.
 import int  Random(int max);
-/// Locks the current room to the specified background.
-import void SetBackgroundFrame(int frame);
-/// Gets the current background frame number.
+/// Fixe l'arrière-plan affiché au numéro spécifié.
+import void SetBackgroundFrame(int NumeroImage);
+/// Retourne le numéro de l'arrière-plan actuellement affiché.
 import int  GetBackgroundFrame();
-/// Shakes the screen by the specified amount.
+/// Secoue l'écran avec la force spécifié.
 import void ShakeScreen(int amount);
-/// Shakes the screen but does not pause the game while it does so.
-import void ShakeScreenBackground(int delay, int amount, int length);
-/// Changes the room transition style.
+/// Secoue l'écran sans mettre le jeu en pause.
+import void ShakeScreenBackground(int vitesse, int force, int duree);
+/// Définit le style de transition entre les pièces.
 import void SetScreenTransition(TransitionStyle);
-/// Changes the room transition style for the next room change only.
-import void SetNextScreenTransition(TransitionStyle);
-/// Changes the colour to which the screen fades out with a FadeOut call.
-import void SetFadeColor(int red, int green, int blue);
-/// Checks whether an event handler is registered to handle clicking at the specified location on the screen.
-import int  IsInteractionAvailable (int x, int y, CursorMode);
-/// Removes the specified walkable area from the room.
-import void RemoveWalkableArea(int area);
-/// Brings back a previously removed walkable area.
-import void RestoreWalkableArea(int area);
-/// Changes the specified walkable area's scaling level.
-import void SetAreaScaling(int area, int min, int max);
-/// Disables all region events, and optionally light levels and tints.
+/// Définit le style de la prochaine transition entre les pièces.
+import void SetNextScreenTransition(StyleDeTransition);
+/// Définit la couleur des transitions d'écrans selon la valeure RGB spécifiée.
+import void SetFadeColor(int rouge, int vert, int bleu);
+/// Vérifie si une interaction serait déclenchée lors d'un clic à l'écran aux coordonnées spécifiées avec le mode de curseur MODE.
+import int  IsInteractionAvailable (int x, int y, Mode);
+/// Désactive la zone de déplacement spécifié dans la pièce actuelle.
+import void RemoveWalkableArea(int zone);
+/// Réactive la zone de déplacement spécifiée.
+import void RestoreWalkableArea(int zone);
+/// Change le niveau de mise à échelle de la zone de déplacement spécifiée.
+import void SetAreaScaling(int zone, int min, int max);
+/// Désactive toutes les interactions au niveau du sol, et de façon optionnelle les niveaux d'éclairages et teintes de la zone.
 import void DisableGroundLevelAreas(int disableTints);
-/// Re-enables region events, light levels and tints.
+/// Réactive toutes les interactions au sol, niveaux d'éclairages et teintes de la zone.
 import void EnableGroundLevelAreas();
-/// Donne à la zone couvrante (Walkbehind area) spécifié une nouvelle BASELINE.
+/// Donne à la zone couvrante (Walkbehind area) spécifié une nouvelle ligne de base (baseline).
 import void SetWalkBehindBase(int area, int baseline);
 /// Cette fonction vous permet de jouer et de contrôle un CD audio dans votre jeu.
 import int  CDAudio(eCDAudioFunction, int data);
