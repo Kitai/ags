@@ -1030,19 +1030,19 @@ managed struct InventoryItem {
 };
 
 managed struct Overlay {
-  /// Creates an overlay that displays a sprite.
+  /// Crée un calque sur l'écran contenant une copie de l'image spécifié.
   import static Overlay* CreateGraphical(int x, int y, int slot, bool transparent);  // $AUTOCOMPLETESTATICONLY$
-  /// Creates an overlay that displays some text.
-  import static Overlay* CreateTextual(int x, int y, int width, FontType, int colour, const string text, ...);  // $AUTOCOMPLETESTATICONLY$
-  /// Changes the text on the overlay.
-  import void SetText(int width, FontType, int colour, const string text, ...);
-  /// Removes the overlay from the screen.
+  /// Crée un calque à l'écran contenant le texte que vous passez à la position spécifiée.
+  import static Overlay* CreateTextual(int x, int y, int largeur, FontType, int couleur, const string text, ...);  // $AUTOCOMPLETESTATICONLY$
+  /// Spécifie le texte affiché par le calque.
+  import void SetText(int largeur, FontType, int colour, const string text, ...);
+  /// Efface le calque spécifié de l'écran.
   import void Remove();
-  /// Checks whether this overlay is currently valid.
+  /// Vérifie si le calque est actuellement affiché ou non.
   readonly import attribute bool Valid;
-  /// Gets/sets the X position on the screen where this overlay is displayed.
+  /// Retourne/Définit la coordonnée d'affichage X du coin superieur gauche du calque.
   import attribute int X;
-  /// Gets/sets the Y position on the screen where this overlay is displayed.
+  /// Retourne/Définit la coordonnée d'affichage Y du coin superieur gauche du calque.
   import attribute int Y;
 };
 
