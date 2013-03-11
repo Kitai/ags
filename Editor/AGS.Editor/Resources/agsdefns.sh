@@ -1003,23 +1003,23 @@ managed struct File {
 };
 
 managed struct InventoryItem {
-  /// Returns the inventory item at the specified location.
+  /// Retourne l'objet d'inventaire aux coordonnées d'écran spécifiées.
   import static InventoryItem* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
-  /// Gets an integer custom property for this item.
+  /// Retourne la valeur de la propriété personnelle numérique de l'objet d'inventaire.
   import int  GetProperty(const string property);
-  /// Gets a text custom property for this item.
+  /// Retourne le texte de la propriété personnelle textuelle de l'objet d'inventaire.
   import String GetTextProperty(const string property);
-  /// Checks whether an event handler has been registered for clicking on this item in the specified cursor mode.
-  import int  IsInteractionAvailable(CursorMode);
-  /// Runs the registered event handler for this item.
+  /// Vérifie si une interaction est prévue pour un clic sur l'objet d'inventaire avec le mode de curseur spécifié.
+  import int  IsInteractionAvailable(ModeCurseur);
+  /// Lance l'interaction associée à l'objet d'inventaire pour le mode de curseur (CursorMode) spécifié.
   import void RunInteraction(CursorMode);
-  /// Gets/sets the sprite used as the item's mouse cursor.
+  /// Retourne/Définit l'image du curseur de l'objet d'inventaire.
   import attribute int  CursorGraphic;
-  /// Gets/sets the sprite used to display the inventory item.
+  /// Retourne/Définit l'image de l'objet d'inventaire.
   import attribute int  Graphic;
-  /// Gets the ID number of the inventory item.
+  /// Retourne le numéro d'identification (ID) de l'objet d'inventaire.
   readonly import attribute int ID;
-  /// Gets/sets the name of the inventory item.
+  /// Retourne/Définit le nom de l'objet d'inventaire.
   import attribute String Name;
 #ifndef STRICT_STRINGS
   import void GetName(string buffer);
