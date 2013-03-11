@@ -1047,47 +1047,47 @@ managed struct Overlay {
 };
 
 managed struct DynamicSprite {
-  /// Creates a blank dynamic sprite of the specified size.
+  /// Crée une nouvelle image dynamique vierge de la taille spécifiée.
   import static DynamicSprite* Create(int width, int height, bool hasAlphaChannel=false);    // $AUTOCOMPLETESTATICONLY$
-  /// Creates a dynamic sprite as a copy of a room background.
+  /// Crée une image dynamique contenant une copie de l'image d'arrière-plan de la pièce.
   import static DynamicSprite* CreateFromBackground(int frame=SCR_NO_VALUE, int x=SCR_NO_VALUE, int y=SCR_NO_VALUE, int width=SCR_NO_VALUE, int height=SCR_NO_VALUE);    // $AUTOCOMPLETESTATICONLY$
-  /// Creates a dynamic sprite as a copy of a drawing surface.
-  import static DynamicSprite* CreateFromDrawingSurface(DrawingSurface* surface, int x, int y, int width, int height);    // $AUTOCOMPLETESTATICONLY$
-  /// Creates a dynamic sprite as a copy of an existing sprite.
+  /// Crée une image dynamique contenant une copie de la portion spécifiée de la surface de dessin (drawing surface).
+  import static DynamicSprite* CreateFromDrawingSurface(DrawingSurface* surface, int x, int y, int largeur, int hauteur);    // $AUTOCOMPLETESTATICONLY$
+  /// Crée une nouvelle image dynamique contenant une copie de l'image spécifiée.
   import static DynamicSprite* CreateFromExistingSprite(int slot, bool preserveAlphaChannel=0);    // $AUTOCOMPLETESTATICONLY$
-  /// Creates a dynamic sprite from a BMP or PCX file.
+  /// Crée une image dynamique à partir du fichier image spécifié (BMP ou PCX).
   import static DynamicSprite* CreateFromFile(const string filename);              // $AUTOCOMPLETESTATICONLY$
-  /// Creates a dynamic sprite from a save game screenshot.
-  import static DynamicSprite* CreateFromSaveGame(int slot, int width, int height);  // $AUTOCOMPLETESTATICONLY$
-  /// Creates a dynamic sprite as a copy of the current screen.
+  /// Charge la capture d'écran de la partie sauvée à l'emplacement SLOTSAUVEGARDE sous la forme d'une image dynamique.
+  import static DynamicSprite* CreateFromSaveGame(int SLOTSAUVEGARDE, int width, int height);  // $AUTOCOMPLETESTATICONLY$
+  /// Crée un nouvel objet DynamicSprite contenant une copie de la capture d'écran actuelle.
   import static DynamicSprite* CreateFromScreenShot(int width=0, int height=0);  // $AUTOCOMPLETESTATICONLY$
-  /// Enlarges the size of the sprite, but does not resize the image.
-  import void ChangeCanvasSize(int width, int height, int x, int y);
-  /// Copies the transparency mask and/or alpha channel from the specified sprite onto this dynamic sprite.
+  /// Agrandit la taille de l'image dynamique, sans en changer l'echelle.
+  import void ChangeCanvasSize(int largeur, int hauteur, int x, int y);
+  /// Copie le masque de transparence depuis le numéro d'image spécifié vers l'image dynamique.
   import void CopyTransparencyMask(int fromSpriteSlot);
-  /// Reduces the size of the sprite, but does not resize the image.
-  import void Crop(int x, int y, int width, int height);
-  /// Deletes the dynamic sprite from memory when you no longer need it.
+  /// Rogne l'image à largeur x hauteur, en commençant aux coordonnées spécifiées.
+  import void Crop(int x, int y, int largeur, int hauteur);
+  /// Supprime l'image dynamique de la mémoire.
   import void Delete();
-  /// Flips the sprite in the specified direction.
+  /// Retourne l'image dynamique selon le sens spécifié.
   import void Flip(eFlipDirection);
-  /// Gets a drawing surface that can be used to manually draw onto the sprite.
+  /// Retourne la surface de dessin de l'image dynamique.
   import DrawingSurface* GetDrawingSurface();
-  /// Resizes the sprite.
-  import void Resize(int width, int height);
-  /// Rotates the sprite by the specified number of degrees.
+  /// Redimensionne l'image dynamique.
+  import void Resize(int largeur, int hauteur);
+  /// Effectue une rotation sur l'image avec l'angle spécifié (en degré).
   import void Rotate(int angle, int width=SCR_NO_VALUE, int height=SCR_NO_VALUE);
-  /// Saves the sprite to a BMP or PCX file.
+  /// Sauvegardera l'image dynamique dans le fichier spécifié au format bmp.
   import int  SaveToFile(const string filename);
-  /// Permanently tints the sprite to the specified colour.
-  import void Tint(int red, int green, int blue, int saturation, int luminance);
-  /// Gets the colour depth of this sprite.
+  /// Teinte de façon permanente l'image dynamique pour la couleur spécifié(rouge, vert, bleu) avec une saturation et la luminosité spécifié.
+  import void Tint(int rouge, int vert, int bleu, int saturation, int luminosite);
+  /// Retourne la profondeur des couleurs de l'image dynamique.
   readonly import attribute int ColorDepth;
-  /// Gets the sprite number of this dynamic sprite, which you can use to display it in the game.
+  /// Retourne le numéro de l'emplacement d'image dans lequel l'image dynamique est contenue.
   readonly import attribute int Graphic;
-  /// Gets the height of this sprite.
+  /// Retourne la hauteur de l'image dynamique.
   readonly import attribute int Height;
-  /// Gets the width of this sprite.
+  /// Retourne la largeur de l'image dynamique..
   readonly import attribute int Width;
 };
 
