@@ -965,39 +965,39 @@ enum FileMode {
   eFileAppend = 3
 };
 managed struct File {
-  /// Delets the specified file from the disk.
+  /// Supprime le fichier spécifié du disque.
   import static bool Delete(const string filename);   // $AUTOCOMPLETESTATICONLY$
-  /// Checks if the specified file exists on the disk.
+  /// Vérifie que le fichier spécifié existe sur l'ordinateur.
   import static bool Exists(const string filename);   // $AUTOCOMPLETESTATICONLY$
-  /// Opens the specified file in order to read from or write to it.
+  /// Ouvre un fichier sur le disque dur pour lecture ou écriture.
   import static File *Open(const string filename, FileMode);   // $AUTOCOMPLETESTATICONLY$
-  /// Closes the file.
+  /// Ferme le fichier, et sauve les changements sur le disque.
   import void Close();
-  /// Reads an integer value from the file.
+  /// Lit un entier depuis le fichier, et le retourne.
   import int  ReadInt();
-  /// Reads the next raw byte from the file.
+  /// Lit un caractère brut (octet) depuis le fichier et le retourne.
   import int  ReadRawChar();
-  /// Reads the next raw 32-bit int from the file.
+  /// Lit un entier 32-bit depuis le fichier et le retourne.
   import int  ReadRawInt();
 #ifndef STRICT_STRINGS
   import void ReadRawLine(string buffer);
   import void ReadString(string buffer);
 #endif
-  /// Reads the next raw line of text from the file.
+  /// Lit une ligne de texte brut depuis le fichier et la retourne.
   import String ReadRawLineBack();
-  /// Reads the next string from the file.
+  /// Lit une chaîne de caractères depuis un fichier précédemment ouvert avec File.Open, et la retourne.
   import String ReadStringBack();
-  /// Writes an integer to the file.
-  import void WriteInt(int value);
-  /// Writes a raw byte to the file.
+  /// Ecrit le nombre dans le fichier.
+  import void WriteInt(int nombre);
+  /// Ecrit un simple caractère dans le fichier en format texte brut.
   import void WriteRawChar(int value);
-  /// Writes a raw line of text to the file.
+  /// Ecrit du texte dans le fichier en format texte brut.
   import void WriteRawLine(const string text);
-  /// Writes a string to the file.
-  import void WriteString(const string text);
-  /// Gets whether you have reached the end of the file.
+  /// Ecrit le texte dans le fichier préalablement ouvert avec File.Open.
+  import void WriteString(const string texte);
+  /// Vérifie si le fichier spécifié a été entièrement lu.
   readonly import attribute bool EOF;
-  /// Gets whether any errors occurred reading or writing the file.
+  /// Retourne si une erreur est survenue en lisant depuis le fichier spécifié ou en écrivant dedans.
   readonly import attribute bool Error;
   int reserved[2];   // $AUTOCOMPLETEIGNORE$
 };
