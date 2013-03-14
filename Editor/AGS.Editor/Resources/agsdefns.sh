@@ -613,39 +613,39 @@ import void EnableInterface();
 import int  IsInterfaceEnabled();
 
 struct Mouse {
-  /// Changes the sprite for the specified mouse cursor.
+  /// Change l'image du mode de curseur spécifié pour celui contenu à l'emplacement spécifié.
   import static void ChangeModeGraphic(CursorMode, int slot);
-  /// Changes the active hotspot for the specified mouse cursor.
+  /// Change de façon permanente le point de réaction du curseur pour le point aux coordonnées (x,y) de l'image du curseur.
   import static void ChangeModeHotspot(CursorMode, int x, int y);
-  /// Changes the view used to animate the specified mouse cursor.
+  /// Définit la vue (view) du mode de curseur spécifié.
   import static void ChangeModeView(CursorMode, int view);
-  /// Disables the specified cursor mode.
+  /// Désactive le mode de curseur spécifié.
   import static void DisableMode(CursorMode);
-  /// Re-enables the specified cursor mode.
+  /// Réactive le mode de curseur spécifié.
   import static void EnableMode(CursorMode);
-  /// Gets the sprite used for the specified mouse cursor.
+  /// Retourne le numéro de l'image utilisée pour le mode de curseur spécifié.
   import static int  GetModeGraphic(CursorMode);
-  /// Checks whether the specified mouse button is currently pressed.
+  /// Vérifie si l'utilisateur maintient actuellement enfoncé le bouton spécifié de la souris.
   import static bool IsButtonDown(MouseButton);
-  /// Remembers the current mouse cursor and restores it when the mouse leaves the current area.
+  /// Garde en mémoire le curseur actuel de la souris, et le restaure lorsque la souris quitte le hotspot, l'objet ou le personnage actuel.
   import static void SaveCursorUntilItLeaves();
-  /// Cycles to the next available mouse cursor.
+  /// Passe le curseur de la souris au prochain mode disponible.
   import static void SelectNextMode();
-  /// Restricts the mouse movement to the specified area.
-  import static void SetBounds(int left, int top, int right, int bottom);
-  /// Moves the mouse cursor to the specified location.
+  /// Restreint la zone d'écran dans laquelle la souris peut se déplacer.
+  import static void SetBounds(int gauche, int haut, int droite, int bas);
+  /// Place le pointeur de la souris aux coordonnées d'écran (X,Y).
   import static void SetPosition(int x, int y);
-  /// Updates the X and Y co-ordinates to match the current mouse position.
+  /// Mettra à jour les variables globales “mouse.x” et “mouse.y” selon la position actuelle de la souris.
   import static void Update();
-  /// Changes the current mouse cursor back to the default for the current mode.
+  /// Redonne son apparence normale au curseur de la souris, celle définie par défaut pour le mode de curseur actuel.
   import static void UseDefaultGraphic();
-  /// Changes the mouse cursor to use the graphic for a different non-active cursor mode.
+  /// Change l'apparence du curseur de la souris dans le mode de curseur spécifié.
   import static void UseModeGraphic(CursorMode);
-  /// Gets/sets the current mouse cursor mode.
+  /// Retourne/Définit le mode actuel du curseur de la souris.
   import static attribute CursorMode Mode;
-  /// Gets/sets whether the mouse cursor is visible.
+  /// Retourne/Définit si le curseur de la souris est visible.
   import static attribute bool Visible;
-  /// Gets the current mouse position.
+  /// Retourne la position actuelle du curseur.
   readonly int  x,y;
 };
 
@@ -930,33 +930,33 @@ import void RawRestoreScreen ();
 
 #endif
 
-/// Gets the width of the specified text in the specified font
-import int  GetTextWidth(const string text, FontType);
-/// Gets the height of the specified text in the specified font when wrapped at the specified width
-import int  GetTextHeight(const string text, FontType, int width);
-/// Adds to the player's score and plays the score sound, if set.
+/// Retourne la largeur qu'occupera l'affichage à l'écran du texte dans la police spécifié, sur une seule ligne.
+import int  GetTextWidth(const string texte, police);
+/// Calcule la hauteur à l'écran que prendra l'affichage du texte en utilisant la police spécifié dans la largeur spécifié.
+import int  GetTextHeight(const string texte, police, int largeur);
+/// Ajoute la valeure spécifiée au score du joueur, en jouant l'eventuel bruitage approprié.
 import void GiveScore(int points);
-/// Refreshes the on-screen inventory display.
+/// Met à jour l'affichage de l'inventaire à l'écran.
 import void UpdateInventory();
-/// From within dialog_request, tells AGS not to return to the dialog after this function ends.
+/// A utiliser uniquement depuis un "dialog_request", dit à AGS de ne pas revenir au dialogue.
 import void StopDialog();
-/// Determines whether two objects or characters are overlapping each other.
+/// Vérifie si deux personnages ou objets se superposent à l'écran.
 import int  AreThingsOverlapping(int thing1, int thing2);
-/// Sets whether voice and/or text are used in the game.
+/// Détermine si les voix et/ou le texte des discours sont utilisés dans le jeu.
 import void SetVoiceMode(eVoiceMode);
-/// Sets how the player can skip speech lines.
+/// Définit comment le joueur peut passer les discours.
 import void SetSkipSpeech(int skipFlag);
-/// Changes the style in which speech is displayed.
+/// Change la façon dont le texte de discours est affiché.
 import void SetSpeechStyle(eSpeechStyle);
-/// Starts a timer, which will expire after the specified number of game loops.
-import void SetTimer(int timerID, int timeout);
-/// Returns true the first time this is called after the timer expires.
+/// Lance le timer qui sera décompté à chaque cycle du jeu (normalement 40 fois par seconde), jusqu'à la fin du DELAI.
+import void SetTimer(int timerID, int delai);
+/// Vérifie si le timer est dépassé, et renvoie true lors de la première verification (uniquement).
 import bool IsTimerExpired(int timerID);
-/// Sets whether the game can continue to run in the background if the player switches to another application.
+/// Définit ce qui se passe si l'utilisateur réduit la fenêtre du jeu.
 import void SetMultitaskingMode (int mode);
-/// Converts a floating point value to an integer.
+/// Convertit la valeur décimale (à virgule) en valeur entière.
 import int  FloatToInt(float value, RoundDirection=eRoundDown);
-/// Converts an integer to a floating point number.
+/// Convertit la valeur entière entrée en nombre à virgule.
 import float IntToFloat(int value);
 // File I/O
 enum FileMode {
