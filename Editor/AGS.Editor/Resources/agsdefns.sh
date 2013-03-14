@@ -529,9 +529,9 @@ managed struct Parser {
 };
 
 // standard functions
-/// Displays the text in a standard text window.
+/// Affiche un message à l'écran. Il sera affiché dans une boîte de messages standard, et centré au milieu de l'écran.
 import void Display(const string message, ...);
-/// Displays the text in a standard text window at the specified location.
+/// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée aux coordinnées spécifiées.
 import void DisplayAt(int x, int y, int width, const string message, ...);
 /// Displays the text in a standard text window at the specified y-coordinate.
 import void DisplayAtY (int y, const string message);
@@ -539,37 +539,37 @@ import void DisplayAtY (int y, const string message);
 import void DisplayMessage(int messageNumber);
 /// Displays a message from the Room Message Editor at the specified y-coordinate.
 import void DisplayMessageAtY(int messageNumber, int y);
-/// Displays a message in a text window with a title, used for speech in SCI0 games.
+/// Affiche un message dans une fenêtre texte, avec une barre de titre au dessus d'elle.
 import void DisplayTopBar(int y, int textColor, int backColor, const string title, const string text, ...);
 /// Displays a Room Message Editor message in a text window with a title, used for speech in SCI0 games.
 import void DisplayMessageBar(int y, int textColor, int backColor, const string title, int message);
-/// Resets the room state back to how it was initially set up in the editor.
+/// Rétablit l'état d'origine de la piéce spécifié.
 import void ResetRoom(int roomNumber);
-/// Checks whether the player has been in the specified room yet.
+/// Vérifie si le joueur s'est déjà rendu dans la pièce spécifiée.
 import int  HasPlayerBeenInRoom(int roomNumber);
-/// Performs default processing of a mouse click at the specified co-ordinates.
+/// Simule un clic de la souris aux coordonnées (x,y) de l'écran, dans le mode de curseur spécifié.
 import void ProcessClick(int x, int y, CursorMode);
-/// Exits the game with an error message.
+/// Arrête le jeu et affiche une fenêtre d'erreur.
 import void AbortGame(const string message, ...);
-/// Quits the game, optionally showing a confirmation dialog.
+/// Quitte le jeu.
 import void QuitGame(int promptUser);
-/// Changes the current game speed.
+/// Change la vitesse du jeu (nombre de cycles par seconde).
 import void SetGameSpeed(int framesPerSecond);
-/// Gets the current game speed.
+/// Retourne la vitesse actuelle du jeu (nombre de cycles par seconde).
 import int  GetGameSpeed();
-/// Changes a game option; see the manual for details.
+/// Change une des options du jeu.
 import int  SetGameOption(int option, int value);
-/// Gets the current value of a game option.
+/// Retourne le réglage actuel d'une option du jeu.
 import int  GetGameOption(int option);
-/// Performs various debugging commands.
+/// Cette fonction gère tous les services de debug du moteur.
 import void Debug(int command, int data);
-/// Calls the on_call function in the current room.
+/// Appelle la fonction on_call de la pièce actuelle.
 import void CallRoomScript(int value);
-/// Transfers gameplay into a separate AGS game.
+/// Quitte la partie actuelle, et lance le jeu AGS spécifié à la place.
 import int  RunAGSGame(const string filename, int mode, int data);
-/// Gets the translated version of the specified text.
+/// Retourne la traduction du texte contenu dans la string.
 import string GetTranslation (const string originalText);
-/// Checks if a translation is currently in use.
+/// Informe si le joueur utilise une traduction du jeu ou non.
 import int  IsTranslationAvailable ();
 /// Affiche le GUI de chargement de jeu par défaut.
 import void RestoreGameDialog();
