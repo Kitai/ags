@@ -435,96 +435,96 @@ managed struct Room {
 };
 
 managed struct Game {
-  /// Changes the active translation.
+  /// Change la traduction en cours.
   import static bool   ChangeTranslation(const string newTranslationFileName);
-  /// Returns true the first time this command is called with this token.
-  import static bool   DoOnceOnly(const string token);
-  /// Gets the AGS Colour Number for the specified RGB colour.
-  import static int    GetColorFromRGB(int red, int green, int blue);
-  /// Gets the number of frames in the specified view loop.
-  import static int    GetFrameCountForLoop(int view, int loop);
-  /// Gets the name of whatever is on the screen at (x,y)
+  /// Retourne vrai la première fois que cette fonction est appelé avec l'appel (token) spécifié.
+  import static bool   DoOnceOnly(const string appel);
+  /// Récupère le Nombre de Couleur AGS (AGS Colour Number) pour la couleur RGB spécifiée.
+  import static int    GetColorFromRGB(int rouge, int vert, int bleu);
+  ///  Retourne le nombre de vignettes (frames) dans la séquence spécifiée de la vue spécifiée.
+  import static int    GetFrameCountForLoop(int vue, int sequence);
+  /// Retourne le nom de ce qui se trouve à l'écran aux coordonnées (x,y). 
   import static String GetLocationName(int x, int y);
-  /// Gets the number of loops in the specified view.
-  import static int    GetLoopCountForView(int view);
-  /// Returns the current pattern/track number if the current music is MOD or XM.
+  /// Retourne le nombre de séquences dans la vue spécifiée.
+  import static int    GetLoopCountForView(int vue);
+  /// Returns the current pattern/track number if the current music is MOD or XM (décrépi).
   import static int    GetMODPattern();
-  /// Gets whether the "Run next loop after this" setting is checked for the specified loop.
+  /// Retourne si la séquence spécifiée dans la vue spécifiée a l'option “Run the next loop after this one” (Lancer la prochaine séquence après celle-ci) activé.
   import static bool   GetRunNextSettingForLoop(int view, int loop);
-  /// Gets the description of the specified save game slot.
+  ///  Retourne le texte de description de l'emplacement de sauvegarde spécifié.
   import static String GetSaveSlotDescription(int saveSlot);
-  /// Gets the ViewFrame instance for the specified view frame.
-  import static ViewFrame* GetViewFrame(int view, int loop, int frame);
-  /// Prompts the user to type in a string, and returns the text that they type in.
+  /// Retourne l'image (de type ViewFrame) de la vignette spécifiée dans la séquence et la vue spécifiées.
+  import static ViewFrame* GetViewFrame(int vue, int séquence, int vignette);
+  /// Affiche une fenêtre demandant à l'utilisateur de taper du texte, et retourne le texte tapé.
   import static String InputBox(const string prompt);
-  /// Gets whether any audio (of this type) is currently playing.
+  /// Retourne true s'il y a une séquence audio (eventuellement du type spécifié) en cours de lecture.
   import static bool   IsAudioPlaying(AudioType audioType=SCR_NO_VALUE);
-  /// Changes the volume drop applied to this audio type when speech is played
+  /// Change la propriété VolumeReductionWhileSpeechPlaying du type audio (AudioType) spécifié.
   import static void   SetAudioTypeSpeechVolumeDrop(AudioType, int volumeDrop);
-  /// Changes the default volume of audio clips of the specified type.
+  /// Change le volume par défaut du type audio (AudioType) spécifié.
   import static void   SetAudioTypeVolume(AudioType, int volume, ChangeVolumeType);
-  /// Sets the directory where AGS will save and load saved games.
+  /// Change le répertoire où les fichiers de sauvegarde du jeu sont stockées.
   import static bool   SetSaveGameDirectory(const string directory);
-  /// Stops all currently playing audio (optionally of the specified type).
+  /// Stoppe toute séquence audio en cours de lecture. (en option, le type de fichier concerné).
   import static void   StopAudio(AudioType audioType=SCR_NO_VALUE);
 #ifndef STRICT_AUDIO
-  /// Stops all currently playing sound effects.
+  /// Arrête tout les fichier audios en cours de lecture (décrépi).
   import static void   StopSound(bool includeAmbientSounds=false);   // $AUTOCOMPLETEIGNORE$
 #endif
-  /// Gets the number of characters in the game.
+  /// Retourne le nombre de personnages dans le jeu.
   readonly import static attribute int CharacterCount;
-  /// Gets the number of dialogs in the game.
+  /// Retourne le nombre de dialogues dans le jeu.
   readonly import static attribute int DialogCount;
-  /// Gets the name of the game EXE file.
+  /// Retourne le nom de fichier qui a lancé le jeu.
   readonly import static attribute String FileName;
-  /// Gets the number of fonts in the game.
+  /// Retourne le nombre de polices dans le jeu.
   readonly import static attribute int FontCount;
-  /// Accesses the legacy Global Messages, from AGS 2.x
+  /// Retourne le texte du message global spécifié. Obsoléte.
   readonly import static attribute String GlobalMessages[];
-  /// Accesses the global strings collection. This is obsolete.
+  /// Retourne/Définit la string globale spécifiée. Obsoléte.
   import static attribute String GlobalStrings[];
-  /// Gets the number of GUIs in the game.
+  /// Retourne le nombre de GUIs dans le jeu.
   readonly import static attribute int GUICount;
-  /// Gets/sets the time for which user input is ignored after some text is automatically removed
+  /// Retourne/définit le temps de nom prise en compte des actions du joueurs après un affichage de texte.
   import static attribute int IgnoreUserInputAfterTextTimeoutMs;
-  /// Checks whether the game is currently in the middle of a skippable cutscene.
+  /// Retourne si le jeu est actuellement dans une cinématique pouvant être interomput.
   readonly import static attribute bool InSkippableCutscene;
-  /// Gets the number of inventory items in the game.
+  /// Retourne le nombre d'objets d'inventaires dans le jeu.
   readonly import static attribute int InventoryItemCount;
-  /// Gets/sets the minimum time that a piece of speech text stays on screen (in milliseconds)
+  /// Retourne/définit le temps d'affichage minimum d'un discours, en millisecondes.
   import static attribute int MinimumTextDisplayTimeMs;
-  /// Gets the number of mouse cursors in the game.
+  /// Retourne le nombre de curseurs dans le jeu.
   readonly import static attribute int MouseCursorCount;
-  /// Gets/sets the game name.
+  /// Retourne/définit le nom du jeu.
   import static attribute String Name;
-  /// Gets/sets the normal font used for displaying text.
+  /// Retourne/Définit la police utilisée pour afficher le texte du jeu.
   import static attribute FontType NormalFont;
-  /// Checks whether the game is currently skipping over a cutscene.
+  /// Vous permet de savoir si le joueur est en train de passer la cinématique en cours.
   readonly import static attribute bool SkippingCutscene;
-  /// Gets/sets the font used for displaying speech text.
+  /// Retourne/définit la police utiliser pour le discours des personnages.
   import static attribute FontType SpeechFont;
-  /// Gets the height of the specified sprite.
+  /// Retourne la hauteur de l'image spécifiée.
   readonly import static attribute int SpriteHeight[];
-  /// Gets the width of the specified sprite.
+  /// Retourne la largeur de l'image spécifiée.
   readonly import static attribute int SpriteWidth[];
-  /// Gets/sets how fast speech text is removed from the screen.
+  /// Retourne/Définit la vitesse à laquelle le jeu retire un texte affiché.
   import static attribute int TextReadingSpeed;
-  /// Gets name of the currently active translation.
+  /// Retourne le nom du fichier de traduction actuel.
   readonly import static attribute String TranslationFilename;
-  /// Gets whether the game is using native co-ordinates.
+  /// Retourne si le jeu utilise les coordonnées natives.
   readonly import static attribute bool UseNativeCoordinates;
-  /// Gets the number of views in the game.
+  /// Retourne le nombre de vues dans le jeu.
   readonly import static attribute int ViewCount;
 };
 
 managed struct Parser {
-  /// Returns the parser dictionary word ID for the specified word
-  import static int    FindWordID(const string wordToFind);
-  /// Stores the supplied user text for later use with Said
+  /// Cherche motATrouver dans le dictionnaire du parser, et retourne son numéro ID.
+  import static int    FindWordID(const string motATrouver);
+  /// Stocke le texte spécifié pour être utilisé plus tard par Said.
   import static void   ParseText(const string text);
-  /// Checks whether the player's input matched this text.
-  import static bool   Said(const string text);
-  /// Gets any word that the player typed that was not in the game dictionary.
+  /// Vérifie si le joueur a entré le texte spécifié dans ce qui a été passé à ParseText.
+  import static bool   Said(const string texte);
+  /// Retourne un mot entrée par le joueur non présent dans le dictionnaire du jeu.
   import static String SaidUnknownWord();
 };
 
@@ -533,15 +533,15 @@ managed struct Parser {
 import void Display(const string message, ...);
 /// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée aux coordinnées spécifiées.
 import void DisplayAt(int x, int y, int width, const string message, ...);
-/// Displays the text in a standard text window at the specified y-coordinate.
+/// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée à la coordinnée y spécifiée.
 import void DisplayAtY (int y, const string message);
-/// Displays a message from the Room Message Editor.
+/// Displays a message from the Room Message Editor (décrépit).
 import void DisplayMessage(int messageNumber);
-/// Displays a message from the Room Message Editor at the specified y-coordinate.
+/// Displays a message from the Room Message Editor at the specified y-coordinate (décrépit).
 import void DisplayMessageAtY(int messageNumber, int y);
 /// Affiche un message dans une fenêtre texte, avec une barre de titre au dessus d'elle.
 import void DisplayTopBar(int y, int textColor, int backColor, const string title, const string text, ...);
-/// Displays a Room Message Editor message in a text window with a title, used for speech in SCI0 games.
+/// Displays a Room Message Editor message in a text window with a title, used for speech in SCI0 games (décrépit).
 import void DisplayMessageBar(int y, int textColor, int backColor, const string title, int message);
 /// Rétablit l'état d'origine de la piéce spécifié.
 import void ResetRoom(int roomNumber);
