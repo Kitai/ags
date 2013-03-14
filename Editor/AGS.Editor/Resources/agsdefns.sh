@@ -571,45 +571,45 @@ import int  RunAGSGame(const string filename, int mode, int data);
 import string GetTranslation (const string originalText);
 /// Checks if a translation is currently in use.
 import int  IsTranslationAvailable ();
-/// Displays the default built-in Restore Game dialog.
+/// Affiche le GUI de chargement de jeu par défaut.
 import void RestoreGameDialog();
-/// Displays the default built-in Save Game dialog.
+/// Affiche le GUI de sauvegarde par défaut.
 import void SaveGameDialog();
-/// Restarts the game from the restart point.
+/// Redémarre le jeu depuis le début.
 import void RestartGame();
-/// Saves the current game position to the specified slot.
+/// Sauvegarde la progression de la partie actuelle dans l'emplacement spécifié.
 import void SaveGameSlot(int slot, const string description);
-/// Restores the game saved to the specified game slot.
+/// Charge la partie sauvegardée à l'emplacement spécifié.
 import void RestoreGameSlot(int slot);
-/// Deletes the specified save game.
+/// Supprime la sauvegarde contenue dans l'emplacement spécifié.
 import void DeleteSaveSlot(int slot);
-/// Sets this as the point at which the game will be restarted.
+/// Change le point de départ du jeu pour la position actuelle.
 import void SetRestartPoint();
-/// Gets what type of thing is in the room at the specified co-ordinates.
+/// Retourne le type de l'élément qui se trouve aux coordonnées (x,y) 
 import LocationType GetLocationType(int x, int y);
-/// Returns which walkable area is at the specified position relative to the current viewport.
+/// Retourne le numéro de la zone de déplacement à l'écran aux coordonnées (X,Y).
 import int  GetWalkableAreaAt(int screenX, int screenY);
-/// Returns the scaling level at the specified position within the room.
+/// Retourne le niveau de mise à l'echelle de la pièce aux coordonnées (x,y).
 import int  GetScalingAt (int x, int y);
-/// Gets the specified Custom Property for the current room.
+/// Retourne la valeur de la propriété personnelle spécifiée pour la pièce actuelle.
 import int  GetRoomProperty(const string property);
-/// Locks the viewport to stop the screen scrolling automatically.
+/// Fige la caméra de façon à ce que le coin gauche de l'écran correspondent aux coordonnées (x,y) de la pièce.
 import void SetViewport(int x, int y);
-/// Allows AGS to scroll the screen automatically to follow the player character.
+/// Débloque la caméra, l'autorisant à se déplacer automatiquement pour suivre les déplacements du joueur.
 import void ReleaseViewport();
-/// Gets the current X offset of the scrolled viewport.
+/// Retourne le décalage X de la caméra par rapport à la pièce.
 import int  GetViewportX();
-/// Gets the current Y offset of the scrolled viewport.
+/// Retourne le décalage Y de la caméra par rapport à la pièce.
 import int  GetViewportY();
-/// Returns whether the game is currently paused.
+/// Retourne 1 si le jeu est actuellement en pause.
 import int  IsGamePaused();
 import int  GetGraphicalVariable (const string variableName);
 import void SetGraphicalVariable (const string variableName, int value);
-/// Disables the player interface and activates the Wait cursor.
+/// Désactive l'interface du joueur at affiche le curseur d'attente.
 import void DisableInterface();
-/// Re-enables the player interface.
+/// Réactive l'interface du joueur.
 import void EnableInterface();
-/// Checks whether the player interface is currently enabled.
+/// Retourne si l'interface du joueur est actuellement disponible.
 import int  IsInterfaceEnabled();
 
 struct Mouse {
