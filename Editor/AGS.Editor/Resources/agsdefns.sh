@@ -310,127 +310,127 @@ internalstring autoptr managed struct String {
   import static String Format(const string format, ...);    // $AUTOCOMPLETESTATICONLY$
   /// Checks whether the supplied string is null or empty.
   import static bool IsNullOrEmpty(String stringToCheck);  // $AUTOCOMPLETESTATICONLY$
-  /// Returns a new string with the specified string appended to this string.
+  /// Ajoute le texte spécifié à la fin de la chaine de caractéres.
   import String  Append(const string appendText);
-  /// Returns a new string that has the extra character appended.
+  /// Ajoute un simple caractère à la fin du texte spécifié, et retourne le résultat.
   import String  AppendChar(char extraChar);
-  /// Compares this string to the other string.
+  /// Compare le texte à l'autre texte spécifié.
   import int     CompareTo(const string otherString, bool caseSensitive = false);
   import int     Contains(const string needle);   // $AUTOCOMPLETEIGNORE$
-  /// Creates a copy of the string.
+  /// Retourne une copie de la chaîne spécifiée.
   import String  Copy();
-  /// Checks whether this string ends with the specified text.
+  /// Retourne si la chaîne se termine par le texte spécifié.
   import bool    EndsWith(const string endsWithText, bool caseSensitive = false);
   /// Returns the index of the first occurrence of the needle in this string.
   import int     IndexOf(const string needle);
-  /// Returns a lower-cased version of this string.
+  /// Retourne une version minuscule de la chaîne de texte spécifiée.
   import String  LowerCase();
-  /// Returns a copy of this string with all occurrences of LookForText replaced with ReplaceWithText
+  /// Crée une copie de cette chaîne, où toutes les occurrences de lookForText sont remplacées par replaceWithText.
   import String  Replace(const string lookForText, const string replaceWithText, bool caseSensitive = false);
-  /// Returns a new string, with the specified character changed.
+  /// Remplace le caractère à la position INDEX dans la chaîne par NEWCHAR.
   import String  ReplaceCharAt(int index, char newChar);
-  /// Checks whether this string starts with the specified text.
+  /// Retourne si la chaîne commence par le texte spécifié.
   import bool    StartsWith(const string startsWithText, bool caseSensitive = false);
-  /// Returns a portion of the string.
-  import String  Substring(int index, int length);
-  /// Truncates the string down to the specified length by removing characters from the end.
+  /// Retourne une partie de la chaîne, depuis le caractère index sur la longueur spécifié.
+  import String  Substring(int index, int longueur);
+  /// Retourne une version de la chaîne qui aura été coupée à partir du caractère spécifié.
   import String  Truncate(int length);
-  /// Returns an upper-cased version of this string.
+  /// Retourne une version majuscule de la chaîne spécifiée.
   import String  UpperCase();
-  /// Converts the string to a float.
+  /// Convertie une chaîne en nombre a virgule.
   readonly import attribute float AsFloat;
-  /// Converts the string to an integer.
+  /// Convertie la chaîne de texte en nombre entier.
   readonly import attribute int AsInt;
-  /// Accesses individual characters of the string.
+  /// Retourne le caractère à la position spécifiée dans la chaîne.
   readonly import attribute char Chars[];
-  /// Returns the length of the string.
+  /// Retourne la longueur de la chaîne (en nombre de caractéres).
   readonly import attribute int Length;
 };
 
 managed struct AudioClip;
 
 managed struct ViewFrame {
-  /// Gets whether this frame is flipped.
+  /// Retourne si l'image a été retournée.
   readonly import attribute bool Flipped;
-  /// Gets the frame number of this frame.
+  /// Retourne le numéroe de vignette de cette ViewFrame (vignette).
   readonly import attribute int Frame;
-  /// Gets/sets the sprite that is displayed by this frame.
+  /// Retourne/définit le numéro d'image qu'affiche cette ViewFrame (vignette).
   import attribute int Graphic;
-  /// Gets/sets the audio that is played when this frame comes around.
+  /// Retourne/définit la séquence audio qui est liée à cette vignette.
   import attribute AudioClip* LinkedAudio;
-  /// Gets the loop number of this frame.
+  /// Retourne le numéro de séquence représenté par cette ViewFrame (vignette).
   readonly import attribute int Loop;
-  /// Gets/sets the sound that is played when this frame comes around.
+  /// Retourne/définit la séquence audio qui est liée à cette vignette.
   import attribute int Sound;    // $AUTOCOMPLETEIGNORE$
-  /// Gets the delay of this frame.
+  /// Retourne la vitesse définie pour cette ViewFrame (vignette).
   readonly import attribute int Speed;
-  /// Gets the view number that this frame is part of.
+  /// Retourne le numéro de vue contenant cette Frame (vignette).
   readonly import attribute int View;
 };
 
 managed struct DrawingSurface {
-  /// Clears the surface to the specified colour, or transparent if you do not specify a colour.
+  /// Remplit la surface avec la couleur spécifiée.
   import void Clear(int colour=-SCR_NO_VALUE);
-  /// Creates a copy of the surface.
+  /// Crée une copie de la surface actuelle.
   import DrawingSurface* CreateCopy();
-  /// Draws a circle onto the surface with its centre at (x,y).
-  import void DrawCircle(int x, int y, int radius);
-  /// Draws a sprite onto the surface with its top-left corner at (x,y).
+  /// Dessine un cercle plein de rayon spécifié centré à (x,y) de la couleur de dessin courante.
+  import void DrawCircle(int x, int y, int rayon);
+  /// Dessine l'image BLOC du gestionnaire de sprite sur la surface aux coordonnées (x,y)
   import void DrawImage(int x, int y, int spriteSlot, int transparency=0, int width=SCR_NO_VALUE, int height=SCR_NO_VALUE);
-  /// Draws a straight line between the two points on the surface.
+  /// Dessine une ligne depuis (x1, y1) jusqu'à (x2, y2) de la couleur en cours.
   import void DrawLine(int x1, int y1, int x2, int y2, int thickness=1);
-  /// Draws a message from the Room Message Editor, wrapping at the specified width.
-  import void DrawMessageWrapped(int x, int y, int width, FontType, int messageNumber);
-  /// Changes the colour of a single pixel on the surface.
+  /// Dessine le message NUMERO_MESSAGE sur la surface à (X,Y), en utilisant la POLICE spécifiée. (décrépi).
+  import void DrawMessageWrapped(int x, int y, int width, POLICE, int NUMERO_MESSAGE);
+  /// Dessine un pixel sur la surface aux coordonnées (x,y) dans la couleur courante.
   import void DrawPixel(int x, int y);
-  /// Draws a filled rectangle to the surface.
+  /// Dessine un rectangle plein dans la couleur courante avec son coin supérieur gauche à (x1,y1) et son coin inférieur droit à (x2,y2).
   import void DrawRectangle(int x1, int y1, int x2, int y2);
-  /// Draws the specified text to the surface.
-  import void DrawString(int x, int y, FontType, const string text, ...);
-  /// Draws the text to the surface, wrapping it at the specified width.
-  import void DrawStringWrapped(int x, int y, int width, FontType, Alignment, const string text);
-  /// Draws the specified surface onto this surface.
-  import void DrawSurface(DrawingSurface *surfaceToDraw, int transparency=0);
-  /// Draws a filled triangle onto the surface.
+  /// Dessine le texte sur la surface aux coordonnées (x, y), en utilisant la police spécifié.
+  import void DrawString(int x, int y, police, const string text, ...);
+  /// Dessine le texte sur la surface à (x,y), en utilisant la largeure, la police et l'alignement spécifiée.
+  import void DrawStringWrapped(int x, int y, int largeur, police, Alignment, const string texte);
+  /// Dessine la surface spécifiée sur cette surface, en utilisant optionnellement une transparence.
+  import void DrawSurface(DrawingSurface *surfaceToDraw, int transparence=0);
+  /// Dessine un triangle plein dans la couleur en cours avec ses coins aux points (x1,y1), (x2,y2) et (x3,y3).
   import void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
-  /// Gets the colour of a single pixel on the surface.
+  /// Retourne le Numéro de Couleur AGS (AGS Colour Number) du pixel au point (x,y) de la surface.
   import int  GetPixel(int x, int y);
-  /// Tells AGS that you have finished drawing onto the surface.
+  /// Informe AGS que vous avez fini de dessiner sur la surface.
   import void Release();
-  /// Gets/sets the current AGS Colour Number that will be used for drawing onto this surface.
+  /// Retourne/Définit la couleur de dessin courante sur la surface (en AGS colour number).
   import attribute int DrawingColor;
-  /// Gets the height of this surface.
+  /// Retourne la hauteur de la surface.
   readonly import attribute int Height;
-  /// Determines whether you use high-res or low-res co-ordinates for drawing onto this surface.
+  /// Retourne/Définit si vous voulez utiliser les coordonnées haute-résolution sur cette surface.
   import attribute bool UseHighResCoordinates;
-  /// Gets the width of the surface.
+  /// Retourne la largeur de la surface.
   readonly import attribute int Width;
 };
 
 managed struct Room {
-  /// Gets a Custom Property associated with this room.
+  /// Retourne le texte de la propriété personnelle spécifé pour la pièce actuelle.
   import static String GetTextProperty(const string property);
-  /// Gets a drawing surface that allows you to manipulate the room background.
+  /// Retourne une surface de dessin (drawing surface) contenant l'arrière-plan de la pièce.
   import static DrawingSurface* GetDrawingSurfaceForBackground(int backgroundNumber=SCR_NO_VALUE);
-  /// Gets the Y co-ordinate of the bottom edge of the room.
+  /// Retourne la coordonnée Y du bord bas du cadre de la pièce.
   readonly import static attribute int BottomEdge;
-  /// Gets the colour depth of the room background.
+  /// Retourne la profondeur de couleurs de l'arrière-plan de la pièce.
   readonly import static attribute int ColorDepth;
-  /// Gets the height of the room background.
+  /// Retourne la hauteur de la pièce.
   readonly import static attribute int Height;
-  /// Gets the X co-ordinate of the left edge of the room.
+  /// Retourne la coordonnée X du bord gauche du cadre de la pièce.
   readonly import static attribute int LeftEdge;
-  /// Accesses room messages, as set up in the Room Message Editor.
+  /// Retourne le texte du message de la pièce (décrépi).
   readonly import static attribute String Messages[];
-  /// Gets the music that is played when the player enters this room.
+  /// Retourne le numéro de la musique qui est jouée lorsque le joueur entre dans cette pièce.
   readonly import static attribute int MusicOnLoad;
-  /// Gets the number of objects in this room.
+  /// Retourne le nombre d'objets dans la pièce.
   readonly import static attribute int ObjectCount;
-  /// Gets the X co-ordinate of the right edge of the room.
+  /// Retourne la coordonnée X du bord droit du cadre de la pièce.
   readonly import static attribute int RightEdge;
-  /// Gets the Y co-ordinate of the top edge of the room.
+  /// Retourne la coordonnée Y du bord haut du cadre de la pièce.
   readonly import static attribute int TopEdge;
-  /// Gets the width of the room background.
+  /// Retourne la largeur de la pièce.
   readonly import static attribute int Width;
 };
 
