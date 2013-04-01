@@ -1030,12 +1030,12 @@ managed struct InventoryItem {
 };
 
 managed struct Overlay {
-  /// Crée un calque sur l'écran contenant une copie de l'image spécifié.
-  import static Overlay* CreateGraphical(int x, int y, int slot, bool transparent);  // $AUTOCOMPLETESTATICONLY$
+  /// Crée un calque sur l'écran contenant une copie de l'image spécifiée.
+  import static Overlay* CreateGraphical(int x, int y, int bloc, bool transparent);  // $AUTOCOMPLETESTATICONLY$
   /// Crée un calque à l'écran contenant le texte que vous passez à la position spécifiée.
-  import static Overlay* CreateTextual(int x, int y, int largeur, FontType, int couleur, const string text, ...);  // $AUTOCOMPLETESTATICONLY$
+  import static Overlay* CreateTextual(int x, int y, int largeur, FontType, int couleur, const string texte, ...);  // $AUTOCOMPLETESTATICONLY$
   /// Spécifie le texte affiché par le calque.
-  import void SetText(int largeur, FontType, int colour, const string text, ...);
+  import void SetText(int largeur, FontType, int couleur, const string texte, ...);
   /// Efface le calque spécifié de l'écran.
   import void Remove();
   /// Vérifie si le calque est actuellement affiché ou non.
@@ -1048,152 +1048,152 @@ managed struct Overlay {
 
 managed struct DynamicSprite {
   /// Crée une nouvelle image dynamique vierge de la taille spécifiée.
-  import static DynamicSprite* Create(int width, int height, bool hasAlphaChannel=false);    // $AUTOCOMPLETESTATICONLY$
+  import static DynamicSprite* Create(int largeur, int hauteur, bool possedeCanalAlpha=false);    // $AUTOCOMPLETESTATICONLY$
   /// Crée une image dynamique contenant une copie de l'image d'arrière-plan de la pièce.
-  import static DynamicSprite* CreateFromBackground(int frame=SCR_NO_VALUE, int x=SCR_NO_VALUE, int y=SCR_NO_VALUE, int width=SCR_NO_VALUE, int height=SCR_NO_VALUE);    // $AUTOCOMPLETESTATICONLY$
+  import static DynamicSprite* CreateFromBackground(int vignette=SCR_NO_VALUE, int x=SCR_NO_VALUE, int y=SCR_NO_VALUE, int largeur=SCR_NO_VALUE, int hauteur=SCR_NO_VALUE);    // $AUTOCOMPLETESTATICONLY$
   /// Crée une image dynamique contenant une copie de la portion spécifiée de la surface de dessin (drawing surface).
   import static DynamicSprite* CreateFromDrawingSurface(DrawingSurface* surface, int x, int y, int largeur, int hauteur);    // $AUTOCOMPLETESTATICONLY$
   /// Crée une nouvelle image dynamique contenant une copie de l'image spécifiée.
-  import static DynamicSprite* CreateFromExistingSprite(int slot, bool preserveAlphaChannel=0);    // $AUTOCOMPLETESTATICONLY$
+  import static DynamicSprite* CreateFromExistingSprite(int bloc, bool preserverCanalAlpha=0);    // $AUTOCOMPLETESTATICONLY$
   /// Crée une image dynamique à partir du fichier image spécifié (BMP ou PCX).
-  import static DynamicSprite* CreateFromFile(const string filename);              // $AUTOCOMPLETESTATICONLY$
-  /// Charge la capture d'écran de la partie sauvée à l'emplacement SLOTSAUVEGARDE sous la forme d'une image dynamique.
-  import static DynamicSprite* CreateFromSaveGame(int SLOTSAUVEGARDE, int width, int height);  // $AUTOCOMPLETESTATICONLY$
+  import static DynamicSprite* CreateFromFile(const string nomFichier);              // $AUTOCOMPLETESTATICONLY$
+  /// Charge la capture d'écran de la partie sauvée à l'emplacement BLOCSAUVEGARDE sous la forme d'une image dynamique.
+  import static DynamicSprite* CreateFromSaveGame(int BLOCSAUVEGARDE, int largeur, int hauteur);  // $AUTOCOMPLETESTATICONLY$
   /// Crée un nouvel objet DynamicSprite contenant une copie de la capture d'écran actuelle.
-  import static DynamicSprite* CreateFromScreenShot(int width=0, int height=0);  // $AUTOCOMPLETESTATICONLY$
-  /// Agrandit la taille de l'image dynamique, sans en changer l'echelle.
+  import static DynamicSprite* CreateFromScreenShot(int largeur=0, int hauteur=0);  // $AUTOCOMPLETESTATICONLY$
+  /// Agrandit la taille de l'image dynamique, sans en changer l'échelle.
   import void ChangeCanvasSize(int largeur, int hauteur, int x, int y);
-  /// Copie le masque de transparence depuis le numéro d'image spécifié vers l'image dynamique.
-  import void CopyTransparencyMask(int fromSpriteSlot);
+  /// Copie le masque de transparence depuis l'image de numéro spécifié vers l'image dynamique.
+  import void CopyTransparencyMask(int numeroImage);
   /// Rogne l'image à largeur x hauteur, en commençant aux coordonnées spécifiées.
   import void Crop(int x, int y, int largeur, int hauteur);
   /// Supprime l'image dynamique de la mémoire.
   import void Delete();
-  /// Retourne l'image dynamique selon le sens spécifié.
+  /// Effectue une rotation de l'image dynamique selon le sens spécifié.
   import void Flip(eFlipDirection);
-  /// Retourne la surface de dessin de l'image dynamique.
+  /// Renvoie la surface de dessin de l'image dynamique.
   import DrawingSurface* GetDrawingSurface();
   /// Redimensionne l'image dynamique.
   import void Resize(int largeur, int hauteur);
   /// Effectue une rotation sur l'image avec l'angle spécifié (en degré).
-  import void Rotate(int angle, int width=SCR_NO_VALUE, int height=SCR_NO_VALUE);
-  /// Sauvegardera l'image dynamique dans le fichier spécifié au format bmp.
-  import int  SaveToFile(const string filename);
-  /// Teinte de façon permanente l'image dynamique pour la couleur spécifié(rouge, vert, bleu) avec une saturation et la luminosité spécifié.
+  import void Rotate(int angle, int largeur=SCR_NO_VALUE, int hauteur=SCR_NO_VALUE);
+  /// Sauvegarde l'image dynamique dans le fichier spécifié au format BMP.
+  import int  SaveToFile(const string nomFichier);
+  /// Teinte de façon permanente l'image dynamique pour la couleur spécifié (rouge, vert, bleu) avec la saturation et la luminosité spécifiées.
   import void Tint(int rouge, int vert, int bleu, int saturation, int luminosite);
-  /// Retourne la profondeur des couleurs de l'image dynamique.
+  /// Retourne la profondeur de couleurs de l'image dynamique.
   readonly import attribute int ColorDepth;
-  /// Retourne le numéro de l'emplacement d'image dans lequel l'image dynamique est contenue.
+  /// Retourne le numéro de l'emplacement dans lequel l'image dynamique est contenue.
   readonly import attribute int Graphic;
   /// Retourne la hauteur de l'image dynamique.
   readonly import attribute int Height;
-  /// Retourne la largeur de l'image dynamique..
+  /// Retourne la largeur de l'image dynamique.
   readonly import attribute int Width;
 };
 
 // Palette FX
-/// Passe d'un écran noir à un affichage normale selon la vitesse spécifié.
+/// Passe d'un écran noir à un affichage normal selon la vitesse spécifiée.
 import void FadeIn(int vitesse);
 /// Noircit totalement l'écran en fondu selon la vitesse spécifiée.
 import void FadeOut(int vitesse);
-/// Les indices  de début à fin de la palette sont décalés d'un bloc en cycle (jeux en couleur 8-bit uniquement).
+/// Les indices  de début à fin de la palette sont décalés d'un bloc en cycle (jeux en 256 couleurs uniquement).
 import void CyclePalette(int start, int end);
-/// Change les valeurs RVB du bloc spécifié de la palette (jeux en couleur 8-bit uniquement).
+/// Change les valeurs RGB du bloc spécifié de la palette (jeux en 256 couleurs uniquement).
 import void SetPalRGB(int bloc, int rouge, int vert, int bleu);
-/// Applique les changements que vous avez effectués sur la palette du jeu (jeux en couleur 8-bit uniquement).
+/// Applique les changements que vous avez effectués sur la palette du jeu (jeux en 256 couleurs uniquement).
 import void UpdatePalette();
-/// Teinte tout l'écran avec la couleur RGB spécifiée.
+/// Teinte tout l'écran avec la couleur RVB spécifiée.
 import void TintScreen (int rouge, int vert, int bleu);
-/// Teinte tous les objets et personnages à l'écran selon la couleure RGB spécifiée, avec la saturation et la luminosité spécifié.
+/// Teinte tous les objets et personnages à l'écran selon la couleure RVB spécifiée, avec la saturation et la luminosité spécifiées.
 import void SetAmbientTint(int rouge, int vert, int bleu, int saturation, int luminosite);
 /// Retourne un nombre entier aléatoire entre 0 et max.
 import int  Random(int max);
 /// Fixe l'arrière-plan affiché au numéro spécifié.
-import void SetBackgroundFrame(int NumeroImage);
+import void SetBackgroundFrame(int numeroImage);
 /// Retourne le numéro de l'arrière-plan actuellement affiché.
 import int  GetBackgroundFrame();
-/// Secoue l'écran avec la force spécifié.
+/// Secoue l'écran avec la force spécifiée.
 import void ShakeScreen(int amount);
 /// Secoue l'écran sans mettre le jeu en pause.
 import void ShakeScreenBackground(int vitesse, int force, int duree);
 /// Définit le style de transition entre les pièces.
 import void SetScreenTransition(TransitionStyle);
 /// Définit le style de la prochaine transition entre les pièces.
-import void SetNextScreenTransition(StyleDeTransition);
-/// Définit la couleur des transitions d'écrans selon la valeure RGB spécifiée.
+import void SetNextScreenTransition(TransitionStyle);
+/// Définit la couleur des transitions d'écrans selon la valeure RVB spécifiée.
 import void SetFadeColor(int rouge, int vert, int bleu);
 /// Vérifie si une interaction serait déclenchée lors d'un clic à l'écran aux coordonnées spécifiées avec le mode de curseur MODE.
 import int  IsInteractionAvailable (int x, int y, Mode);
-/// Désactive la zone de déplacement spécifié dans la pièce actuelle.
+/// Désactive la zone de déplacement spécifiée dans la pièce actuelle.
 import void RemoveWalkableArea(int zone);
 /// Réactive la zone de déplacement spécifiée.
 import void RestoreWalkableArea(int zone);
 /// Change le niveau de mise à échelle de la zone de déplacement spécifiée.
 import void SetAreaScaling(int zone, int min, int max);
-/// Désactive toutes les interactions au niveau du sol, et de façon optionnelle les niveaux d'éclairages et teintes de la zone.
-import void DisableGroundLevelAreas(int disableTints);
+/// Désactive toutes les interactions au niveau du sol, et de façon optionnelle les niveaux d'éclairage et teintes de la zone.
+import void DisableGroundLevelAreas(int desactiverTeintes);
 /// Réactive toutes les interactions au sol, niveaux d'éclairages et teintes de la zone.
 import void EnableGroundLevelAreas();
-/// Donne à la zone couvrante (Walkbehind area) spécifié une nouvelle ligne de base (baseline).
-import void SetWalkBehindBase(int area, int baseline);
-/// Cette fonction vous permet de jouer et de contrôle un CD audio dans votre jeu.
-import int  CDAudio(eCDAudioFunction, int data);
+/// Donne à la zone couvrante (Walkbehind area) spécifiée une nouvelle ligne de base (baseline).
+import void SetWalkBehindBase(int zone, int ligneDeBase);
+/// Cette fonction vous permet de jouer et de contrôler un CD audio dans votre jeu.
+import int  CDAudio(eCDAudioFunction, int donnees);
 /// Joue une animation FLI/FLC.
-import void PlayFlic(int flcNumber, int options);
-/// Joue une vidéo AVI/MPG.
-import void PlayVideo(const string nomdufichier, VideoSkipStyle, int flags);
+import void PlayFlic(int numeroFLC, int options);
+/// Joue une vidéo AVI/MPG selon le mode spécifié.
+import void PlayVideo(const string nomDuFichier, VideoSkipStyle, int mode);
 
 #ifndef STRICT_AUDIO
 // **** OLD MUSIC/SOUND FUNCTIONS ****
-/// Starts the specified music playing.
-import void PlayMusic(int musicNumber);
-/// Queues up the specified music to play after the current one finishes.
-import void PlayMusicQueued(int musicNumber);
-/// Plays a MIDI, but mutes the channel. This allows you to use it to time game events.
-import void PlaySilentMIDI(int musicNumber);
-/// Plays a specified MP3 or OGG file, that is not part of the normal game package.
-import void PlayMP3File(const string filename);
-/// Starts the specified sound number playing.
-import int  PlaySound(int soundNumber);
-/// Starts the specified sound number playing on the specified channel.
-import void PlaySoundEx(int soundNumber, int channel);
-/// Starts an ambient looping sound playing.
-import void PlayAmbientSound (int channel, int sound, int volume, int x, int y);
-/// Stops an ambient sound from playing.
-import void StopAmbientSound (int channel);
-/// Returns the currently playing music number.
+/// Joue le morceau spécifié.
+import void PlayMusic(int numeroMusique);
+/// Jouera la morceau spécifié lorsque celui en cours de lecture sera terminé.
+import void PlayMusicQueued(int numeroMusique);
+/// Joue une piste MIDI en sourdine. Ceci vous permet de faire dépendre des évenements de la position d'un MIDI.
+import void PlaySilentMIDI(int numeroMusique);
+/// Joue le fichier MP3 ou OGG spécifié non inclus dans les ressources natives du jeu.
+import void PlayMP3File(const string nomFichier);
+/// Entame la lecture du son de numéro spécifié.
+import int  PlaySound(int numeroSon);
+/// Entame la lecture du son de numéro spécifié sur le canal spécifié.
+import void PlaySoundEx(int numeroSon, int canal);
+/// Entame la lecture en boucle d'un son ambiant.
+import void PlayAmbientSound (int canal, int son, int volume, int x, int y);
+/// Arrête la lecture d'un son ambiant.
+import void StopAmbientSound (int canal);
+/// Retourne le numéro de la musique en cours de lecture.
 import int  GetCurrentMusic();
-/// Sets whether music tracks should repeat once they reach the end.
-import void SetMusicRepeat(int repeat);
-/// Changes the current room's music volume modifier.
+/// Détermine si les pistes musicales devraient jouer en boucle.
+import void SetMusicRepeat(int repetition);
+/// Change l'équilibreur de volume des musiques de la pièce actuelle.
 import void SetMusicVolume(int volume);
-/// Changes the sound volume.
+/// Change le volume des sons.
 import void SetSoundVolume(int volume);
-/// Changes the music volume.
+/// Change le volume des musiques.
 import void SetMusicMasterVolume(int volume);
-/// Changes the volume of all digital sound and music.
+/// Change le volume de toutes les musiques et sons digitaux.
 import void SetDigitalMasterVolume(int volume);
-/// Seeks to a specified pattern in a MOD/XM file.
-import void SeekMODPattern(int pattern);
-/// Returns whether sound is playing on the specified sound channel.
-import int  IsChannelPlaying(int channel);
-/// Returns whether a sound effect is currently playing.
+/// Se place au modèle (pattern) spéicifié dans un fichier MOD/XM.
+import void SeekMODPattern(int modele);
+/// Retourne si du son est en cours de lecture sur le canal spécifié.
+import int  IsChannelPlaying(int canal);
+/// Retourne si un effet sonore est en cours de lecture ou non.
 import int  IsSoundPlaying();
-/// Returns whether background music is currently playing.
+/// Rertourne si la musique de fond est en cours de lecture ou non.
 import int  IsMusicPlaying();
-/// Returns the current MIDI beat number.
+/// Retourne le rythme (beat) actuel du morceau MIDI.
 import int  GetMIDIPosition();
-/// Seeks the MIDI player to the specified beat number.
+/// Se place au rythme (beat) spécifié du morceau MIDI.
 import void SeekMIDIPosition(int position);
-/// Gets the offset into the currently playing MP3 or OGG music.
+/// Retourne la position actuelle du morceau MP3 ou OGG en cours de lecture.
 import int  GetMP3PosMillis();
-/// Seeks into the currently playing MP3 or OGG music.
-import void SeekMP3PosMillis(int offset);
-/// Changes the volume of the specified sound channel.
-import void SetChannelVolume(int channel, int volume);
-/// Stops the sound currently playing on the specified sound channel.
-import void StopChannel(int channel);
-/// Stops the currently playing music.
+/// Se place à position spécifiée dans le morceau MP3 ou OGG en cours de lecture.
+import void SeekMP3PosMillis(int position);
+/// Change le volume du canal sonore spécifié.
+import void SetChannelVolume(int canal, int volume);
+/// Arrête le son en cours sur le canal spécifié.
+import void StopChannel(int canal);
+/// Arrête la musique en cours.
 import void StopMusic();
 // **** END OLD MUSIC/SOUND FUNCTIONS ****
 #endif
@@ -1204,20 +1204,20 @@ import void SetSpeechVolume(int volume);
 /// Retourne si un fichier MUSIC.VOX est détécté par le jeu.
 import int  IsMusicVoxAvailable();
 /// Prend une capture d'écran et la sauve sur le disque.
-import int  SaveScreenShot(const string nomdifichier);
+import int  SaveScreenShot(const string nomDuFichier);
 /// Met le jeu en pause. (Stoppe le processus de la machine, les animations et déplacements du personnage, etc.)
 import void PauseGame();
 /// Reprend le jeu après une pause.
 import void UnPauseGame();
 /// Marque une pause dans l'exécution du script jusqu'à la fin du temps spécifié
-import void Wait(int waitLoops);
+import void Wait(int sequenceAttente);
 /// Marque une pause dans l'exécution du script jusqu'à la fin du temps spécifié, ou bien si une touches est enfoncée.
-import int  WaitKey(int waitLoops);
+import int  WaitKey(int sequencesAttente);
 /// Marque une pause dans l'exécution du script jusqu'à la fin du temps spécifié, ou bien si une touches est enfoncée, ou bien si un clic est réalisé.
-import int  WaitMouseKey(int waitLoops);
+import int  WaitMouseKey(int sequencesAttente);
 /// Vérifie si la touche du clavier spécifiée est actuellement pressée.
 import bool IsKeyPressed(eKeyCode);
-import void SetGlobalInt(int globalInt, int value);
+import void SetGlobalInt(int globalInt, int valeur);
 import int  GetGlobalInt(int globalInt);
 import void FlipScreen(int way);
 /// Saute la séquence de déplacement du personnage spécifié.
@@ -1226,7 +1226,7 @@ import void SkipUntilCharacterStops(CHARID);
 import void StartCutscene(CutsceneSkipType);
 /// Marque la fin d'une cinématique.
 import int  EndCutscene();
-/// Empéche l'accomplissement d'autresévénements associés à ce déclancheur.
+/// Empéche l'accomplissement d'autres événements associés à ce déclencheur.
 import void ClaimEvent();
 // Change le GUI utilisé comme fenêtre de texte pour le nouveau GUI spécifié.
 import void SetTextWindowGUI (int gui);
@@ -1315,25 +1315,25 @@ managed struct Character;
 managed struct GUIControl {
   /// Place le contrôle de GUI au-dessus de tous les autres.
   import void BringToFront();
-  /// Retourne le contrôle de GUI situés aux coordonnées spécifiées (X,Y) de l'écran.
+  /// Retourne le contrôle de GUI situé aux coordonnées spécifiées (X,Y) de l'écran.
   import static GUIControl* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$  $AUTOCOMPLETENOINHERIT$
   /// Place le contrôle de GUI à l'arrière-plan.
   import void SendToBack();
-  /// Déplace le coin supérieur gauche du contrôle de GUI aux coordonnées spécifiées (X,Y).
+  /// Déplace le coin supérieur gauche du contrôle aux coordonnées spécifiées (X,Y).
   import void SetPosition(int x, int y);
   /// Redimensionne le contrôle de GUI spécifié aux dimensions LARGEUR x HAUTEUR.
   import void SetSize(int largeur, int hauteur);
-  /// Convertie un pointeur GUIControl* générique en une variable du type Boutton, et la retourne.
+  /// Convertit un pointeur GUIControl* générique en une variable du type Button, et la retourne.
   readonly import attribute Button*  AsButton;   // $AUTOCOMPLETENOINHERIT$
-  /// Convertie un pointeur GUIControl* générique en une variable du type Fenêtre d'inventaire, et la retourne.
+  /// Convertit un pointeur GUIControl* générique en une variable du type InvWindow, et la retourne.
   readonly import attribute InvWindow* AsInvWindow;  // $AUTOCOMPLETENOINHERIT$
-  /// Convertie un pointeur GUIControl* générique en une variable du type étiquette, et la retourne.
+  /// Convertit un pointeur GUIControl* générique en une variable du type Label, et la retourne.
   readonly import attribute Label*   AsLabel;    // $AUTOCOMPLETENOINHERIT$
-  /// Convertie un pointeur GUIControl* générique en une variable du type Liste, et la retourne.
+  /// Convertit un pointeur GUIControl* générique en une variable du type List, et la retourne.
   readonly import attribute ListBox* AsListBox;  // $AUTOCOMPLETENOINHERIT$
-  /// Convertie un pointeur GUIControl* générique en une variable du type slider, et la retourne.
+  /// Convertit un pointeur GUIControl* générique en une variable du type Slider, et la retourne.
   readonly import attribute Slider*  AsSlider;   // $AUTOCOMPLETENOINHERIT$
-  /// Convertie un pointeur GUIControl* générique en une variable du type Fenêtre d'entrée de texte, et la retourne.
+  /// Convertit un pointeur GUIControl* générique en une variable du type TextBox, et la retourne.
   readonly import attribute TextBox* AsTextBox;  // $AUTOCOMPLETENOINHERIT$
   /// Retourne/Définit si l'on peut cliquer sur le contrôle du GUI.
   import attribute bool Clickable;
@@ -1341,13 +1341,13 @@ managed struct GUIControl {
   import attribute bool Enabled;
   /// Retourne/Définit la hauteur du contrôle de GUI.
   import attribute int  Height;
-  /// Retourne le numéro d'identification (ID_ du contrôle de GUI.
+  /// Retourne le numéro d'identification (ID) du contrôle de GUI.
   readonly import attribute int  ID;
-  /// Retourne le GUI qui contient le contrôle.
+  /// Retourne le GUI (interface) qui contient le contrôle.
   readonly import attribute GUI* OwningGUI;
   /// Retourne/Définit si le contrôle de GUI est visible.
   import attribute bool Visible;
-  /// Retourne/Définit la largeur du contrôle du GUI.
+  /// Retourne/Définit la largeur du contrôle de GUI.
   import attribute int  Width;
   /// Retourne/Définit la position X du contrôle de GUI.
   import attribute int  X;
@@ -1369,7 +1369,7 @@ managed struct Label extends GUIControl {
 };
 
 managed struct Button extends GUIControl {
-  /// Anime le bouton GUI en jouant la séquence de la vue spécifiées.
+  /// Anime le bouton en jouant la séquence de la vue spécifiée.
   import void Animate(int view, int loop, int delay, RepeatStyle);
 #ifndef STRICT_STRINGS
   import void GetText(string buffer);
@@ -1381,11 +1381,11 @@ managed struct Button extends GUIControl {
   import attribute FontType Font;
   /// Retourne le numéro de l'image actuelle du bouton.
   readonly import attribute int  Graphic;
-  /// Retourne/Définit l'image du bouton lors de son surlvol par la souris.
+  /// Retourne/Définit l'image du bouton lors de son survol par la souris.
   import attribute int  MouseOverGraphic;
   /// Retourne/Définit l'image normale du bouton.
   import attribute int  NormalGraphic;
-  /// Retourne/Définit l'image du bouton lorqu'il est pressé.
+  /// Retourne/Définit l'image du bouton lorsqu'il est pressé.
   import attribute int  PushedGraphic;
   /// Retourne/Définit la couleur utilisée pour afficher le texte du bouton.
   import attribute int  TextColor;
@@ -1398,13 +1398,13 @@ managed struct Slider extends GUIControl {
   import attribute int  BackgroundGraphic;
   /// Retourne/Définit l'image utilisée pour dessiner le curseur sur la barre.
   import attribute int  HandleGraphic;
-  /// Retourne/Définit le décalage à utiliser (en pixel) pour l'image du curseur.
+  /// Retourne/Définit le décalage à utiliser (en pixels) pour l'image du curseur.
   import attribute int  HandleOffset;
-  /// Retourne/Définit la valeur maximum de la barre de GUI spécifiée.
+  /// Retourne/Définit la valeur maximum de la barre de défilement.
   import attribute int  Max;
-  /// Retourne/Définit la valeur minimum de la barre de GUI spécifiée.
+  /// Retourne/Définit la valeur minimum de la barre de défilement.
   import attribute int  Min;
-  /// Retourne/Définit la valeur de la barre de défilement spécifiée.
+  /// Retourne/Définit la valeur de la barre de défilement.
   import attribute int  Value;
 };
 
@@ -1417,7 +1417,7 @@ managed struct TextBox extends GUIControl {
   import attribute FontType Font;
   /// Retourne/Définit le contenu de la zone de saisie.
   import attribute String Text;
-  /// Retourne/Définit la couleur utiliée pour dessiner la zone de saisie.
+  /// Retourne/Définit la couleur utilisée pour dessiner la zone de saisie.
   import attribute int TextColor;
 };
 
