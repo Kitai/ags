@@ -518,82 +518,82 @@ managed struct Game {
 };
 
 managed struct Parser {
-  /// Cherche motATrouver dans le dictionnaire du parser, et retourne son numéro ID.
+  /// Cherche motATrouver dans le dictionnaire de l'analyseur, et retourne son numéro ID.
   import static int    FindWordID(const string motATrouver);
   /// Stocke le texte spécifié pour être utilisé plus tard par Said.
-  import static void   ParseText(const string text);
+  import static void   ParseText(const string texte);
   /// Vérifie si le joueur a entré le texte spécifié dans ce qui a été passé à ParseText.
   import static bool   Said(const string texte);
-  /// Retourne un mot entrée par le joueur non présent dans le dictionnaire du jeu.
+  /// Retourne un mot entré par le joueur non présent dans le dictionnaire du jeu.
   import static String SaidUnknownWord();
 };
 
 // standard functions
 /// Affiche un message à l'écran. Il sera affiché dans une boîte de messages standard, et centré au milieu de l'écran.
 import void Display(const string message, ...);
-/// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée aux coordinnées spécifiées.
-import void DisplayAt(int x, int y, int width, const string message, ...);
-/// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée à la coordinnée y spécifiée.
+/// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée aux coordonnées spécifiées.
+import void DisplayAt(int x, int y, int largeur, const string message, ...);
+/// Affiche le texte à l'écran. Il sera affiché dans une boîte de messages standard placée à la coordonnée Y spécifiée.
 import void DisplayAtY (int y, const string message);
-/// Displays a message from the Room Message Editor (décrépit).
-import void DisplayMessage(int messageNumber);
-/// Displays a message from the Room Message Editor at the specified y-coordinate (décrépit).
-import void DisplayMessageAtY(int messageNumber, int y);
-/// Affiche un message dans une fenêtre texte, avec une barre de titre au dessus d'elle.
-import void DisplayTopBar(int y, int textColor, int backColor, const string title, const string text, ...);
-/// Displays a Room Message Editor message in a text window with a title, used for speech in SCI0 games (décrépit).
-import void DisplayMessageBar(int y, int textColor, int backColor, const string title, int message);
-/// Rétablit l'état d'origine de la piéce spécifié.
-import void ResetRoom(int roomNumber);
+/// Affiche un message de l'Éditeur de Messages de la Pièce (vieilli).
+import void DisplayMessage(int numeroMessage);
+/// Affiche un message de l'Éditeur de Messages de la Pièce à la coordonnée Y spécifiée (vieilli).
+import void DisplayMessageAtY(int numeroMessage, int y);
+/// Affiche un message dans une fenêtre de texte, avec une barre de titre au dessus d'elle.
+import void DisplayTopBar(int y, int couleurTexte, int couleurFond, const string titre, const string texte, ...);
+/// Affiche un message de l'Éditeur de Messages de la Pièce dans une fenêtre textuelle avec un titre, utilisée comme dialogues dans les jeux SCI0 (vieilli).
+import void DisplayMessageBar(int y, int couleurTexe, int couleurFond, const string titre, int message);
+/// Rétablit l'état d'origine de la piéce spécifiée.
+import void ResetRoom(int numeroPiece);
 /// Vérifie si le joueur s'est déjà rendu dans la pièce spécifiée.
-import int  HasPlayerBeenInRoom(int roomNumber);
+import int  HasPlayerBeenInRoom(int numeroPiece);
 /// Simule un clic de la souris aux coordonnées (x,y) de l'écran, dans le mode de curseur spécifié.
 import void ProcessClick(int x, int y, CursorMode);
 /// Arrête le jeu et affiche une fenêtre d'erreur.
 import void AbortGame(const string message, ...);
 /// Quitte le jeu.
-import void QuitGame(int promptUser);
-/// Change la vitesse du jeu (nombre de cycles par seconde).
-import void SetGameSpeed(int framesPerSecond);
-/// Retourne la vitesse actuelle du jeu (nombre de cycles par seconde).
+import void QuitGame(int previentUtilisateur);
+/// Change la vitesse du jeu (en nombre de cycles par seconde).
+import void SetGameSpeed(int cyclesParSecondes);
+/// Retourne la vitesse actuelle du jeu (en nombre de cycles par seconde).
 import int  GetGameSpeed();
 /// Change une des options du jeu.
-import int  SetGameOption(int option, int value);
+import int  SetGameOption(int option, int valeur);
 /// Retourne le réglage actuel d'une option du jeu.
 import int  GetGameOption(int option);
-/// Cette fonction gère tous les services de debug du moteur.
+/// Cette fonction gère tous les services de debogage du moteur.
 import void Debug(int command, int data);
 /// Appelle la fonction on_call de la pièce actuelle.
-import void CallRoomScript(int value);
+import void CallRoomScript(int valeur);
 /// Quitte la partie actuelle, et lance le jeu AGS spécifié à la place.
-import int  RunAGSGame(const string filename, int mode, int data);
-/// Retourne la traduction du texte contenu dans la string.
-import string GetTranslation (const string originalText);
+import int  RunAGSGame(const string nomFichier, int mode, int donnees);
+/// Retourne la traduction du texte contenu dans la chaîne de caractères.
+import string GetTranslation (const string texteOriginal);
 /// Informe si le joueur utilise une traduction du jeu ou non.
 import int  IsTranslationAvailable ();
-/// Affiche le GUI de chargement de jeu par défaut.
+/// Affiche l'interface de chargement de jeu par défaut.
 import void RestoreGameDialog();
-/// Affiche le GUI de sauvegarde par défaut.
+/// Affiche l'interface de sauvegarde par défaut.
 import void SaveGameDialog();
-/// Redémarre le jeu depuis le début.
+/// Redémarre le jeu depuis le point de départ.
 import void RestartGame();
 /// Sauvegarde la progression de la partie actuelle dans l'emplacement spécifié.
-import void SaveGameSlot(int slot, const string description);
+import void SaveGameSlot(int emplacement, const string description);
 /// Charge la partie sauvegardée à l'emplacement spécifié.
-import void RestoreGameSlot(int slot);
+import void RestoreGameSlot(int emplacement);
 /// Supprime la sauvegarde contenue dans l'emplacement spécifié.
-import void DeleteSaveSlot(int slot);
-/// Change le point de départ du jeu pour la position actuelle.
+import void DeleteSaveSlot(int emplacement);
+/// Définit la position actuelle du jeu comme nouveau point de départ du jeu.
 import void SetRestartPoint();
 /// Retourne le type de l'élément qui se trouve aux coordonnées (x,y) 
 import LocationType GetLocationType(int x, int y);
 /// Retourne le numéro de la zone de déplacement à l'écran aux coordonnées (X,Y).
-import int  GetWalkableAreaAt(int screenX, int screenY);
-/// Retourne le niveau de mise à l'echelle de la pièce aux coordonnées (x,y).
+import int  GetWalkableAreaAt(int ecranX, int ecranY);
+/// Retourne le niveau de mise à l'échelle de la pièce aux coordonnées (x,y).
 import int  GetScalingAt (int x, int y);
 /// Retourne la valeur de la propriété personnelle spécifiée pour la pièce actuelle.
 import int  GetRoomProperty(const string property);
-/// Fige la caméra de façon à ce que le coin gauche de l'écran correspondent aux coordonnées (x,y) de la pièce.
+/// Fige la caméra de façon à ce que le coin gauche supérieur de l'écran corresponde aux coordonnées (x,y) de la pièce.
 import void SetViewport(int x, int y);
 /// Débloque la caméra, l'autorisant à se déplacer automatiquement pour suivre les déplacements du joueur.
 import void ReleaseViewport();
@@ -603,9 +603,9 @@ import int  GetViewportX();
 import int  GetViewportY();
 /// Retourne 1 si le jeu est actuellement en pause.
 import int  IsGamePaused();
-import int  GetGraphicalVariable (const string variableName);
-import void SetGraphicalVariable (const string variableName, int value);
-/// Désactive l'interface du joueur at affiche le curseur d'attente.
+import int  GetGraphicalVariable (const string nomVariable);
+import void SetGraphicalVariable (const string nomVariable, int valeur);
+/// Désactive l'interface du joueur et affiche le curseur d'attente.
 import void DisableInterface();
 /// Réactive l'interface du joueur.
 import void EnableInterface();
@@ -614,20 +614,20 @@ import int  IsInterfaceEnabled();
 
 struct Mouse {
   /// Change l'image du mode de curseur spécifié pour celui contenu à l'emplacement spécifié.
-  import static void ChangeModeGraphic(CursorMode, int slot);
+  import static void ChangeModeGraphic(CursorMode, int blocImage);
   /// Change de façon permanente le point de réaction du curseur pour le point aux coordonnées (x,y) de l'image du curseur.
   import static void ChangeModeHotspot(CursorMode, int x, int y);
   /// Définit la vue (view) du mode de curseur spécifié.
-  import static void ChangeModeView(CursorMode, int view);
+  import static void ChangeModeView(CursorMode, int vue);
   /// Désactive le mode de curseur spécifié.
   import static void DisableMode(CursorMode);
   /// Réactive le mode de curseur spécifié.
   import static void EnableMode(CursorMode);
   /// Retourne le numéro de l'image utilisée pour le mode de curseur spécifié.
   import static int  GetModeGraphic(CursorMode);
-  /// Vérifie si l'utilisateur maintient actuellement enfoncé le bouton spécifié de la souris.
+  /// Vérifie si l'utilisateur maintient actuellement enfoncé le bouton de la souris spécifié.
   import static bool IsButtonDown(MouseButton);
-  /// Garde en mémoire le curseur actuel de la souris, et le restaure lorsque la souris quitte le hotspot, l'objet ou le personnage actuel.
+  /// Garde en mémoire le curseur actuel de la souris, et le restaure lorsque la souris quitte la zone interactive, l'objet ou le personnage actuel.
   import static void SaveCursorUntilItLeaves();
   /// Passe le curseur de la souris au prochain mode disponible.
   import static void SelectNextMode();
@@ -639,7 +639,7 @@ struct Mouse {
   import static void Update();
   /// Redonne son apparence normale au curseur de la souris, celle définie par défaut pour le mode de curseur actuel.
   import static void UseDefaultGraphic();
-  /// Change l'apparence du curseur de la souris dans le mode de curseur spécifié.
+  /// Change l'apparence du curseur de la souris pour celle du mode de curseur spécifié.
   import static void UseModeGraphic(CursorMode);
   /// Retourne/Définit le mode actuel du curseur de la souris.
   import static attribute CursorMode Mode;
@@ -651,28 +651,28 @@ struct Mouse {
 
 #ifndef STRICT_STRINGS
 // OLD STRING BUFFER FUNCTIONS
-import void SetGlobalString(int stringID, const string newValue);
-import void GetGlobalString(int stringID, string buffer);
-import void InputBox(const string prompt, string buffer);
-import int  GetTranslationName (string buffer);
-import int  GetSaveSlotDescription(int slot, string buffer);
-import void GetLocationName(int x, int y, string buffer);
-import void GetRoomPropertyText(const string property, string buffer);
+import void SetGlobalString(int IDchaine, const string nouvelleValeur);
+import void GetGlobalString(int IDchaine, string tampon);
+import void InputBox(const string affiche, string tampon);
+import int  GetTranslationName (string tampon);
+import int  GetSaveSlotDescription(int slot, string tampon);
+import void GetLocationName(int x, int y, string tampon);
+import void GetRoomPropertyText(const string propriete, string tampon);
 // string functions
-import void StrCat(string main, const string newbit);
-import int  StrCaseComp(const string str1, const string str2);
-import int  StrComp(const string str1, const string str2);
-import void StrCopy(string dest, const string source);
-import void StrFormat(string dest, const string format, ...);
+import void StrCat(string principale, const string newbit);
+import int  StrCaseComp(const string txt1, const string txt2);
+import int  StrComp(const string txt1, const string txt2);
+import void StrCopy(string destination, const string source);
+import void StrFormat(string destination, const string format, ...);
 import int  StrLen(const string);
 import int  StrGetCharAt (const string, int position);
-import void StrSetCharAt (string, int position, int newChar);
+import void StrSetCharAt (string, int position, int nouveauCaractere);
 import void StrToLowerCase (string);
 import void StrToUpperCase (string);
-import int  StrContains (const string haystack, const string needle);
+import int  StrContains (const string texte, const string cherche);
 import void ParseText (const string);
-import int  SaidUnknownWord (string buffer);
-import void GetMessageText (int messageNumber, string buffer);
+import int  SaidUnknownWord (string tampon);
+import void GetMessageText (int numeroMessage, string tampon);
 import int  StringToInt(const string);
 #define strcmp StrComp
 #define strlen StrLen
@@ -725,23 +725,23 @@ import int  GetCharacterAt(int x,int y);
 import int  GetRegionAt (int x, int y);
 import int  GetInvAt(int x,int y);
 
-import int  CreateGraphicOverlay(int x, int y, int slot, bool transparent);
-import int  CreateTextOverlay(int x, int y, int width, FontType, int colour, const string text, ...);
-import void SetTextOverlay(int overlayID, int x, int y, int width, FontType, int colour, const string text, ...);
-import void RemoveOverlay(int overlayID);
-import int  MoveOverlay(int overlayID, int x, int y);
-import int  IsOverlayValid(int overlayID);
+import int  CreateGraphicOverlay(int x, int y, int bloc, bool transparent);
+import int  CreateTextOverlay(int x, int y, int largeur, FontType, int couleur, const string texte, ...);
+import void SetTextOverlay(int IDcalque, int x, int y, int largeur, FontType, int couleur, const string texte, ...);
+import void RemoveOverlay(int IDcalque);
+import int  MoveOverlay(int IDcalque, int x, int y);
+import int  IsOverlayValid(int IDcalque);
 
 import int  InventoryScreen();
 // mouse functions
-import void ChangeCursorGraphic(int mode, int slot);
+import void ChangeCursorGraphic(int mode, int bloc);
 import void ChangeCursorHotspot(int mode, int x, int y);
 import int  GetCursorMode();
 import void SetCursorMode(CursorMode);
 import void SetNextCursorMode();
 import void SetDefaultCursor();
 import void SetMouseCursor(CursorMode);
-import void SetMouseBounds(int left, int top, int right, int bottom);
+import void SetMouseBounds(int gauche, int haut, int droite, int bas);
 import void SetMousePosition(int x, int y);
 import void ShowMouseCursor();
 import void HideMouseCursor();
@@ -751,89 +751,89 @@ import void EnableCursorMode(CursorMode);
 import void SaveCursorForLocationChange();
 import int  IsButtonDown(MouseButton);
 // Obsolete functions for objects
-import void MergeObject(int object);
-import void SetObjectTint(int object, int red, int green, int blue, int saturation, int luminance);
-import void RemoveObjectTint(int object);
-import void StopObjectMoving(int object);
-import void RunObjectInteraction (int object, CursorMode);
-import int  GetObjectProperty(int object, const string property);
-import void GetObjectPropertyText(int object, const string property, string buffer);
-import void AnimateObject(int object, int loop, int delay, int repeat);
-import void AnimateObjectEx(int object, int loop, int delay, int repeat, int direction, int blocking);
-import void ObjectOff(int object);
-import void ObjectOn(int object);
-import void SetObjectBaseline(int object, int baseline);
-import int  GetObjectBaseline(int object);
-import void SetObjectFrame(int object, int view, int loop, int frame);
-import void SetObjectGraphic(int object, int spriteSlot);
-import void SetObjectView(int object, int view);
-import void SetObjectTransparency(int object, int amount);
-import void MoveObject(int object, int x, int y, int speed);
-import void MoveObjectDirect(int object, int x, int y, int speed);
-import void SetObjectPosition(int object, int x, int y);
-import int  AreObjectsColliding(int object1, int object2);
-import void GetObjectName(int object, string buffer);
-import int  GetObjectX(int object);
-import int  GetObjectY(int object);
-import int  GetObjectGraphic(int object);
-import int  IsObjectAnimating(int object);
-import int  IsObjectMoving(int object);
-import int  IsObjectOn (int object);
-import void SetObjectClickable(int object, int clickable);
-import void SetObjectIgnoreWalkbehinds (int object, int ignore);
+import void MergeObject(int objet);
+import void SetObjectTint(int objet, int rouge, int vert, int bleu, int saturation, int luminosite);
+import void RemoveObjectTint(int objet);
+import void StopObjectMoving(int objet);
+import void RunObjectInteraction (int objet, CursorMode);
+import int  GetObjectProperty(int objet, const string propriete);
+import void GetObjectPropertyText(int objet, const string propriete, string tampon);
+import void AnimateObject(int objet, int sequence, int delai, int repetition);
+import void AnimateObjectEx(int objet, int sequence, int delai, int repetition, int direction, int bloquant);
+import void ObjectOff(int objet);
+import void ObjectOn(int objet);
+import void SetObjectBaseline(int objet, int ligneDeBase);
+import int  GetObjectBaseline(int objet);
+import void SetObjectFrame(int objet, int vue, int sequence, int vignette);
+import void SetObjectGraphic(int objet, int blocImage);
+import void SetObjectView(int objet, int vue);
+import void SetObjectTransparency(int objet, int taux);
+import void MoveObject(int objet, int x, int y, int vitesse);
+import void MoveObjectDirect(int objet, int x, int y, int vitesse);
+import void SetObjectPosition(int objet, int x, int y);
+import int  AreObjectsColliding(int objet1, int objet2);
+import void GetObjectName(int objet, string tampon);
+import int  GetObjectX(int objet);
+import int  GetObjectY(int objet);
+import int  GetObjectGraphic(int objet);
+import int  IsObjectAnimating(int objet);
+import int  IsObjectMoving(int objet);
+import int  IsObjectOn (int objet);
+import void SetObjectClickable(int objet, int cliquable);
+import void SetObjectIgnoreWalkbehinds (int objet, int ignore);
 
 // Obsolete Character functions
-import void AddInventory(int item);
-import void LoseInventory(int item);
-import void SetActiveInventory(int item);
-import void NewRoom(int roomNumber);
-import void NewRoomEx(int roomNumber, int x, int y);
-import void NewRoomNPC(CHARID, int roomNumber, int x, int y);
-import int  GetCharacterProperty(CHARID, const string property);
-import void GetCharacterPropertyText(CHARID, const string property, string buffer);
+import void AddInventory(int objet);
+import void LoseInventory(int objet);
+import void SetActiveInventory(int objet);
+import void NewRoom(int numeroPiece);
+import void NewRoomEx(int numeroPiece, int x, int y);
+import void NewRoomNPC(CHARID, int numeroPiece, int x, int y);
+import int  GetCharacterProperty(CHARID, const string propriete);
+import void GetCharacterPropertyText(CHARID, const string propriete, string tampon);
 import void RunCharacterInteraction (CHARID, CursorMode);
 import void DisplaySpeech (CHARID, const string message, ...);
 import int  DisplaySpeechBackground(CHARID, const string message);
-import void DisplaySpeechAt (int x, int y, int width, CHARID, const string message);
+import void DisplaySpeechAt (int x, int y, int largeur, CHARID, const string message);
 import void DisplayThought (CHARID, const string message, ...);
-import void FollowCharacter(CHARID sheep, CHARID shepherd);
-import void FollowCharacterEx(CHARID sheep, CHARID shepherd, int dist, int eagerness);
+import void FollowCharacter(CHARID mouton, CHARID berger);
+import void FollowCharacterEx(CHARID mouton, CHARID berger, int distance, int ardeur);
 import void SetPlayerCharacter(CHARID);
-import void AddInventoryToCharacter(CHARID, int item);
-import void LoseInventoryFromCharacter(CHARID, int item);
-import void AnimateCharacter (CHARID, int loop, int delay, int repeat);
-import void AnimateCharacterEx (CHARID, int loop, int delay, int repeat, int direction, int blocking);
+import void AddInventoryToCharacter(CHARID, int objet);
+import void LoseInventoryFromCharacter(CHARID, int objet);
+import void AnimateCharacter (CHARID, int sequence, int delai, int repetition);
+import void AnimateCharacterEx (CHARID, int sequence, int delai, int repetition, int direction, int bloquant);
 import void MoveCharacter(CHARID, int x, int y);
 import void MoveCharacterDirect(CHARID, int x, int y);
 import void MoveCharacterPath(CHARID, int x, int y);
-import void MoveCharacterStraight(CHARID, int x,int y);
-import void MoveCharacterToHotspot(CHARID, int hotspot);
-import void MoveCharacterToObject(CHARID, int object);
+import void MoveCharacterStraight(CHARID, int x, int y);
+import void MoveCharacterToHotspot(CHARID, int zoneInteractive);
+import void MoveCharacterToObject(CHARID, int objet);
 import void MoveCharacterBlocking(CHARID, int x, int y, int direct);
 import void MoveToWalkableArea(CHARID);
-import void FaceCharacter(CHARID, CHARID toFace);
+import void FaceCharacter(CHARID, CHARID aRegarder);
 import void FaceLocation(CHARID, int x, int y);
-import void SetCharacterView(CHARID, int view);
-import void SetCharacterViewEx(CHARID, int view, int loop, int align);
-import void SetCharacterViewOffset(CHARID, int view, int x_offset, int y_offset);
-import void SetCharacterFrame(CHARID, int view, int loop, int frame);
+import void SetCharacterView(CHARID, int vue);
+import void SetCharacterViewEx(CHARID, int vue, int sequence, int alignement);
+import void SetCharacterViewOffset(CHARID, int vue, int x_decalage, int y_decalage);
+import void SetCharacterFrame(CHARID, int vue, int sequence, int vignette);
 import void ReleaseCharacterView(CHARID);
-import void ChangeCharacterView(CHARID, int view);
-import void SetCharacterSpeechView(CHARID, int view);
-import void SetCharacterBlinkView(CHARID, int view, int interval);
-import void SetCharacterIdle(CHARID, int idleView, int delay);
+import void ChangeCharacterView(CHARID, int vue);
+import void SetCharacterSpeechView(CHARID, int vue);
+import void SetCharacterBlinkView(CHARID, int vue, int intervalle);
+import void SetCharacterIdle(CHARID, int vueAttente, int delai);
 import void StopMoving(CHARID);
-import int  AreCharObjColliding(CHARID, int object);
+import int  AreCharObjColliding(CHARID, int objet);
 import int  AreCharactersColliding(CHARID, CHARID);
-import void SetCharacterSpeed(CHARID, int speed);
-import void SetCharacterSpeedEx(CHARID, int x_speed, int y_speed);
-import void SetTalkingColor(CHARID, int colour);
-import void SetCharacterTransparency(CHARID, int transparency);
-import void SetCharacterClickable(CHARID, int clickable);
-import void SetCharacterBaseline(CHARID, int baseline);
-import void SetCharacterIgnoreLight (CHARID, int ignoreLight);
+import void SetCharacterSpeed(CHARID, int vitesse);
+import void SetCharacterSpeedEx(CHARID, int x_vitesse, int y_vitesse);
+import void SetTalkingColor(CHARID, int couleur);
+import void SetCharacterTransparency(CHARID, int transparence);
+import void SetCharacterClickable(CHARID, int cliquable);
+import void SetCharacterBaseline(CHARID, int ligneDeBase);
+import void SetCharacterIgnoreLight (CHARID, int ignoreLuminosite);
 import void SetCharacterIgnoreWalkbehinds (CHARID, int ignoreWBs);
-import void SetCharacterProperty (CHARID, int property, int newValue);
+import void SetCharacterProperty (CHARID, int propriete, int nouvelleValeur);
 import int  GetPlayerCharacter();
 
 // obsolete file I/O functions
@@ -842,50 +842,50 @@ import int  GetPlayerCharacter();
 #define FILE_READ  "rb"
 #define WRITE FILE_WRITE
 #define READ  FILE_READ
-import int  FileOpen(const string filename, const string mode);
-import void FileWrite(int fileHandle, const string text);
-import void FileWriteRawLine(int fileHandle, const string text);
-import void FileRead(int fileHandle, string buffer);
-import void FileClose(int fileHandle);
-import void FileWriteInt(int fileHandle, int value);
-import int  FileReadInt(int fileHandle);
-import char FileReadRawChar(int fileHandle);
-import void FileWriteRawChar(int fileHandle, int value);
-import int  FileReadRawInt(int fileHandle);
-import int  FileIsEOF(int fileHandle);
-import int  FileIsError(int fileHandle);
+import int  FileOpen(const string pointeurFichier, const string mode);
+import void FileWrite(int pointeurFichier, const string texte);
+import void FileWriteRawLine(int pointeurFichier, const string texte);
+import void FileRead(int pointeurFichier, string tampon);
+import void FileClose(int pointeurFichier);
+import void FileWriteInt(int pointeurFichier, int valeur);
+import int  FileReadInt(int pointeurFichier);
+import char FileReadRawChar(int pointeurFichier);
+import void FileWriteRawChar(int pointeurFichier, int valeur);
+import int  FileReadRawInt(int pointeurFichier);
+import int  FileIsEOF(int pointeurFichier);
+import int  FileIsError(int pointeurFichier);
 
 // obsolete hotspot/region funcs
-import void DisableHotspot(int hotspot);
-import void EnableHotspot(int hotspot);
-import void GetHotspotName(int hotspot, string buffer);
-import int  GetHotspotPointX(int hotspot);
-import int  GetHotspotPointY(int hotspot);
-import int  GetHotspotProperty(int hotspot, const string property);
-import void GetHotspotPropertyText(int hotspot, const string property, string buffer);
-import void RunHotspotInteraction (int hotspot, CursorMode);
+import void DisableHotspot(int zoneInteractive);
+import void EnableHotspot(int zoneInteractive);
+import void GetHotspotName(int zoneInteractive, string tampon);
+import int  GetHotspotPointX(int zoneInteractive);
+import int  GetHotspotPointY(int zoneInteractive);
+import int  GetHotspotProperty(int zoneInteractive, const string propriete);
+import void GetHotspotPropertyText(int zoneInteractive, const string propriete, string tampon);
+import void RunHotspotInteraction (int zoneInteractive, CursorMode);
 import void DisableRegion(int region);
 import void EnableRegion(int region);
-import void RunRegionInteraction (int region, int event);
-import void SetAreaLightLevel(int area, int lightLevel);
-import void SetRegionTint(int area, int red, int green, int blue, int amount);
+import void RunRegionInteraction (int region, int evenement);
+import void SetAreaLightLevel(int zone, int niveauLuminosite);
+import void SetRegionTint(int zone, int rouge, int vert, int bleu, int taux);
 
 // obsolete inv functions
-import int  GetInvProperty(int invItem, const string property);
-import void GetInvPropertyText(int invItem, const string property, string buffer);
-import void GetInvName(int item, string buffer);
-import int  GetInvGraphic(int item);
-import void SetInvItemPic(int item, int spriteSlot);
-import void SetInvItemName(int item, const string name);
-import int  IsInventoryInteractionAvailable (int item, CursorMode);
-import void RunInventoryInteraction (int item, CursorMode);
+import int  GetInvProperty(int objet, const string propriete);
+import void GetInvPropertyText(int objet, const string propriete, string tampon);
+import void GetInvName(int objet, string tampon);
+import int  GetInvGraphic(int objet);
+import void SetInvItemPic(int objet, int blocImage);
+import void SetInvItemName(int objet, const string nom);
+import int  IsInventoryInteractionAvailable (int objet, CursorMode);
+import void RunInventoryInteraction (int objet, CursorMode);
 
-import int  GetTime(int whichValue);
+import int  GetTime(int quelValeur);
 import int  GetRawTime();
 
-import int  LoadSaveSlotScreenshot(int saveSlot, int width, int height);
-import int  LoadImageFile(const string filename);
-import void DeleteSprite(int spriteSlot);
+import int  LoadSaveSlotScreenshot(int blocSauvegarde, int largeur, int hauteur);
+import int  LoadImageFile(const string nomFichier);
+import void DeleteSprite(int blocImage);
 
 import void SetSpeechFont(FontType);
 import void SetNormalFont(FontType);
@@ -904,60 +904,60 @@ import void SetNormalFont(FontType);
 #define GP_NUMINVITEMS   12
 #define GP_ISFRAMEFLIPPED 13
 
-import int  GetGameParameter(int parameter, int data1=0, int data2=0, int data3=0);
-import void SetDialogOption(int topic, int option, DialogOptionState);
-import DialogOptionState GetDialogOption(int topic, int option);
-import void RunDialog(int topic);
+import int  GetGameParameter(int parametre, int donnee1=0, int donnee2=0, int donnee3=0);
+import void SetDialogOption(int sujet, int option, DialogOptionState);
+import DialogOptionState GetDialogOption(int sujet, int option);
+import void RunDialog(int sujet);
 
 // obsolete raw draw stuff
-import void RawClearScreen (int colour);
-import void RawDrawCircle (int x, int y, int radius);
-import void RawDrawImage (int x, int y, int spriteSlot);
-import void RawDrawImageOffset(int x, int y, int spriteSlot);
-import void RawDrawImageResized(int x, int y, int spriteSlot, int width, int height);
-import void RawDrawImageTransparent(int x, int y, int spriteSlot, int transparency);
+import void RawClearScreen (int couleur);
+import void RawDrawCircle (int x, int y, int rayon);
+import void RawDrawImage (int x, int y, int blocImage);
+import void RawDrawImageOffset(int x, int y, int blocImage);
+import void RawDrawImageResized(int x, int y, int blocImage, int largeur, int hauteur);
+import void RawDrawImageTransparent(int x, int y, int blocImage, int transparence);
 import void RawDrawLine (int x1, int y1, int x2, int y2);
 import void RawDrawRectangle (int x1, int y1, int x2, int y2);
 import void RawDrawTriangle (int x1, int y1, int x2, int y2, int x3, int y3);
 import void RawPrint (int x, int y, const string message, ...);
-import void RawPrintMessageWrapped (int x, int y, int width, FontType, int messageNumber);
-import void RawSetColor(int colour);
-import void RawSetColorRGB(int red, int green, int blue);
-import void RawDrawFrameTransparent (int frame, int transparency);
+import void RawPrintMessageWrapped (int x, int y, int largeur, FontType, int numeroMessage);
+import void RawSetColor(int couleur);
+import void RawSetColorRGB(int rouge, int vert, int bleu);
+import void RawDrawFrameTransparent (int vignette, int transparence);
 import void RawSaveScreen ();
 import void RawRestoreScreen ();
-// obsolete RawRestoreScreenTinted(int red, int green, int blue, int opacity);
+// obsolete RawRestoreScreenTinted(int rouge, int vert, int bleu, int opacite);
 
 #endif
 
 /// Retourne la largeur qu'occupera l'affichage à l'écran du texte dans la police spécifié, sur une seule ligne.
-import int  GetTextWidth(const string texte, police);
-/// Calcule la hauteur à l'écran que prendra l'affichage du texte en utilisant la police spécifié dans la largeur spécifié.
-import int  GetTextHeight(const string texte, police, int largeur);
+import int  GetTextWidth(const string texte, FontType);
+/// Calcule la hauteur à l'écran que prendra l'affichage du texte en utilisant la police spécifié dans la largeur spécifiée.
+import int  GetTextHeight(const string texte, FontType, int largeur);
 /// Ajoute la valeure spécifiée au score du joueur, en jouant l'eventuel bruitage approprié.
 import void GiveScore(int points);
 /// Met à jour l'affichage de l'inventaire à l'écran.
 import void UpdateInventory();
-/// A utiliser uniquement depuis un "dialog_request", dit à AGS de ne pas revenir au dialogue.
+/// À utiliser uniquement depuis un "dialog_request", dit à AGS de ne pas revenir au dialogue.
 import void StopDialog();
-/// Vérifie si deux personnages ou objets se superposent à l'écran.
-import int  AreThingsOverlapping(int thing1, int thing2);
+/// Vérifie si deux personnages ou objets sont superposés à l'écran.
+import int  AreThingsOverlapping(int chose1, int chose2);
 /// Détermine si les voix et/ou le texte des discours sont utilisés dans le jeu.
 import void SetVoiceMode(eVoiceMode);
 /// Définit comment le joueur peut passer les discours.
-import void SetSkipSpeech(int skipFlag);
+import void SetSkipSpeech(int modePassage);
 /// Change la façon dont le texte de discours est affiché.
 import void SetSpeechStyle(eSpeechStyle);
 /// Lance le timer qui sera décompté à chaque cycle du jeu (normalement 40 fois par seconde), jusqu'à la fin du DELAI.
-import void SetTimer(int timerID, int delai);
+import void SetTimer(int IDtimer, int delai);
 /// Vérifie si le timer est dépassé, et renvoie true lors de la première verification (uniquement).
-import bool IsTimerExpired(int timerID);
+import bool IsTimerExpired(int IDtimer);
 /// Définit ce qui se passe si l'utilisateur réduit la fenêtre du jeu.
 import void SetMultitaskingMode (int mode);
 /// Convertit la valeur décimale (à virgule) en valeur entière.
-import int  FloatToInt(float value, RoundDirection=eRoundDown);
+import int  FloatToInt(float valeur, RoundDirection=eRoundDown);
 /// Convertit la valeur entière entrée en nombre à virgule.
-import float IntToFloat(int value);
+import float IntToFloat(int valeur);
 // File I/O
 enum FileMode {
   eFileRead = 1,
@@ -966,18 +966,18 @@ enum FileMode {
 };
 managed struct File {
   /// Supprime le fichier spécifié du disque.
-  import static bool Delete(const string filename);   // $AUTOCOMPLETESTATICONLY$
+  import static bool Delete(const string nomFichier);   // $AUTOCOMPLETESTATICONLY$
   /// Vérifie que le fichier spécifié existe sur l'ordinateur.
-  import static bool Exists(const string filename);   // $AUTOCOMPLETESTATICONLY$
+  import static bool Exists(const string nomFichier);   // $AUTOCOMPLETESTATICONLY$
   /// Ouvre un fichier sur le disque dur pour lecture ou écriture.
-  import static File *Open(const string filename, FileMode);   // $AUTOCOMPLETESTATICONLY$
+  import static File *Open(const string nomFichier, FileMode);   // $AUTOCOMPLETESTATICONLY$
   /// Ferme le fichier, et sauve les changements sur le disque.
   import void Close();
   /// Lit un entier depuis le fichier, et le retourne.
   import int  ReadInt();
-  /// Lit un caractère brut (octet) depuis le fichier et le retourne.
+  /// Lit un caractère brut (1 octet) depuis le fichier et le retourne.
   import int  ReadRawChar();
-  /// Lit un entier 32-bit depuis le fichier et le retourne.
+  /// Lit un entier 32-bits depuis le fichier et le retourne.
   import int  ReadRawInt();
 #ifndef STRICT_STRINGS
   import void ReadRawLine(string buffer);
@@ -987,13 +987,13 @@ managed struct File {
   import String ReadRawLineBack();
   /// Lit une chaîne de caractères depuis un fichier précédemment ouvert avec File.Open, et la retourne.
   import String ReadStringBack();
-  /// Ecrit le nombre dans le fichier.
+  /// Écrit le nombre dans le fichier.
   import void WriteInt(int nombre);
-  /// Ecrit un simple caractère dans le fichier en format texte brut.
-  import void WriteRawChar(int value);
-  /// Ecrit du texte dans le fichier en format texte brut.
-  import void WriteRawLine(const string text);
-  /// Ecrit le texte dans le fichier préalablement ouvert avec File.Open.
+  /// Écrit un simple caractère dans le fichier en format texte brut.
+  import void WriteRawChar(int valeur);
+  /// Écrit du texte dans le fichier en format texte brut.
+  import void WriteRawLine(const string texte);
+  /// Écrit le texte dans le fichier préalablement ouvert avec File.Open.
   import void WriteString(const string texte);
   /// Vérifie si le fichier spécifié a été entièrement lu.
   readonly import attribute bool EOF;
@@ -1006,11 +1006,11 @@ managed struct InventoryItem {
   /// Retourne l'objet d'inventaire aux coordonnées d'écran spécifiées.
   import static InventoryItem* GetAtScreenXY(int x, int y);    // $AUTOCOMPLETESTATICONLY$
   /// Retourne la valeur de la propriété personnelle numérique de l'objet d'inventaire.
-  import int  GetProperty(const string property);
+  import int  GetProperty(const string propriete);
   /// Retourne le texte de la propriété personnelle textuelle de l'objet d'inventaire.
-  import String GetTextProperty(const string property);
+  import String GetTextProperty(const string propriete);
   /// Vérifie si une interaction est prévue pour un clic sur l'objet d'inventaire avec le mode de curseur spécifié.
-  import int  IsInteractionAvailable(ModeCurseur);
+  import int  IsInteractionAvailable(CursorMode);
   /// Lance l'interaction associée à l'objet d'inventaire pour le mode de curseur (CursorMode) spécifié.
   import void RunInteraction(CursorMode);
   /// Retourne/Définit l'image du curseur de l'objet d'inventaire.
