@@ -306,44 +306,44 @@ enum ChangeVolumeType {
 };
 
 internalstring autoptr managed struct String {
-  /// Creates a formatted string using the supplied parameters.
+  /// Retourne une chaîne de texte formattée selon les paramètres passés.
   import static String Format(const string format, ...);    // $AUTOCOMPLETESTATICONLY$
-  /// Checks whether the supplied string is null or empty.
-  import static bool IsNullOrEmpty(String stringToCheck);  // $AUTOCOMPLETESTATICONLY$
-  /// Ajoute le texte spécifié à la fin de la chaine de caractéres.
-  import String  Append(const string appendText);
-  /// Ajoute un simple caractère à la fin du texte spécifié, et retourne le résultat.
-  import String  AppendChar(char extraChar);
-  /// Compare le texte à l'autre texte spécifié.
-  import int     CompareTo(const string otherString, bool caseSensitive = false);
+  /// Retourne true si la chaîne de texte spécifiée est vide ou indéfinie (null).
+  import static bool IsNullOrEmpty(String chaineTestee);  // $AUTOCOMPLETESTATICONLY$
+  /// Retourne une copie de la chaîne de texte à la fin de laquelle le texte spécifié a été ajouté.
+  import String  Append(const string texteAjoute);
+  /// Retourne une copie de la chaîne de texte à la fin de laquelle le caractère spécifié a été ajouté.
+  import String  AppendChar(char caractereAjoute);
+  /// Compare le texte de la chaîne de texte au texte de AUTRECHAINE.
+  import int     CompareTo(const string autreChaine, bool sensibleALaCasse = false);
   import int     Contains(const string needle);   // $AUTOCOMPLETEIGNORE$
-  /// Retourne une copie de la chaîne spécifiée.
+  /// Retourne une copie de la chaîne de texte.
   import String  Copy();
-  /// Retourne si la chaîne se termine par le texte spécifié.
-  import bool    EndsWith(const string endsWithText, bool caseSensitive = false);
-  /// Returns the index of the first occurrence of the needle in this string.
-  import int     IndexOf(const string needle);
-  /// Retourne une version minuscule de la chaîne de texte spécifiée.
+  /// Retourne si la chaîne de texte se termine par le texte spécifié.
+  import bool    EndsWith(const string texteDeFin, bool sensibleALaCasse = false);
+  /// Retourne la position dans la chaîne de texte de la première occurrence de TEXTECHERCHE.
+  import int     IndexOf(const string texteCherche);
+  /// Retourne une version minuscules de la chaîne de texte spécifiée.
   import String  LowerCase();
-  /// Crée une copie de cette chaîne, où toutes les occurrences de lookForText sont remplacées par replaceWithText.
-  import String  Replace(const string lookForText, const string replaceWithText, bool caseSensitive = false);
-  /// Remplace le caractère à la position INDEX dans la chaîne par NEWCHAR.
-  import String  ReplaceCharAt(int index, char newChar);
-  /// Retourne si la chaîne commence par le texte spécifié.
-  import bool    StartsWith(const string startsWithText, bool caseSensitive = false);
-  /// Retourne une partie de la chaîne, depuis le caractère index sur la longueur spécifié.
+  /// Retourne une copie de la chaîne de texte où toutes les occurrences de texteCherche sont remplacées par texteRemplacement.
+  import String  Replace(const string texteCherche, const string texteRemplacement, bool sensibleALaCasse = false);
+  /// Remplace le caractère à la position INDEX dans la chaîne de texte par NOUVEAUCARACTERE.
+  import String  ReplaceCharAt(int index, char nouveauCaractere);
+  /// Retourne si la chaîne de texte commence par le texte spécifié.
+  import bool    StartsWith(const string commencePar, bool sensibleALaCasse = false);
+  /// Retourne une partie de la chaîne de texte commençant au caractère INDEX jusqu'à LONGUEUR caractères plus loin.
   import String  Substring(int index, int longueur);
-  /// Retourne une version de la chaîne qui aura été coupée à partir du caractère spécifié.
-  import String  Truncate(int length);
-  /// Retourne une version majuscule de la chaîne spécifiée.
+  /// Retourne une version de la chaîne de texte qui aura été coupée à partir du caractère spécifié.
+  import String  Truncate(int longueur);
+  /// Retourne une version majuscules de la chaîne de texte spécifiée.
   import String  UpperCase();
-  /// Convertie une chaîne en nombre a virgule.
+  /// Convertit une chaîne en nombre a virgule.
   readonly import attribute float AsFloat;
-  /// Convertie la chaîne de texte en nombre entier.
+  /// Convertit la chaîne de texte en nombre entier.
   readonly import attribute int AsInt;
-  /// Retourne le caractère à la position spécifiée dans la chaîne.
+  /// Retourne le caractère à la position spécifiée dans la chaîne de texte.
   readonly import attribute char Chars[];
-  /// Retourne la longueur de la chaîne (en nombre de caractéres).
+  /// Retourne la longueur de la chaîne de texte (en nombre de caractères).
   readonly import attribute int Length;
 };
 
@@ -352,19 +352,19 @@ managed struct AudioClip;
 managed struct ViewFrame {
   /// Retourne si l'image a été retournée.
   readonly import attribute bool Flipped;
-  /// Retourne le numéroe de vignette de cette ViewFrame (vignette).
+  /// Retourne le numéro de vignette de cette vignette (Frame).
   readonly import attribute int Frame;
-  /// Retourne/définit le numéro d'image qu'affiche cette ViewFrame (vignette).
+  /// Retourne/Définit le numéro d'image qu'affiche cette vignette (Frame).
   import attribute int Graphic;
-  /// Retourne/définit la séquence audio qui est liée à cette vignette.
+  /// Retourne/Définit la séquence audio qui est liée à cette vignette (Frame).
   import attribute AudioClip* LinkedAudio;
-  /// Retourne le numéro de séquence représenté par cette ViewFrame (vignette).
+  /// Retourne le numéro de la séquence d'animation contenant cette vignette (Frame).
   readonly import attribute int Loop;
-  /// Retourne/définit la séquence audio qui est liée à cette vignette.
+  /// Retourne/Définit la séquence audio qui est liée à cette vignette (Frame).
   import attribute int Sound;    // $AUTOCOMPLETEIGNORE$
-  /// Retourne la vitesse définie pour cette ViewFrame (vignette).
+  /// Retourne la vitesse définie pour cette vignette (Frame).
   readonly import attribute int Speed;
-  /// Retourne le numéro de vue contenant cette Frame (vignette).
+  /// Retourne le numéro de vue contenant cette vignette (Frame).
   readonly import attribute int View;
 };
 
@@ -375,44 +375,44 @@ managed struct DrawingSurface {
   import DrawingSurface* CreateCopy();
   /// Dessine un cercle plein de rayon spécifié centré à (x,y) de la couleur de dessin courante.
   import void DrawCircle(int x, int y, int rayon);
-  /// Dessine l'image BLOC du gestionnaire de sprite sur la surface aux coordonnées (x,y)
-  import void DrawImage(int x, int y, int spriteSlot, int transparency=0, int width=SCR_NO_VALUE, int height=SCR_NO_VALUE);
+  /// Dessine l'image BLOCIMAGE sur la surface aux coordonnées (x,y)
+  import void DrawImage(int x, int y, int blocImage, int transparence=0, int largeur=SCR_NO_VALUE, int hauteur=SCR_NO_VALUE);
   /// Dessine une ligne depuis (x1, y1) jusqu'à (x2, y2) de la couleur en cours.
-  import void DrawLine(int x1, int y1, int x2, int y2, int thickness=1);
-  /// Dessine le message NUMERO_MESSAGE sur la surface à (X,Y), en utilisant la POLICE spécifiée. (décrépi).
+  import void DrawLine(int x1, int y1, int x2, int y2, int epaisseur=1);
+  /// Dessine le message NUMERO_MESSAGE sur la surface à (X,Y), en utilisant la POLICE spécifiée. (vieilli).
   import void DrawMessageWrapped(int x, int y, int width, POLICE, int NUMERO_MESSAGE);
   /// Dessine un pixel sur la surface aux coordonnées (x,y) dans la couleur courante.
   import void DrawPixel(int x, int y);
   /// Dessine un rectangle plein dans la couleur courante avec son coin supérieur gauche à (x1,y1) et son coin inférieur droit à (x2,y2).
   import void DrawRectangle(int x1, int y1, int x2, int y2);
-  /// Dessine le texte sur la surface aux coordonnées (x, y), en utilisant la police spécifié.
-  import void DrawString(int x, int y, police, const string text, ...);
-  /// Dessine le texte sur la surface à (x,y), en utilisant la largeure, la police et l'alignement spécifiée.
+  /// Dessine le texte sur la surface aux coordonnées (x, y), en utilisant la police spécifiée.
+  import void DrawString(int x, int y, police, const string texte, ...);
+  /// Dessine le texte sur la surface à (x,y), en utilisant la largeur, la police et l'alignement spécifiés.
   import void DrawStringWrapped(int x, int y, int largeur, police, Alignment, const string texte);
   /// Dessine la surface spécifiée sur cette surface, en utilisant optionnellement une transparence.
-  import void DrawSurface(DrawingSurface *surfaceToDraw, int transparence=0);
+  import void DrawSurface(DrawingSurface *surfaceADessiner, int transparence=0);
   /// Dessine un triangle plein dans la couleur en cours avec ses coins aux points (x1,y1), (x2,y2) et (x3,y3).
   import void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
   /// Retourne le Numéro de Couleur AGS (AGS Colour Number) du pixel au point (x,y) de la surface.
   import int  GetPixel(int x, int y);
   /// Informe AGS que vous avez fini de dessiner sur la surface.
   import void Release();
-  /// Retourne/Définit la couleur de dessin courante sur la surface (en AGS colour number).
+  /// Retourne/Définit la couleur de dessin courante sur la surface (en Numéro de Couleur AGS).
   import attribute int DrawingColor;
   /// Retourne la hauteur de la surface.
   readonly import attribute int Height;
-  /// Retourne/Définit si vous voulez utiliser les coordonnées haute-résolution sur cette surface.
+  /// Retourne/Définit si vous utilisez les coordonnées haute-résolution sur cette surface.
   import attribute bool UseHighResCoordinates;
   /// Retourne la largeur de la surface.
   readonly import attribute int Width;
 };
 
 managed struct Room {
-  /// Retourne le texte de la propriété personnelle spécifé pour la pièce actuelle.
-  import static String GetTextProperty(const string property);
+  /// Retourne le texte de la propriété personnelle spécifée pour la pièce actuelle.
+  import static String GetTextProperty(const string propriete);
   /// Retourne une surface de dessin (drawing surface) contenant l'arrière-plan de la pièce.
-  import static DrawingSurface* GetDrawingSurfaceForBackground(int backgroundNumber=SCR_NO_VALUE);
-  /// Retourne la coordonnée Y du bord bas du cadre de la pièce.
+  import static DrawingSurface* GetDrawingSurfaceForBackground(int numeroFond=SCR_NO_VALUE);
+  /// Retourne la coordonnée Y du bord inférieur du cadre de la pièce.
   readonly import static attribute int BottomEdge;
   /// Retourne la profondeur de couleurs de l'arrière-plan de la pièce.
   readonly import static attribute int ColorDepth;
@@ -420,26 +420,26 @@ managed struct Room {
   readonly import static attribute int Height;
   /// Retourne la coordonnée X du bord gauche du cadre de la pièce.
   readonly import static attribute int LeftEdge;
-  /// Retourne le texte du message de la pièce (décrépi).
+  /// Retourne le texte du message de la pièce (vieilli).
   readonly import static attribute String Messages[];
-  /// Retourne le numéro de la musique qui est jouée lorsque le joueur entre dans cette pièce.
+  /// Retourne le numéro de la musique qui est jouée lorsque le joueur entre dans la pièce.
   readonly import static attribute int MusicOnLoad;
   /// Retourne le nombre d'objets dans la pièce.
   readonly import static attribute int ObjectCount;
   /// Retourne la coordonnée X du bord droit du cadre de la pièce.
   readonly import static attribute int RightEdge;
-  /// Retourne la coordonnée Y du bord haut du cadre de la pièce.
+  /// Retourne la coordonnée Y du bord supérieur du cadre de la pièce.
   readonly import static attribute int TopEdge;
   /// Retourne la largeur de la pièce.
   readonly import static attribute int Width;
 };
 
 managed struct Game {
-  /// Change la traduction en cours.
-  import static bool   ChangeTranslation(const string newTranslationFileName);
-  /// Retourne vrai la première fois que cette fonction est appelé avec l'appel (token) spécifié.
+  /// Change la traduction en cours d'utilisation.
+  import static bool   ChangeTranslation(const string nomNouveauFichierTraduction);
+  /// Retourne true la première fois que cette fonction est appelée avec l'appel (token) spécifié.
   import static bool   DoOnceOnly(const string appel);
-  /// Récupère le Nombre de Couleur AGS (AGS Colour Number) pour la couleur RGB spécifiée.
+  /// Récupère le Numéro de Couleur AGS (AGS Colour Number) pour la couleur RVB spécifiée.
   import static int    GetColorFromRGB(int rouge, int vert, int bleu);
   ///  Retourne le nombre de vignettes (frames) dans la séquence spécifiée de la vue spécifiée.
   import static int    GetFrameCountForLoop(int vue, int sequence);
@@ -447,73 +447,73 @@ managed struct Game {
   import static String GetLocationName(int x, int y);
   /// Retourne le nombre de séquences dans la vue spécifiée.
   import static int    GetLoopCountForView(int vue);
-  /// Returns the current pattern/track number if the current music is MOD or XM (décrépi).
+  /// Retourne le numéro du modèle/de la piste en cours si le morceau actuel est de format MOD ou XM (décrépi).
   import static int    GetMODPattern();
-  /// Retourne si la séquence spécifiée dans la vue spécifiée a l'option “Run the next loop after this one” (Lancer la prochaine séquence après celle-ci) activé.
-  import static bool   GetRunNextSettingForLoop(int view, int loop);
+  /// Retourne si la séquence spécifiée dans la vue spécifiée a l'option “Run the next loop after this one” (Lancer la prochaine séquence après celle-ci) activée.
+  import static bool   GetRunNextSettingForLoop(int vue, int sequence);
   ///  Retourne le texte de description de l'emplacement de sauvegarde spécifié.
-  import static String GetSaveSlotDescription(int saveSlot);
+  import static String GetSaveSlotDescription(int blocSauvegarde);
   /// Retourne l'image (de type ViewFrame) de la vignette spécifiée dans la séquence et la vue spécifiées.
-  import static ViewFrame* GetViewFrame(int vue, int séquence, int vignette);
+  import static ViewFrame* GetViewFrame(int vue, int sequence, int vignette);
   /// Affiche une fenêtre demandant à l'utilisateur de taper du texte, et retourne le texte tapé.
-  import static String InputBox(const string prompt);
-  /// Retourne true s'il y a une séquence audio (eventuellement du type spécifié) en cours de lecture.
+  import static String InputBox(const string message);
+  /// Retourne true s'il y a une séquence audio (éventuellement du type spécifié) en cours de lecture.
   import static bool   IsAudioPlaying(AudioType audioType=SCR_NO_VALUE);
   /// Change la propriété VolumeReductionWhileSpeechPlaying du type audio (AudioType) spécifié.
-  import static void   SetAudioTypeSpeechVolumeDrop(AudioType, int volumeDrop);
+  import static void   SetAudioTypeSpeechVolumeDrop(AudioType, int attenuationVolume);
   /// Change le volume par défaut du type audio (AudioType) spécifié.
   import static void   SetAudioTypeVolume(AudioType, int volume, ChangeVolumeType);
-  /// Change le répertoire où les fichiers de sauvegarde du jeu sont stockées.
-  import static bool   SetSaveGameDirectory(const string directory);
-  /// Stoppe toute séquence audio en cours de lecture. (en option, le type de fichier concerné).
-  import static void   StopAudio(AudioType audioType=SCR_NO_VALUE);
+  /// Change le répertoire où les fichiers de sauvegarde du jeu sont stockés.
+  import static bool   SetSaveGameDirectory(const string repertoire);
+  /// Stoppe toute séquence audio en cours de lecture. (en option, le type de fichiers concernés).
+  import static void   StopAudio(AudioType typeAudio=SCR_NO_VALUE);
 #ifndef STRICT_AUDIO
-  /// Arrête tout les fichier audios en cours de lecture (décrépi).
-  import static void   StopSound(bool includeAmbientSounds=false);   // $AUTOCOMPLETEIGNORE$
+  /// Arrête tous les fichiers audio en cours de lecture (vieilli).
+  import static void   StopSound(bool sonsAmbiantsAussi=false);   // $AUTOCOMPLETEIGNORE$
 #endif
   /// Retourne le nombre de personnages dans le jeu.
   readonly import static attribute int CharacterCount;
   /// Retourne le nombre de dialogues dans le jeu.
   readonly import static attribute int DialogCount;
-  /// Retourne le nom de fichier qui a lancé le jeu.
+  /// Retourne le nom du fichier qui a lancé le jeu.
   readonly import static attribute String FileName;
-  /// Retourne le nombre de polices dans le jeu.
+  /// Retourne le nombre de polices (Fonts) dans le jeu.
   readonly import static attribute int FontCount;
   /// Retourne le texte du message global spécifié. Obsoléte.
   readonly import static attribute String GlobalMessages[];
-  /// Retourne/Définit la string globale spécifiée. Obsoléte.
+  /// Retourne/Définit la chaîne de texte globale spécifiée. Obsoléte.
   import static attribute String GlobalStrings[];
-  /// Retourne le nombre de GUIs dans le jeu.
+  /// Retourne le nombre d'interfaces (GUIs) dans le jeu.
   readonly import static attribute int GUICount;
-  /// Retourne/définit le temps de nom prise en compte des actions du joueurs après un affichage de texte.
+  /// Retourne/définit le temps pendant lequel les actions du joueur sont ignorées après un affichage de texte.
   import static attribute int IgnoreUserInputAfterTextTimeoutMs;
-  /// Retourne si le jeu est actuellement dans une cinématique pouvant être interomput.
+  /// Retourne si le jeu est actuellement dans une cinématique pouvant être interompue.
   readonly import static attribute bool InSkippableCutscene;
-  /// Retourne le nombre d'objets d'inventaires dans le jeu.
+  /// Retourne le nombre d'objets d'inventaire dans le jeu.
   readonly import static attribute int InventoryItemCount;
-  /// Retourne/définit le temps d'affichage minimum d'un discours, en millisecondes.
+  /// Retourne/Définit le temps d'affichage minimum d'une ligne de texte, en millisecondes.
   import static attribute int MinimumTextDisplayTimeMs;
   /// Retourne le nombre de curseurs dans le jeu.
   readonly import static attribute int MouseCursorCount;
-  /// Retourne/définit le nom du jeu.
+  /// Retourne/Définit le nom du jeu.
   import static attribute String Name;
   /// Retourne/Définit la police utilisée pour afficher le texte du jeu.
   import static attribute FontType NormalFont;
   /// Vous permet de savoir si le joueur est en train de passer la cinématique en cours.
   readonly import static attribute bool SkippingCutscene;
-  /// Retourne/définit la police utiliser pour le discours des personnages.
+  /// Retourne/Définit la police utilisée pour le discours des personnages.
   import static attribute FontType SpeechFont;
   /// Retourne la hauteur de l'image spécifiée.
   readonly import static attribute int SpriteHeight[];
   /// Retourne la largeur de l'image spécifiée.
   readonly import static attribute int SpriteWidth[];
-  /// Retourne/Définit la vitesse à laquelle le jeu retire un texte affiché.
+  /// Retourne/Définit le délai avant l'effacement automatique du texte.
   import static attribute int TextReadingSpeed;
   /// Retourne le nom du fichier de traduction actuel.
   readonly import static attribute String TranslationFilename;
   /// Retourne si le jeu utilise les coordonnées natives.
   readonly import static attribute bool UseNativeCoordinates;
-  /// Retourne le nombre de vues dans le jeu.
+  /// Retourne le nombre de vues (views) dans le jeu.
   readonly import static attribute int ViewCount;
 };
 
