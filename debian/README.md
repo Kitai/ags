@@ -1,10 +1,9 @@
 #Building the engine on any Linux
-On Debian/Ubuntu, building a package (see below) is recommended.
-On other distributions, install development files of the following
-libraries. (In brackets are versions that are known to work, but other
-versions should work, too.)
+The following packages are required to build AGS. The versions in
+parentheses are known to work, but other versions will also
+probably work.
 
--   Allegro 4 (> 4.2.2)
+-   Allegro 4 (>= 4.2.2)
 -   libaldmb (0.9.3)
 -   libdumb (0.9.3)
 -   libfreetype (2.4.9)
@@ -12,7 +11,17 @@ versions should work, too.)
 -   libtheora (1.1.1-1.2.0)
 -   libvorbis (1.3.2)
 
-Download the sources with git and change into the **ags** directory:
+Fedora package installation
+---------------------------
+    yum -y install git allegro-devel dumb-devel freetype-devel libogg-devel libtheora-devel libvorbis-devel
+
+Debian/Ubuntu package installation
+----------------------------------
+    sudo apt-get install git debhelper build-essential pkg-config libaldmb1-dev libfreetype6-dev libtheora-dev libvorbis-dev libogg-dev
+
+Download and build
+------------------
+Download the source with git and change into the **ags** directory:
 
     git clone git://github.com/adventuregamestudio/ags.git
     cd ags
@@ -30,10 +39,6 @@ can be installed with
 Building a package is the preferred way to install software on
 Debian/Ubuntu. This is how it's done.
 
-Install the build dependencies:
-
-    sudo apt-get install git debhelper build-essential pkg-config liballegro4.2-dev libaldmb1-dev libfreetype6-dev libtheora-dev libvorbis-dev libogg-dev
-
 Download the sources with git and change into the **ags** directory:
 
     git clone git://github.com/adventuregamestudio/ags.git
@@ -42,7 +47,7 @@ Download the sources with git and change into the **ags** directory:
 Build the package and install it with gdebi:
 
     fakeroot debian/rules binary
-    sudo gdebi ../ags_3.21.1115~JJS-1_*.deb
+    sudo gdebi ../ags_3.30.0-1_*.deb
 
 #Using the engine
 To start an AGS game, just run ags with the game directory or the game
@@ -71,7 +76,11 @@ A direct link is here:
 
 http://www.eglebbk.dds.nl/program/download/digmid.dat
 
-Rename that file to **patches.dat** and place it directly into your home folder.
+Rename that file to **patches.dat**. You can now place it:
+
+-   in the directory pointed to by the ALLEGRO environment variable; or
+-   if $ALLEGRO is not defined, in $HOME; or
+-   in the same folder of the AGS executable.
 
 #Debugging
 When using the Debian/Ubuntu package, the package ags-dbg_*.deb containing debugging
@@ -82,6 +91,13 @@ which can be viewed with
     apt-cache show ags
 
 This information should be included in bug reports.
+
+#Building AGS for a game release
+If you want to build AGS for inclusion in a game release, you want an
+engine that runs on most 32 and 64 bit Linux systems regardless of the library
+versions that are installed on that system. You can get such a built by using
+the script **debian/make_ags+libraries,sh**. The script itself can be used
+on Debian or Ubuntu. See the comments in the script for instructions.
 
 #Workaround: 32 bit AGS on 64 bit Debian/Ubuntu
 In the past AGS worked only on 32 bit architectures, so it was necessary to compile
@@ -149,4 +165,4 @@ Build the package with pbuilder and install it and its dependencies with gdebi:
 
     cd ags
     pdebuild
-    sudo gdebi /var/cache/pbuilder/result/ags_3.21.1115~JJS-1_i386.deb
+    sudo gdebi /var/cache/pbuilder/result/ags_3.30.0-1_i386.deb

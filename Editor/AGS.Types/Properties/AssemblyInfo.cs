@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AGSTypes")]
 [assembly: AssemblyDescription("AGS Editor Support File")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Chris Jones")]
+[assembly: AssemblyCompany("Chris Jones et al.")]
 [assembly: AssemblyProduct("Adventure Game Studio")]
 [assembly: AssemblyCopyright(AGS.Types.Version.AGS_EDITOR_COPYRIGHT)]
 [assembly: AssemblyTrademark("")]
@@ -21,10 +21,10 @@ namespace AGS.Types
 {
 	public class Version
 	{
-		public static readonly bool IS_BETA_VERSION = true;
-		public const string AGS_EDITOR_DATE = "April 2011";
-		public const string AGS_EDITOR_FRIENDLY_VERSION = "3.2.2";
-		public const string AGS_EDITOR_VERSION = "3.2.2.112";
-        public const string AGS_EDITOR_COPYRIGHT = "Copyright © 2006-2011 Chris Jones, and others";
+		public static readonly bool IS_BETA_VERSION = false;
+		public const string AGS_EDITOR_DATE = "February 2014";
+		public const string AGS_EDITOR_FRIENDLY_VERSION = "3.3.0";
+        public const string AGS_EDITOR_VERSION = "3.3.0.1156";
+        public const string AGS_EDITOR_COPYRIGHT = "Copyright © 2006-2011 Chris Jones and 2011-2014 others.";
 	}
 }

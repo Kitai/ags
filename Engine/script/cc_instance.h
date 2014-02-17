@@ -22,8 +22,9 @@
 #include "script/script_common.h"
 #include "script/cc_script.h"  // ccScript
 #include "script/nonblockingscriptfunction.h"
+#include "util/string.h"
 
-namespace AGS { namespace Common { class Stream; }; };
+using namespace AGS;
 
 #define INSTF_SHAREDATA     1
 #define INSTF_ABORTED       2
@@ -80,6 +81,23 @@ struct ScriptVariable
 };
 
 struct FunctionCallStack;
+
+struct ScriptPosition
+{
+    ScriptPosition()
+        : Line(0)
+    {
+    }
+
+    ScriptPosition(const Common::String &section, int32_t line)
+        : Section(section)
+        , Line(line)
+    {
+    }
+
+    Common::String  Section;
+    int32_t         Line;
+};
 
 // Running instance of the script
 struct ccInstance
@@ -151,6 +169,7 @@ public:
     
     void    GetCallStack(char *buffer, int maxLines);
     void    GetScriptName(char *curScrName);
+    void    GetScriptPosition(ScriptPosition &script_pos);
     // get the address of an exported variable in the script
     RuntimeScriptValue GetSymbolAddress(char *);
     void    DumpInstruction(const ScriptOperation &op);
@@ -166,10 +185,10 @@ protected:
     ScriptVariable *FindGlobalVar(int32_t var_addr, int *pindex = NULL);
     void    AddGlobalVar(const ScriptVariable &glvar, int at_index);
     bool    CreateRuntimeCodeFixups(ccScript * scri);
-	bool    ReadOperation(ScriptOperation &op, int32_t at_pc);
+	//bool    ReadOperation(ScriptOperation &op, int32_t at_pc);
 
     // Runtime fixups
-    bool    FixupArgument(intptr_t code_value, char fixup_type, RuntimeScriptValue &argument);
+    //bool    FixupArgument(intptr_t code_value, char fixup_type, RuntimeScriptValue &argument);
 
     // Stack processing
     // Push writes new value and increments stack ptr;

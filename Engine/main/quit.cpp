@@ -16,7 +16,6 @@
 // Quit game procedure
 //
 
-#include "util/wgt2allg.h"
 #include "gfx/ali3d.h"
 #include "ac/cdaudio.h"
 #include "ac/gamesetup.h"
@@ -28,6 +27,8 @@
 #include "debug/debug_log.h"
 #include "debug/debugger.h"
 #include "debug/out.h"
+#include "font/fonts.h"
+#include "main/graphics_mode.h"
 #include "main/main.h"
 #include "main/mainheader.h"
 #include "main/quit.h"
@@ -177,16 +178,6 @@ void quit_destroy_subscreen()
 	_sub_screen = NULL;
 }
 
-void quit_shutdown_graphics()
-{
-    // Release the display mode (and anything dependant on the window)
-    if (gfxDriver != NULL)
-        gfxDriver->UnInit();
-
-    // Tell Allegro that we are no longer in graphics mode
-    set_gfx_mode(GFX_TEXT, 0, 0, 0, 0);
-}
-
 void quit_message_on_exit(char *qmsg, char *alertis)
 {
     // successful exit displays no messages (because Windoze closes the dos-box
@@ -198,15 +189,6 @@ void quit_message_on_exit(char *qmsg, char *alertis)
         sprintf(pexbuf,"%s\n",qmsg);
         strcat(alertis,pexbuf);
         platform->DisplayAlert(alertis);
-    }
-}
-
-void quit_release_gfx_driver()
-{
-    if (gfxDriver != NULL)
-    {
-        delete gfxDriver;
-        gfxDriver = NULL;
     }
 }
 
@@ -239,10 +221,19 @@ void quit_delete_temp_files()
     al_findclose (&dfb);
 }
 
+void free_globals()
+{
+#if defined (WINDOWS_VERSION)
+    if (wArgv)
+    {
+        LocalFree(wArgv);
+        wArgv = NULL;
+    }
+#endif
+}
+
 // TODO: move to test unit
-#include "gfx/allegrobitmap.h"
-using AGS::Common::AllegroBitmap;
-extern AllegroBitmap *test_allegro_bitmap;
+extern Bitmap *test_allegro_bitmap;
 extern IDriverDependantBitmap *test_allegro_ddb;
 void allegro_bitmap_test_release()
 {
@@ -307,14 +298,12 @@ void quit(const char *quitmsg) {
 
     our_eip = 9908;
 
-    quit_shutdown_graphics();
+    graphics_mode_shutdown();
 
     quit_message_on_exit(qmsg, alertis);
 
     // remove the game window
     allegro_exit();
-
-    quit_release_gfx_driver();
 
     platform->PostAllegroExit();
 
@@ -333,6 +322,7 @@ void quit(const char *quitmsg) {
     Out::FPrint("***** ENGINE HAS SHUTDOWN");
 
     shutdown_debug_system();
+    free_globals();
 
     our_eip = 9904;
     exit(EXIT_NORMAL);

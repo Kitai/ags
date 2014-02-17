@@ -18,6 +18,7 @@ class CustomGlSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 		void onSurfaceChanged(int width, int height);
 	}
 
+	@SuppressWarnings("unused")
 	private GL gl;
 	private EGL10 egl;
 	private EGLDisplay display;
@@ -31,6 +32,8 @@ class CustomGlSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 	private SurfaceHolder surfaceHolder;
 
+	public boolean created;
+
 	CustomGlSurfaceView(Context context)
 	{
 		super(context);
@@ -41,10 +44,12 @@ class CustomGlSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 	public void surfaceCreated(SurfaceHolder holder)
 	{
+		created = true;
 	}
 
 	public void surfaceDestroyed(SurfaceHolder holder)
 	{
+		created = false;
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h)

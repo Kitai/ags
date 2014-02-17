@@ -20,7 +20,6 @@
 #define __AGS_EE_PLATFORM__AGSPLATFORMDRIVER_H
 
 #include "ac/datetime.h"
-#include "util/file.h"
 #include "debug/outputtarget.h"
 
 namespace AGS { namespace Common { class Stream; } }
@@ -45,6 +44,8 @@ struct AGSPlatformDriver
     virtual void Delay(int millis) = 0;
     virtual void DisplayAlert(const char*, ...) = 0;
     virtual const char *GetAllUsersDataDirectory() { return NULL; }
+    // Get default directory for program output (logs)
+    virtual const char *GetAppOutputDirectory() { return "."; }
     virtual unsigned long GetDiskFreeSpaceMB() = 0;
     virtual const char* GetNoMouseErrorString() = 0;
     virtual eScriptSystemOSID GetSystemOSID() = 0;
@@ -54,7 +55,7 @@ struct AGSPlatformDriver
     virtual void PostAllegroInit(bool windowed);
     virtual void PostAllegroExit() = 0;
     virtual void FinishedUsingGraphicsMode();
-    virtual void ReplaceSpecialPaths(const char *sourcePath, char *destPath) = 0;
+    virtual void ReplaceSpecialPaths(const char *sourcePath, char *destPath, size_t destSize);
     virtual int  RunSetup() = 0;
     virtual void SetGameWindowIcon();
     virtual void WriteConsole(const char*, ...) = 0;

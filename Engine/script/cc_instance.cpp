@@ -14,7 +14,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "util/wgt2allg.h" // few allegro-specific types
 #include "ac/common.h"
 #include "ac/event.h"
 #include "ac/mouse.h"
@@ -24,6 +23,7 @@
 #include "script/cc_error.h"
 #include "script/cc_instance.h"
 #include "debug/debug_log.h"
+#include "debug/out.h"
 #include "script/cc_options.h"
 #include "script/executingscript.h"
 #include "script/script.h"
@@ -516,10 +516,90 @@ int ccInstance::Run(int32_t curpc)
 
     while (1) {
 
+        /*
 		if (!codeInst->ReadOperation(codeOp, pc))
         {
             return -1;
         }
+        */
+        /* ReadOperation */
+        //=====================================================================
+        codeOp.Instruction.Code			= codeInst->code[pc];
+        codeOp.Instruction.InstanceId	= (codeOp.Instruction.Code >> INSTANCE_ID_SHIFT) & INSTANCE_ID_MASK;
+        codeOp.Instruction.Code		   &= INSTANCE_ID_REMOVEMASK; // now this is pure instruction code
+
+        int want_args = sccmd_info[codeOp.Instruction.Code].ArgCount;
+        if (pc + want_args >= codeInst->codesize)
+        {
+            cc_error("unexpected end of code data at %d", pc + want_args);
+            return -1;
+        }
+        codeOp.ArgCount = want_args;
+
+        int pc_at = pc + 1;
+        for (int i = 0; i < codeOp.ArgCount; ++i, ++pc_at)
+        {
+            char fixup = codeInst->code_fixups[pc_at];
+            if (fixup > 0)
+            {
+                // could be relative pointer or import address
+                /*
+                if (!FixupArgument(code[pc], fixup, codeOp.Args[i]))
+                {
+                    return -1;
+                }
+                */
+                /* FixupArgument */
+                //=====================================================================
+                switch (fixup)
+                {
+                case FIXUP_GLOBALDATA:
+                    {
+                        ScriptVariable *gl_var = (ScriptVariable*)codeInst->code[pc_at];
+                        codeOp.Args[i].SetGlobalVar(&gl_var->RValue);
+                    }
+                    break;
+                case FIXUP_FUNCTION:
+                    // originally commented -- CHECKME: could this be used in very old versions of AGS?
+                    //      code[fixup] += (long)&code[0];
+                    // This is a program counter value, presumably will be used as SCMD_CALL argument
+                    codeOp.Args[i].SetInt32((int32_t)codeInst->code[pc_at]);
+                    break;
+                case FIXUP_STRING:
+                    codeOp.Args[i].SetStringLiteral(&codeInst->strings[0] + codeInst->code[pc_at]);
+                    break;
+                case FIXUP_IMPORT:
+                    {
+                        const ScriptImport *import = simp.getByIndex((int32_t)codeInst->code[pc_at]);
+                        if (import)
+                        {
+                            codeOp.Args[i] = import->Value;
+                        }
+                        else
+                        {
+                            cc_error("cannot resolve import, key = %ld", codeInst->code[pc_at]);
+                            return -1;
+                        }
+                    }
+                    break;
+                case FIXUP_STACK:
+                    codeOp.Args[i] = GetStackPtrOffsetFw((int32_t)codeInst->code[pc_at]);
+                    break;
+                default:
+                    cc_error("internal fixup type error: %d", fixup);
+                    return -1;
+                }
+                /* End FixupArgument */
+                //=====================================================================
+            }
+            else
+            {
+                // should be a numeric literal (int32 or float)
+                codeOp.Args[i].SetInt32( (int32_t)codeInst->code[pc_at] );
+            }
+        }
+        /* End ReadOperation */
+        //=====================================================================
 
         // save the arguments for quick access
         RuntimeScriptValue &arg1 = codeOp.Args[0];
@@ -529,6 +609,9 @@ int ccInstance::Run(int32_t curpc)
             registers[arg1.IValue >= 0 && arg1.IValue < CC_NUM_REGISTERS ? arg1.IValue : 0];
         RuntimeScriptValue &reg2 = 
             registers[arg2.IValue >= 0 && arg2.IValue < CC_NUM_REGISTERS ? arg2.IValue : 0];
+
+        const char *direct_ptr1;
+        const char *direct_ptr2;
 
         if (write_debug_dump)
         {
@@ -745,8 +828,7 @@ int ccInstance::Run(int32_t curpc)
               pc += (reg1.IValue - thisbase[curnest]);
           }
 
-          if (next_call_needs_object)  // is this right?
-              next_call_needs_object = 0;
+          next_call_needs_object = 0;
 
           if (loopIterationCheckDisabled)
               loopIterationCheckDisabled++;
@@ -757,7 +839,7 @@ int ccInstance::Run(int32_t curpc)
           continue; // continue so that the PC doesn't get overwritten
       case SCMD_MEMREADB:
           // Take the data address from reg[MAR] and copy byte to reg[arg1]
-          reg1.SetInt8(registers[SREG_MAR].ReadByte());
+          reg1.SetUInt8(registers[SREG_MAR].ReadByte());
           break;
       case SCMD_MEMREADW:
           // Take the data address from reg[MAR] and copy int16_t to reg[arg1]
@@ -854,8 +936,15 @@ int ccInstance::Run(int32_t curpc)
           int32_t handle = registers[SREG_MAR].ReadInt32();
           void *object;
           ICCDynamicObject *manager;
-          ccGetObjectAddressAndManagerFromHandle(handle, object, manager);
-          reg1.SetDynamicObject( object, manager );
+          ScriptValueType obj_type = ccGetObjectAddressAndManagerFromHandle(handle, object, manager);
+          if (obj_type == kScValPluginObject)
+          {
+              reg1.SetPluginObject( object, manager );
+          }
+          else
+          {
+              reg1.SetDynamicObject( object, manager );
+          }
 
           // if error occurred, cc_error will have been set
           if (ccError)
@@ -870,9 +959,14 @@ int ccInstance::Run(int32_t curpc)
           {
               address = (char*)reg1.StcArr->GetElementPtr(reg1.Ptr, reg1.IValue);
           }
-          else if (reg1.Type == kScValDynamicObject)
+          else if (reg1.Type == kScValDynamicObject ||
+              reg1.Type == kScValPluginObject)
           {
               address = reg1.Ptr;
+          }
+          else if (reg1.Type == kScValPluginArg)
+          {
+              address = (char*)reg1.IValue;
           }
           // There's one possible case when the reg1 is 0, which means writing nullptr
           else if (!reg1.IsNull())
@@ -899,9 +993,14 @@ int ccInstance::Run(int32_t curpc)
           {
               address = (char*)reg1.StcArr->GetElementPtr(reg1.Ptr, reg1.IValue);
           }
-          else if (reg1.Type == kScValDynamicObject)
+          else if (reg1.Type == kScValDynamicObject ||
+              reg1.Type == kScValPluginObject)
           {
               address = reg1.Ptr;
+          }
+          else if (reg1.Type == kScValPluginArg)
+          {
+              address = (char*)reg1.IValue;
           }
           // There's one possible case when the reg1 is 0, which means writing nullptr
           else if (!reg1.IsNull())
@@ -961,6 +1060,10 @@ int ccInstance::Run(int32_t curpc)
           // If there are nested CALLAS calls, the stack might
           // contain 2 calls worth of parameters, so only
           // push args for this call
+          if (num_args_to_func < 0)
+          {
+              num_args_to_func = func_callstack.Count;
+          }
           ASSERT_STACK_SPACE_AVAILABLE(num_args_to_func + 1 /* return address */);
           for (const RuntimeScriptValue *prval = func_callstack.GetHead() + num_args_to_func;
                prval > func_callstack.GetHead(); --prval)
@@ -1003,8 +1106,7 @@ int ccInstance::Run(int32_t curpc)
               return -1;
           }
 
-          if (next_call_needs_object)
-              next_call_needs_object = 0;
+          next_call_needs_object = 0;
 
           pc = oldpc;
           was_just_callas = func_callstack.Count;
@@ -1029,10 +1131,33 @@ int ccInstance::Run(int32_t curpc)
 
           RuntimeScriptValue return_value;
 
-          if (next_call_needs_object)
+          if (reg1.Type == kScValPluginFunction)
+          {
+              GlobalReturnValue.Invalidate();
+              int32_t int_ret_val;
+              if (next_call_needs_object)
+              {
+                  RuntimeScriptValue obj_rval = registers[SREG_OP];
+                  obj_rval.DirectPtr();
+                  int_ret_val = call_function((intptr_t)reg1.Ptr, &obj_rval, num_args_to_func, func_callstack.GetHead() + 1);
+              }
+              else
+              {
+                  int_ret_val = call_function((intptr_t)reg1.Ptr, NULL, num_args_to_func, func_callstack.GetHead() + 1);
+              }
+
+              if (GlobalReturnValue.IsValid())
+              {
+                  return_value = GlobalReturnValue;
+              }
+              else
+              {
+                  return_value.SetPluginArgument(int_ret_val);
+              }
+          }
+          else if (next_call_needs_object)
           {
             // member function call
-            next_call_needs_object = 0;
             if (reg1.Type == kScValObjectFunction)
             {
               RuntimeScriptValue obj_rval = registers[SREG_OP];
@@ -1047,19 +1172,6 @@ int ccInstance::Run(int32_t curpc)
           else if (reg1.Type == kScValStaticFunction)
           {
             return_value = reg1.SPfn(func_callstack.GetHead() + 1, num_args_to_func);
-          }
-          else if (reg1.Type == kScValPluginFunction)
-          {
-            GlobalReturnValue.Invalidate();
-            int32_t int_ret_val = call_function((intptr_t)reg1.Ptr, num_args_to_func, func_callstack.GetHead() + 1);
-            if (GlobalReturnValue.IsValid())
-            {
-              return_value = GlobalReturnValue;
-            }
-            else
-            {
-              return_value.SetInt32(int_ret_val);
-            }
           }
           else if (reg1.Type == kScValObjectFunction)
           {
@@ -1077,6 +1189,7 @@ int ccInstance::Run(int32_t curpc)
 
           registers[SREG_AX] = return_value;
           current_instance = this;
+          next_call_needs_object = 0;
           num_args_to_func = -1;
           break;
                          }
@@ -1098,23 +1211,29 @@ int ccInstance::Run(int32_t curpc)
               cc_error("!Null pointer referenced");
               return -1;
           }
-          if (reg1.Type == kScValDynamicObject ||
-              // This might be an object of USER-DEFINED type, calling its MEMBER-FUNCTION.
-              // Note, that this is the only case known when such object is written into reg[SREG_OP];
-              // in any other case that would count as error.
-              reg1.Type == kScValGlobalVar || reg1.Type == kScValStackPtr
-              )
+          switch (reg1.Type)
           {
+          // This might be a static object, passed to the user-defined extender function
+          case kScValStaticObject:
+          case kScValDynamicObject:
+          case kScValPluginObject:
+          // This might be an object of USER-DEFINED type, calling its MEMBER-FUNCTION.
+          // Note, that this is the only case known when such object is written into reg[SREG_OP];
+          // in any other case that would count as error. 
+          case kScValGlobalVar:
+          case kScValStackPtr:
               registers[SREG_OP] = reg1;
-          }
-          else if (reg1.Type == kScValStaticArray && reg1.StcArr->GetDynamicManager())
-          {
-              registers[SREG_OP].SetDynamicObject(
-                  (char*)reg1.StcArr->GetElementPtr(reg1.Ptr, reg1.IValue),
-                  reg1.StcArr->GetDynamicManager());
-          }
-          else
-          {
+              break;
+          case kScValStaticArray:
+              if (reg1.StcArr->GetDynamicManager())
+              {
+                  registers[SREG_OP].SetDynamicObject(
+                      (char*)reg1.StcArr->GetElementPtr(reg1.Ptr, reg1.IValue),
+                      reg1.StcArr->GetDynamicManager());
+                  break;
+              }
+              // fall-through intended
+          default:
               cc_error("internal error: SCMD_CALLOBJ argument is not an object of built-in or user-defined type");
               return -1;
           }
@@ -1205,10 +1324,9 @@ int ccInstance::Run(int32_t curpc)
               cc_error("No string class implementation set, but opcode was used");
               return -1;
           }
-          // TODO: test reg1 type;
-          // Might be local, global memory, and dynamic object too?
+          direct_ptr1 = (const char*)reg1.GetDirectPtr();
           reg1.SetDynamicObject(
-              (void*)stringClassImpl->CreateString((const char *)(reg1.GetPtrWithOffset())),
+              (void*)stringClassImpl->CreateString(direct_ptr1),
               &myScriptStringImpl);
           break;
       case SCMD_STRINGSEQUAL:
@@ -1216,8 +1334,9 @@ int ccInstance::Run(int32_t curpc)
               cc_error("!Null pointer referenced");
               return -1;
           }
-          reg1.SetInt32AsBool(
-            strcmp((const char*)reg1.GetPtrWithOffset(), (const char*)reg2.GetPtrWithOffset()) == 0 );
+          direct_ptr1 = (const char*)reg1.GetDirectPtr();
+          direct_ptr2 = (const char*)reg2.GetDirectPtr();
+          reg1.SetInt32AsBool(strcmp(direct_ptr1, direct_ptr2) == 0);
           
           break;
       case SCMD_STRINGSNOTEQ:
@@ -1225,8 +1344,9 @@ int ccInstance::Run(int32_t curpc)
               cc_error("!Null pointer referenced");
               return -1;
           }
-          reg1.SetInt32AsBool(
-              strcmp((const char*)reg1.GetPtrWithOffset(), (const char*)reg2.GetPtrWithOffset()) != 0 );
+          direct_ptr1 = (const char*)reg1.GetDirectPtr();
+          direct_ptr2 = (const char*)reg2.GetDirectPtr();
+          reg1.SetInt32AsBool(strcmp(direct_ptr1, direct_ptr2) != 0 );
           break;
       case SCMD_LOOPCHECKOFF:
           if (loopIterationCheckDisabled == 0)
@@ -1389,6 +1509,12 @@ void ccInstance::GetScriptName(char *curScrName) {
         sprintf (curScrName, "Room %d script", displayed_room);
     else
         strcpy (curScrName, "Unknown script");
+}
+
+void ccInstance::GetScriptPosition(ScriptPosition &script_pos)
+{
+    script_pos.Section = runningInst->instanceof->GetSectionName(pc);
+    script_pos.Line    = line_number;
 }
 
 // get a pointer to a variable or function exported by the script
@@ -1752,9 +1878,18 @@ ScriptVariable *ccInstance::FindGlobalVar(int32_t var_addr, int *pindex)
         return NULL;
     }
 
+    // [IKM] 2013-02-23:
+    // !!! TODO
+    // "Metal Dead" game (built with AGS 3.21.1115) fails to pass this check,
+    // because one of its fixups in script creates reference beyond global
+    // data buffer. The error will be suppressed until root of the problem is
+    // found, and some proper workaround invented.
     if (var_addr >= globaldatasize)
     {
+        /*
         return NULL;
+        */
+        Common::Out::FPrint("WARNING: global variable found beyond allocated global data buffer (%d, %d)", var_addr, globaldatasize);
     }
 
     int first   = 0;
@@ -1873,6 +2008,7 @@ bool ccInstance::CreateRuntimeCodeFixups(ccScript * scri)
     return true;
 }
 
+/*
 bool ccInstance::ReadOperation(ScriptOperation &op, int32_t at_pc)
 {
 	op.Instruction.Code			= code[at_pc];
@@ -1908,7 +2044,8 @@ bool ccInstance::ReadOperation(ScriptOperation &op, int32_t at_pc)
 
     return true;
 }
-
+*/
+/*
 bool ccInstance::FixupArgument(intptr_t code_value, char fixup_type, RuntimeScriptValue &argument)
 {
     switch (fixup_type)
@@ -1951,7 +2088,7 @@ bool ccInstance::FixupArgument(intptr_t code_value, char fixup_type, RuntimeScri
     }
     return true;
 }
-
+*/
 //-----------------------------------------------------------------------------
 
 void ccInstance::PushValueToStack(const RuntimeScriptValue &rval)

@@ -12,7 +12,7 @@
 //
 //=============================================================================
 
-#include "util/wgt2allg.h"
+#include "util/wgt2allg.h" // DIGI_AUTODETECT & MIDI_AUTODETECT
 #include "ac/gamesetup.h"
 
 GameSetup::GameSetup()
@@ -28,6 +28,4 @@ GameSetup::GameSetup()
     enable_side_borders = 1;
     base_width = 320;
     base_height = 200;
-    gfxFilterID = NULL;
-    gfxDriverID = NULL;
 }

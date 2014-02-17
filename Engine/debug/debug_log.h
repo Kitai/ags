@@ -22,19 +22,20 @@
 
 extern GameState play;
 void initialize_debug_system();
+void apply_output_configuration();
 void shutdown_debug_system();
 
 #define DEBUG_CONSOLE if (play.debug_mode) debug_write_console
 
-void debug_write_console (char *msg, ...);
+void debug_write_console (const char *msg, ...);
 
 /* The idea of this is that non-essential errors such as "sound file not
 found" are logged instead of exiting the program.
 */
 // NOTE: debug_log only prints messages when game is in debug mode;
 // TODO: revise this later; use new output system with verbosity settings
-void debug_log(char*texx, ...);
-void quitprintf(char*texx, ...);
+void debug_log(const char *texx, ...);
+void quitprintf(const char *texx, ...);
 bool init_editor_debugging();
 
 // allow LShift to single-step,  RShift to pause flow
@@ -49,6 +50,8 @@ struct DebugConsoleText {
 
 extern DebugConsoleText debug_line[DEBUG_CONSOLE_NUMLINES];
 extern int first_debug_line, last_debug_line, display_console;
+extern bool enable_log_file;
+extern bool disable_log_file;
 
 
 extern AGSPlatformDriver *platform;

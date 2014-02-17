@@ -9,6 +9,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
@@ -37,16 +38,18 @@ public class PreferencesActivity extends PreferenceActivity
 	private native int getAvailableTranslations(String translations[]);
 
 
+	@SuppressWarnings("unused")
 	@Override
-	protected void onCreate(Bundle bundle)
+	public void onCreate(Bundle bundle)
 	{
 		super.onCreate(bundle);
 		
 		System.loadLibrary("agsengine");
 		
-		gameName = getIntent().getExtras().getString("name");
-		gameFilename = getIntent().getExtras().getString("filename");
-		baseDirectory = getIntent().getExtras().getString("directory");
+		Bundle extras = getIntent().getExtras();
+		gameName = extras.getString("name");
+		gameFilename = extras.getString("filename");
+		baseDirectory = extras.getString("directory");
 		
 		isGlobalConfig = (gameName.length() == 0);
 		
@@ -88,8 +91,9 @@ public class PreferencesActivity extends PreferenceActivity
 		}
 
 		// Load preferences
-		getPreferenceScreen().setPersistent(false);
-		loadPreferencesRecursively(getPreferenceScreen());
+		Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+		loadPreferencesRecursively(getPreferenceScreen(), editor);
+		editor.commit();
 	}
 	
 	
@@ -127,23 +131,23 @@ public class PreferencesActivity extends PreferenceActivity
 	}
 	
 	// Load the preferences from the engine into the preference activity
-	private void loadPreferencesRecursively(PreferenceGroup root)
+	private void loadPreferencesRecursively(PreferenceGroup root, Editor editor)
 	{
-		Editor editor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
-		
 		for (int i = 0; i < root.getPreferenceCount(); i++)
 		{
 			Preference preference = root.getPreference(i);
 			
-			if (preference instanceof android.preference.CheckBoxPreference)
+			if (preference instanceof CheckBoxPreference)
 			{
 				String key = preference.getKey();
 				int key_value = Integer.valueOf(key);
 				int value = PreferencesActivity.readIntConfigValue(key_value);
 				
 				editor.putBoolean(preference.getKey(), (value != 0));
+				CheckBoxPreference checkBox = (CheckBoxPreference)findPreference(preference.getKey());
+				checkBox.setChecked(value != 0);
 			}
-			else if (preference instanceof android.preference.ListPreference)
+			else if (preference instanceof ListPreference)
 			{
 				String key = preference.getKey();
 				int key_value = Integer.valueOf(key);
@@ -151,25 +155,32 @@ public class PreferencesActivity extends PreferenceActivity
 				if (key_value == CONFIG_TRANSLATION)
 				{
 					String value = PreferencesActivity.readStringConfigValue(key_value);
-					
+					ListPreference list = (ListPreference)findPreference(preference.getKey());
+
 					if (value.equals("default"))
+					{
 						editor.putString(preference.getKey(), "Default");
+						list.setValue("Default");
+					}
 					else
+					{
 						editor.putString(preference.getKey(), value);
+						list.setValue(value);
+					}
 				}
 				else
 				{
 					int value = PreferencesActivity.readIntConfigValue(key_value);
 					editor.putString(preference.getKey(), Integer.toString(value));
+					ListPreference list = (ListPreference)findPreference(preference.getKey());
+					list.setValue(Integer.toString(value));
 				}
 			}
-			else if (preference instanceof android.preference.PreferenceCategory)
+			else if (preference instanceof PreferenceCategory)
 			{
-				loadPreferencesRecursively((PreferenceGroup) preference);
+				loadPreferencesRecursively((PreferenceGroup) preference, editor);
 			}
 		}
-		
-		editor.commit();
 	}
 	
 	// Save the preferences
@@ -192,6 +203,9 @@ public class PreferencesActivity extends PreferenceActivity
 				String key = preference.getKey();
 				int key_value = Integer.valueOf(key);
 				String value_string = ((android.preference.ListPreference) preference).getValue();
+				
+				if (value_string == null)
+					continue;
 				
 				if (key_value == CONFIG_TRANSLATION)
 				{
@@ -221,6 +235,8 @@ public class PreferencesActivity extends PreferenceActivity
 		writeConfigFile();
 		
 		super.onDestroy();
+		
+		finish();
 	}
 	
 	// Prevent the activity from being destroyed on a configuration change

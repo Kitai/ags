@@ -192,7 +192,7 @@ bool RuntimeScriptValue::WriteByte(uint8_t val)
         }
         else
         {
-            RValue->SetInt8(val); // set RValue as int
+            RValue->SetUInt8(val); // set RValue as int
         }
     }
     else if (this->Type == kScValStaticObject || this->Type == kScValStaticArray)
@@ -300,18 +300,17 @@ bool RuntimeScriptValue::WriteInt32(int32_t val)
     return true;
 }
 
-// FIXME: make a type check here to find out if we are actually writing a
-// pointer, and not int32 (which could be common too).
-// If that is a pointer we are writing here, it won't work for 64-bit build
-// as it is now. A solution should be implemented, depending on each distinct
-// case.
+// Notice, that there are only two valid cases when a pointer may be written:
+// when the destination is a stack entry or global variable of free type
+// (not kScValData type).
+// In any other case, only the numeric value (integer/float) will be written.
 bool RuntimeScriptValue::WriteValue(const RuntimeScriptValue &rval)
 {
     if (this->Type == kScValStackPtr)
     {
         if (RValue->Type == kScValData)
         {
-            *(int32_t*)(RValue->GetPtrWithOffset() + this->IValue) = (int32_t)rval.GetPtrWithOffset();
+            *(int32_t*)(RValue->GetPtrWithOffset() + this->IValue) = rval.IValue;
         }
         else
         {
@@ -335,7 +334,7 @@ bool RuntimeScriptValue::WriteValue(const RuntimeScriptValue &rval)
     {
         if (RValue->Type == kScValData)
         {
-            int32_t val = (int32_t)rval.GetPtrWithOffset();
+            int32_t val = rval.IValue;
 #if defined(AGS_BIG_ENDIAN)
             AGS::Common::BitByteOperations::SwapBytesInt32(val);
 #endif
@@ -354,23 +353,22 @@ bool RuntimeScriptValue::WriteValue(const RuntimeScriptValue &rval)
     }
     else if (this->Type == kScValStaticObject || this->Type == kScValStaticArray)
     {
-        this->StcMgr->WriteInt32(this->Ptr, this->IValue, (int32_t)rval.GetPtrWithOffset());
+        this->StcMgr->WriteInt32(this->Ptr, this->IValue, rval.IValue);
     }
     else if (this->Type == kScValDynamicObject)
     {
-        this->DynMgr->WriteInt32(this->Ptr, this->IValue, (int32_t)rval.GetPtrWithOffset());
+        this->DynMgr->WriteInt32(this->Ptr, this->IValue, rval.IValue);
     }
     else
     {
-        // 64 bit: Memory writes are still 32 bit
-        *((int32_t*)this->GetPtrWithOffset()) = (int32_t)rval.GetPtrWithOffset();
+        *((int32_t*)this->GetPtrWithOffset()) = rval.IValue;
     }
     return true;
 }
 
 RuntimeScriptValue &RuntimeScriptValue::DirectPtr()
 {
-    while (Type == kScValGlobalVar || Type == kScValStackPtr)
+    if (Type == kScValGlobalVar || Type == kScValStackPtr)
     {
         int ival = IValue;
         *this = *RValue;
@@ -383,4 +381,17 @@ RuntimeScriptValue &RuntimeScriptValue::DirectPtr()
         IValue = 0;
     }
     return *this;
+}
+
+intptr_t RuntimeScriptValue::GetDirectPtr() const
+{
+    const RuntimeScriptValue *temp_val = this;
+    int ival = temp_val->IValue;
+    if (temp_val->Type == kScValGlobalVar || temp_val->Type == kScValStackPtr)
+    {
+        temp_val  = temp_val->RValue;
+        ival     += temp_val->IValue;
+    }
+
+    return (intptr_t)(temp_val->Ptr + ival);
 }

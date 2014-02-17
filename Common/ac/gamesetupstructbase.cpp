@@ -12,11 +12,27 @@
 //
 //=============================================================================
 
-#include "util/wgt2allg.h"
 #include "ac/gamesetupstructbase.h"
 #include "util/stream.h"
 
 using AGS::Common::Stream;
+
+GameSetupStructBase::GameSetupStructBase()
+    : dict(NULL)
+    , globalscript(NULL)
+    , chars(NULL)
+    , compiled_script(NULL)
+    , load_messages(NULL)
+    , load_dictionary(false)
+    , load_compiled_script(false)
+{
+    memset(messages, 0, sizeof(messages));
+}
+
+GameSetupStructBase::~GameSetupStructBase()
+{
+    delete [] load_messages;
+}
 
 void GameSetupStructBase::ReadFromFile(Stream *in)
 {
@@ -45,17 +61,15 @@ void GameSetupStructBase::ReadFromFile(Stream *in)
     default_lipsync_frame = in->ReadInt32();
     invhotdotsprite = in->ReadInt32();
     in->ReadArrayOfInt32(reserved, 17);
-    // read the final ptrs so we know to load dictionary, scripts etc
-    // 64 bit: Read 4 byte values into array of 8 byte
-    in->ReadArrayOfIntPtr32((intptr_t*)messages, MAXGLOBALMES);
-    //int i;
-    //for (i = 0; i < MAXGLOBALMES; i++)
-    //  messages[i] = (char*)in->ReadInt32();
+    load_messages = new int32_t[MAXGLOBALMES];
+    in->ReadArrayOfInt32(load_messages, MAXGLOBALMES);
 
-    dict = (WordsDictionary *) in->ReadInt32();
-    globalscript = (char *) in->ReadInt32();
-    chars = (CharacterInfo *) in->ReadInt32();
-    compiled_script = (ccScript *) in->ReadInt32();
+    // - GameSetupStruct::read_words_dictionary() checks load_dictionary
+    // - load_game_file() checks load_compiled_script
+    load_dictionary = in->ReadInt32() != 0;
+    in->ReadInt32(); // globalscript
+    in->ReadInt32(); // chars
+    load_compiled_script = in->ReadInt32() != 0;
 }
 
 void GameSetupStructBase::WriteToFile(Stream *out)
@@ -85,10 +99,12 @@ void GameSetupStructBase::WriteToFile(Stream *out)
     out->WriteInt32(default_lipsync_frame);
     out->WriteInt32(invhotdotsprite);
     out->WriteArrayOfInt32(reserved, 17);
-    // write the final ptrs so we know to load dictionary, scripts etc
-    out->WriteArrayOfIntPtr32((intptr_t*)messages, MAXGLOBALMES);
-    out->WriteInt32((int32)dict);
-    out->WriteInt32((int32)globalscript);
-    out->WriteInt32((int32)chars);
-    out->WriteInt32((int32)compiled_script);
+    for (int i = 0; i < MAXGLOBALMES; ++i)
+    {
+        out->WriteInt32(messages[i] ? 1 : 0);
+    }
+    out->WriteInt32(dict ? 1 : 0);
+    out->WriteInt32(0); // globalscript
+    out->WriteInt32(0); // chars
+    out->WriteInt32(compiled_script ? 1 : 0);
 }

@@ -21,10 +21,9 @@
 
 #include "ac/interaction.h"
 #include "ac/dynobj/scriptviewframe.h"
-#include "util/file.h"
 
 // Forward declaration
-namespace AGS { namespace Common { class Stream; class String; } }
+namespace AGS { namespace Common { class Bitmap; class Stream; class String; } }
 using namespace AGS; // FIXME later
 
 #define RAGMODE_PRESERVEGLOBALINT 1
@@ -64,6 +63,7 @@ int Game_GetMODPattern();
 //=============================================================================
 int Game_GetDialogCount();
 
+int SetSaveGameDirectoryPath(const char *newFolder, bool allowAbsolutePaths);
 int Game_SetSaveGameDirectory(const char *newFolder);
 const char* Game_GetSaveSlotDescription(int slnum);
 

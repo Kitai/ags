@@ -12,15 +12,7 @@
 //
 //=============================================================================
 
-/*
-#ifdef WINDOWS_VERSION
-#include <windows.h>    // for HWND
-#else
-// ???
-#endif
-*/
 #include <stdio.h>
-#include "util/wgt2allg.h"
 #include "ac/common.h"
 #include "ac/roomstruct.h"
 #include "ac/runtime_defines.h"
@@ -29,8 +21,9 @@
 #include "gui/dynamicarray.h"
 #include "debug/out.h"
 #include "debug/consoleoutputtarget.h"
-#include "debug/rawfileoutputtarget.h"
+#include "debug/logfile.h"
 #include "media/audio/audio.h"
+#include "media/audio/soundclip.h"
 #include "script/script.h"
 #include "script/script_common.h"
 #include "script/cc_error.h"
@@ -38,7 +31,11 @@
 #include "util/textstreamwriter.h"
 
 using AGS::Common::Stream;
+using AGS::Common::String;
 using AGS::Common::TextStreamWriter;
+using AGS::Engine::Out::ConsoleOutputTarget;
+using AGS::Engine::Out::LogFile;
+namespace Out = AGS::Common::Out;
 
 extern char check_dynamic_sprites_at_exit;
 extern int displayed_room;
@@ -77,13 +74,15 @@ IAGSEditorDebugger *GetEditorDebugger(const char *instanceToken)
 #endif
 
 int debug_flags=0;
+bool enable_log_file = false;
+bool disable_log_file = false;
 
 DebugConsoleText debug_line[DEBUG_CONSOLE_NUMLINES];
 int first_debug_line = 0, last_debug_line = 0, display_console = 0;
 
 int fps=0,display_fps=0;
 
-namespace Out = AGS::Common::Out;
+LogFile *DebugLogFile = NULL;
 
 enum
 {
@@ -95,13 +94,42 @@ enum
 
 void initialize_output_subsystem()
 {
+    DebugLogFile = new LogFile();
+
     Out::Init(0, NULL);
-	Out::AddOutputTarget(TARGET_FILE, new AGS::Engine::Out::RawFileOutputTarget("agsgame.log"),
-        Out::kVerbose_NoDebug, false);
+    Out::AddOutputTarget(TARGET_FILE, DebugLogFile, Out::kVerbose_NoDebug, true);
     Out::AddOutputTarget(TARGET_SYSTEMDEBUGGER, AGSPlatformDriver::GetDriver(),
         Out::kVerbose_WarnErrors, true);
 	Out::AddOutputTarget(TARGET_GAMECONSOLE, new AGS::Engine::Out::ConsoleOutputTarget(),
         Out::kVerbose_Always, false);
+}
+
+void apply_output_configuration()
+{
+    if (disable_log_file)
+    {
+        enable_log_file = false;
+    }
+    else if (enable_log_file)
+    {
+        String logfile_path = platform->GetAppOutputDirectory();
+        logfile_path.Append("/ags.log");
+        if (DebugLogFile->OpenFile(logfile_path))
+        {
+            platform->WriteDebugString("Logging to %s", logfile_path.GetCStr());
+        }
+        else
+        {
+            enable_log_file = false;
+        }
+    }
+
+    if (!enable_log_file)
+    {
+        Out::RemoveOutputTarget(TARGET_FILE);
+        delete DebugLogFile;
+        DebugLogFile = NULL;
+    }
 }
 
 void initialize_debug_system()
@@ -113,9 +141,12 @@ void shutdown_debug_system()
 {
     // Shutdown output subsystem
     Out::Shutdown();
+
+    delete DebugLogFile;
+    DebugLogFile = NULL;
 }
 
-void quitprintf(char*texx, ...) {
+void quitprintf(const char *texx, ...) {
     char displbuf[STD_BUFFER_SIZE];
     va_list ap;
     va_start(ap,texx);
@@ -136,7 +167,7 @@ void write_log(char*msg) {
 /* The idea of this is that non-essential errors such as "sound file not
 found" are logged instead of exiting the program.
 */
-void debug_log(char*texx, ...) {
+void debug_log(const char *texx, ...) {
     // if not in debug mode, don't print it so we don't worry the
     // end player
     if (play.debug_mode == 0)
@@ -174,7 +205,7 @@ void debug_log(char*texx, ...) {
 }
 
 
-void debug_write_console (char *msg, ...) {
+void debug_write_console (const char *msg, ...) {
     char displbuf[STD_BUFFER_SIZE];
     va_list ap;
     va_start(ap,msg);
@@ -215,6 +246,17 @@ const char *get_cur_script(int numberOfLinesOfCallStack) {
         strcpy(pexbuf, ccErrorCallStack);
 
     return &pexbuf[0];
+}
+
+bool get_script_position(ScriptPosition &script_pos)
+{
+    ccInstance *cur_instance = ccInstance::GetCurrentInstance();
+    if (cur_instance)
+    {
+        cur_instance->GetScriptPosition(script_pos);
+        return true;
+    }
+    return false;
 }
 
 static const char* BREAK_MESSAGE = "BREAK";
@@ -401,7 +443,7 @@ bool send_exception_to_editor(char *qmsg)
 
     while ((check_for_messages_from_editor() == 0) && (want_exit == 0))
     {
-        UPDATE_MP3
+        update_mp3();
             platform->Delay(10);
     }
 #endif

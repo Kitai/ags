@@ -31,6 +31,7 @@
 #include "ac/dynobj/all_dynamicclasses.h"
 #include "ac/dynobj/all_scriptclasses.h"
 #include "debug/debug_log.h"
+#include "font/fonts.h"
 #include "gui/guilabel.h"
 #include "main/main.h"
 #include "platform/base/agsplatformdriver.h"
@@ -38,6 +39,7 @@
 #include "script/script.h"
 #include "util/stream.h"
 #include "gfx/bitmap.h"
+#include "gfx/blender.h"
 #include "core/assetmanager.h"
 #include "ac/statobj/agsstaticobject.h"
 #include "ac/statobj/staticarray.h"
@@ -269,7 +271,7 @@ void game_file_read_dialogs(Stream *in)
         dialog[iteratorCount].ReadFromFile(in);
     }
 
-    if (filever <= kGameVersion_300) // Dialog script
+    if (filever <= kGameVersion_310) // Dialog script
     {
         old_dialog_scripts = (unsigned char**)malloc(game.numdialog * sizeof(unsigned char**));
 
@@ -517,7 +519,6 @@ void init_and_register_game_objects()
 	init_and_register_guis();
     init_and_register_fonts();    
 
-    wtexttransparent(TEXTFG);
     play.fade_effect=game.options[OPT_FADETYPE];
 
     our_eip=-21;
@@ -602,16 +603,15 @@ int load_game_file() {
 
     ReadGameSetupStructBase_Aligned(in);
 
-    if (filever <= kGameVersion_300)
+    if (filever < kGameVersion_312)
     {
         // Fix animation speed for old formats
-        game.options[OPT_OLDTALKANIMSPD] = 1;
+		game.options[OPT_GLOBALTALKANIMSPD] = 5;
     }
-    // 3.20: Fixed GUI AdditiveOpacity mode not working properly if you tried to have a non-alpha sprite on an alpha GUI
-    if (loaded_game_file_version < kGameVersion_320)
+    else if (filever < kGameVersion_330)
     {
-        // Force new style rendering for gui sprites with alpha channel
-        game.options[OPT_NEWGUIALPHA] = 1;
+        // Convert game option for 3.1.2 - 3.2 games
+        game.options[OPT_GLOBALTALKANIMSPD] = game.options[OPT_GLOBALTALKANIMSPD] != 0 ? 5 : (-5 - 1);
     }
 
     if (game.numfonts > MAX_FONTS)
@@ -627,7 +627,7 @@ int load_game_file() {
     game.ReadFromFile_Part1(in, read_data);
     //-----------------------------------------------------
 
-    if (game.compiled_script == NULL)
+    if (!game.load_compiled_script)
         quit("No global script in game; data load error");
 
     gamescript = ccScript::CreateFromStream(in);

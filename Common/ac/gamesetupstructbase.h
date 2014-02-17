@@ -22,23 +22,17 @@
 #include "ac/wordsdictionary.h"  // WordsDictionary
 #include "ac/gamestructdefines.h"
 #include "script/cc_script.h"           // ccScript
-#include "util/file.h"
-#include "util/wgt2allg.h"
+#include "util/wgt2allg.h" // color (allegro RGB)
 
 // Forward declaration
 namespace AGS { namespace Common { class Stream; } }
 using namespace AGS; // FIXME later
 
-// This struct is written directly to the disk file // [IKM] not really anymore
-// The GameSetupStruct subclass parts are written individually
-//
-// [IKM] Do not change the order of variables in this struct!
-// Until the serialization and script referencing methods are improved
-// game execution will depend on actual object addresses in memory
-//
 struct GameSetupStructBase {
+    static const int  MAX_OPTIONS = 100;
+
     char              gamename[50];
-    int32             options[100];
+    int32             options[MAX_OPTIONS];
     unsigned char     paluses[256];
     color             defpal[256];
     int32             numviews;
@@ -65,6 +59,16 @@ struct GameSetupStructBase {
     CharacterInfo    *chars;
     ccScript         *compiled_script;
 
+    int32_t          *load_messages;
+    bool             load_dictionary;
+    bool             load_compiled_script;
+    // [IKM] 2013-03-30
+    // NOTE: it looks like nor 'globalscript', not 'compiled_script' are used
+    // to store actual script data anytime; 'ccScript* gamescript' global
+    // pointer is used for that instead.
+
+    GameSetupStructBase();
+    virtual ~GameSetupStructBase();
     void ReadFromFile(Common::Stream *in);
     void WriteToFile(Common::Stream *out);
 };

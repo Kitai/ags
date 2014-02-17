@@ -34,6 +34,9 @@ namespace Common
 class Stream : public IAGSStream
 {
 public:
+    // Flush stream buffer to the underlying device
+    virtual bool Flush() = 0;
+
     //-----------------------------------------------------
     // Helper methods
     //-----------------------------------------------------
@@ -73,9 +76,9 @@ public:
     inline size_t ReadArrayOfIntPtr(intptr_t *buffer, size_t count)
     {
 #if defined (AGS_64BIT) || defined (TEST_64BIT)
-        ReadArrayOfInt64((int64_t*)buffer, count);
+        return ReadArrayOfInt64((int64_t*)buffer, count);
 #else
-        ReadArrayOfInt32((int32_t*)buffer, count);
+        return ReadArrayOfInt32((int32_t*)buffer, count);
 #endif
     }
 
@@ -83,19 +86,19 @@ public:
     inline size_t WriteArrayOfIntPtr(const intptr_t *buffer, size_t count)
     {
 #if defined (AGS_64BIT) || defined (TEST_64BIT)
-        WriteArrayOfInt64((const int64_t*)buffer, count);
+        return WriteArrayOfInt64((const int64_t*)buffer, count);
 #else
-        WriteArrayOfInt32((const int32_t*)buffer, count);
+        return WriteArrayOfInt32((const int32_t*)buffer, count);
 #endif
     }
 
     // Helper function for easier compatibility with 64-bit platforms
     // reads 32-bit values and stores them in intptr_t array
-    virtual size_t ReadArrayOfIntPtr32(intptr_t *buffer, size_t count);
+    size_t ReadArrayOfIntPtr32(intptr_t *buffer, size_t count);
 
     // Helper function for easier compatibility with 64-bit platforms,
     // writes intptr_t array elements as 32-bit values
-    virtual size_t WriteArrayOfIntPtr32(const intptr_t *buffer, size_t count);
+    size_t WriteArrayOfIntPtr32(const intptr_t *buffer, size_t count);
 };
 
 } // namespace Common
