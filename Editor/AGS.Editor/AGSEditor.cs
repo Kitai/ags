@@ -414,7 +414,7 @@ namespace AGS.Editor
 
 			if (filesUnderControl.Count > 0)
 			{
-				if (Factory.GUIController.ShowQuestion("Do you also want to delete the file(s) from the Source Control repository?") == DialogResult.Yes)
+				if (Factory.GUIController.ShowQuestion("Voulez-vous aussi supprimer le(s) fichier(s) du dossier Gestion des Versions ?") == DialogResult.Yes)
 				{
 					try
 					{
@@ -422,7 +422,7 @@ namespace AGS.Editor
 					}
 					catch (SourceControlException ex)
 					{
-						Factory.GUIController.ShowMessage("Unable to delete files from source control: " + ex.SccErrorMessage, MessageBoxIcon.Warning);
+						Factory.GUIController.ShowMessage("Impossible de supprimer le(s) fichier(s) de gestion des versions : " + ex.SccErrorMessage, MessageBoxIcon.Warning);
 					}
 				}
 			}
@@ -449,11 +449,11 @@ namespace AGS.Editor
             }
             catch (IOException ex)
             {
-                throw new CannotDeleteFileException("Unable to delete the file '" + fileName + "'." + Environment.NewLine + ex.Message, ex);
+                throw new CannotDeleteFileException("Impossible de supprimer le fichier '" + fileName + "'." + Environment.NewLine + ex.Message, ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                throw new CannotDeleteFileException("Unable to delete the file '" + fileName + "'." + Environment.NewLine + ex.Message, ex);
+                throw new CannotDeleteFileException("Impossible de supprimer le fichier '" + fileName + "'." + Environment.NewLine + ex.Message, ex);
             }
         }
 
@@ -506,7 +506,7 @@ namespace AGS.Editor
 			}
 			catch (SourceControlException ex)
 			{
-				Factory.GUIController.ShowMessage("Unable to check source control status: " + ex.SccErrorMessage, MessageBoxIcon.Warning);
+				Factory.GUIController.ShowMessage("Impossible de vérifier le statut du gestionnaire de versions : " + ex.SccErrorMessage, MessageBoxIcon.Warning);
 				return false;
 			}
 
@@ -530,7 +530,7 @@ namespace AGS.Editor
                 }
                 catch (Exception ex)
                 {
-                    Factory.GUIController.ShowMessage("Unable to create the file '" + fileName + "' due to an error: " + ex.Message, MessageBoxIcon.Warning);
+                    Factory.GUIController.ShowMessage("Impossible de créer le fichier '" + fileName + "' à cause d'une erreur : " + ex.Message, MessageBoxIcon.Warning);
                     return false;
                 }
                 // File does not exist, but we do have permission to create it
@@ -539,7 +539,7 @@ namespace AGS.Editor
 
             if ((File.GetAttributes(fileName) & FileAttributes.ReadOnly) != 0)
             {
-                Factory.GUIController.ShowMessage("Unable to edit file '" + fileName + "' because it is read-only.", MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Impossible d'éditer le fichier '" + fileName + "' parce qu'il est en lecture seule.", MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -555,18 +555,18 @@ namespace AGS.Editor
                 doc.Load(fileName);
                 if (doc.DocumentElement.Name != XML_USER_DATA_ROOT_NODE_NAME)
                 {
-                    throw new AGSEditorException("Invalid user data file. This is not a valid AGS user data file.");
+                    throw new AGSEditorException("Fichier de données invalide. Ce n'est pas un fichier de données utilisateur AGS valide.");
                 }
                 string fileVersion = doc.DocumentElement.Attributes[XML_ATTRIBUTE_VERSION].InnerXml;
                 if (fileVersion != LATEST_USER_DATA_VERSION)
                 {
-                    throw new AGSEditorException("User data file is from a newer version of AGS or an unsupported beta version. Please check the AGS website for a newer version of the editor.");
+                    throw new AGSEditorException("Le fichier de données utilisateur provient d'une version plus récente d'AGS ou d'une version bêta non supportée. Merci de consulter le site web d'AGS pour une éventuelle version plus récente.");
                 }
                 docNode = doc.DocumentElement;
             }
             catch (Exception ex)
             {
-                Factory.GUIController.ShowMessage("Unable to read the user preferences file. You may lose some of your Preferences settings and may not be able to access Source Control." + Environment.NewLine + Environment.NewLine + "The error was: " + ex.Message, MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Impossible de lire le fichier de préférences utilisateur. Il se peut que vous perdiez des réglages de Préférences et que vous n'ayez pas accès au Gestionnaire de Versions." + Environment.NewLine + Environment.NewLine + "L'erreur est la suivante : " + ex.Message, MessageBoxIcon.Warning);
             }
 
             Factory.Events.OnLoadedUserData(docNode);
@@ -588,7 +588,7 @@ namespace AGS.Editor
             }
             catch
             {
-                throw new AGSEditorException("Cannot load the game, because it is already open in another copy of the AGS Editor");
+                throw new AGSEditorException("Impossible de charger le jeu, celui-ci est déjà ouvert dans une autre instance de l'Éditeur AGS.");
             }
         }
 
@@ -619,7 +619,7 @@ namespace AGS.Editor
             doc.Load(fileName);
             if (doc.DocumentElement.Name != XML_ROOT_NODE_NAME)
             {
-                throw new AGSEditorException("Invalid game data file. This is not a valid AGS game.");
+                throw new AGSEditorException("Fichier de données de jeu invalide. Ce n'est pas un jeu AGS valide.");
             }
             string fileVersion = doc.DocumentElement.Attributes[XML_ATTRIBUTE_VERSION].InnerXml;
             if ((fileVersion != LATEST_XML_VERSION) &&
@@ -629,7 +629,7 @@ namespace AGS.Editor
                 (fileVersion != "3.0.3.1") && 
 				(fileVersion != "2.80.1"))
             {
-                throw new AGSEditorException("Game data file is from a newer version of AGS or an unsupported beta version. Please check the AGS website for a newer version of the editor.");
+                throw new AGSEditorException("Le fichier de données de jeu provient d'une version d'AGS plus récente ou d'une version bêta non prise en charge. Merci de consulter le site web d'AGS pour une éventuelle version plus récente de l'éditeur.");
             }
 
             string gameSavedWithEditorVersion = null;
@@ -643,7 +643,7 @@ namespace AGS.Editor
             XmlAttribute versionIndexNode = doc.DocumentElement.Attributes[XML_ATTRIBUTE_VERSION_INDEX];
             if ((versionIndexNode == null) && (fileVersion == LATEST_XML_VERSION))
             {
-                throw new AGSEditorException("Invalid format game data file");
+                throw new AGSEditorException("Fichier de données de jeu au format invalide");
             }
             else if (versionIndexNode != null)
             {
