@@ -652,13 +652,13 @@ namespace AGS.Editor
                 versionIndex = Convert.ToInt32(versionIndexNode.InnerText);
                 if (versionIndex == 5)
                 {
-                    throw new AGSEditorException("This game is from an unsupported beta version of AGS and cannot be loaded.");
+                    throw new AGSEditorException("Ce jeu provient d'une version bêta non supportée d'AGS et ne peut pas être chargé.");
                 }
                 if ((versionIndex < 1) || (versionIndex > LATEST_XML_VERSION_INDEX))
                 {
-                    throw new AGSEditorException("Game data file is from " +
-                        ((gameSavedWithEditorVersion == null) ? "a newer version" : ("version " + gameSavedWithEditorVersion))
-                        + " of AGS or an unsupported beta version. Please check the AGS website for a newer version of the editor.");
+                    throw new AGSEditorException("Le fichier de données du jeu provient d'une version " +
+                        ((gameSavedWithEditorVersion == null) ? " plus récente " : ("version " + gameSavedWithEditorVersion))
+                        + " d'AGS ou d'une version bêta non supportée. Consultez le site web d'AGS pour une éventuelle version plus récente de l'éditeur.");
                 }
             }
 
@@ -936,15 +936,15 @@ namespace AGS.Editor
 			{
 				if (_preferences.MessageBoxOnCompileErrors != MessageBoxOnCompile.Never)
 				{
-					Factory.GUIController.ShowMessage("There were compilation errors. See the output window for details.", MessageBoxIcon.Warning);
+					Factory.GUIController.ShowMessage("Il y a eu des erreurs à la compilation. Consultez la fenêtre de rapports pour plus de détails.", MessageBoxIcon.Warning);
 				}
-				Factory.GUIController.ShowCuppit("There was a problem creating your game. Look in the output window at the bottom of the screen to see what the error is. If it's a script error, you can double-click on it to be taken to that place in the script.", "Script errors");
+				Factory.GUIController.ShowCuppit("Le logiciel a rencontré un problème à la création de votre jeu. Consultez la fenêtre des rapports en bas de l'écran pour en savoir plus. Si l'erreur provient du script, vous pouvez double-cliquer dessus pour vous rendre à la ligne correspondante.", "Script errors");
 			}
 			else if (errors.Count > 0)
 			{
 				if (_preferences.MessageBoxOnCompileErrors == MessageBoxOnCompile.WarningsAndErrors)
 				{
-					Factory.GUIController.ShowMessage("There were warnings compiling your game. See the output window for details.", MessageBoxIcon.Warning);
+					Factory.GUIController.ShowMessage("La compilation de votre jeu a entraîné des avertissements. Consultez la fenêtre de rapports pour plus de détails.", MessageBoxIcon.Warning);
 				}
 			}
 		}
@@ -954,34 +954,34 @@ namespace AGS.Editor
             if ((_game.LipSync.Type == LipSyncType.PamelaVoiceFiles) &&
                 (_game.Settings.SpeechStyle == SpeechStyle.Lucasarts))
             {
-                errors.Add(new CompileError("Voice lip-sync cannot be used with Lucasarts-style speech"));
+                errors.Add(new CompileError("La synchronisation labiale ne peut pas être utilisée avec le style Lucasarts"));
             }
 
             if ((_game.Settings.EnhancedSaveGames) &&
                 (_game.Settings.SaveGameFileExtension == string.Empty))
             {
-                errors.Add(new CompileError("Enhanced Save Games are enabled but no file extension is specified"));
+                errors.Add(new CompileError("Les sauvegardes enrichies sont activées mais aucune extension de fichier n'est spécifiée"));
             }
 
             if (_game.PlayerCharacter == null)
             {
-                errors.Add(new CompileError("No character has been set as the player character"));
+                errors.Add(new CompileError("Aucun personnage n'a été défini comme personnage joueur"));
             }
             else if (_game.FindRoomByID(_game.PlayerCharacter.StartingRoom) == null)
             {
-                errors.Add(new CompileError("The game is set to start in room " + _game.PlayerCharacter.StartingRoom + " which does not exist"));
+                errors.Add(new CompileError("Le jeu doit commencer dans la pièce " + _game.PlayerCharacter.StartingRoom + " qui n'existe pas"));
             }
 
 			if ((_game.Settings.GraphicsDriver == GraphicsDriver.D3D9) &&
 				(_game.Settings.ColorDepth == GameColorDepth.Palette))
 			{
-				errors.Add(new CompileError("Direct3D graphics driver does not support 256-colour games"));
+				errors.Add(new CompileError("Le pilote graphique Direct3D ne supporte pas les jeux en 256 couleurs"));
 			}
 
 			if ((_game.Settings.ColorDepth == GameColorDepth.Palette) &&
 				(_game.Settings.RoomTransition == RoomTransitionStyle.CrossFade))
 			{
-				errors.Add(new CompileError("You cannot use the CrossFade room transition with 256-colour games"));
+				errors.Add(new CompileError("Vous ne pouvez pas utiliser la transition de fondu enchaîné pour les jeux en 256 couleurs"));
 			}
 
 			if ((_game.Settings.DialogOptionsGUI < 0) ||
@@ -989,7 +989,7 @@ namespace AGS.Editor
 			{
 				if (_game.Settings.DialogOptionsGUI != 0)
 				{
-					errors.Add(new CompileError("Invalid GUI number set for Dialog Options GUI"));
+					errors.Add(new CompileError("Le numéro d'interface entré comme Interface des Options de Dialogues est invalide"));
 				}
 			}
 
@@ -998,7 +998,7 @@ namespace AGS.Editor
 				AGS.Types.View view = _game.FindViewByID(character.NormalView);
 				if (view == null)
 				{
-					errors.Add(new CompileError("Character " + character.ID + " (" + character.RealName + ") has invalid normal view."));
+					errors.Add(new CompileError("La vue normale du personnage " + character.ID + " (" + character.RealName + ") est invalide."));
 				}
 				else
 				{
@@ -1014,7 +1014,7 @@ namespace AGS.Editor
                     if ((normalGui.Width > _game.MinRoomWidth) ||
                         (normalGui.Height > _game.MinRoomHeight))
 					{
-						errors.Add(new CompileWarning("GUI " + gui.Name + " is larger than the screen size and may cause errors in the game."));
+						errors.Add(new CompileWarning("L'interface " + gui.Name + " est plus large que l'écran et peut causer des erreurs dans le jeu."));
 					}
 				}
 			}
@@ -1026,13 +1026,13 @@ namespace AGS.Editor
             {
                 if (!File.Exists(clip.CacheFileName))
                 {
-                    errors.Add(new CompileError("Audio file missing for " + clip.ScriptName + ": " + clip.CacheFileName));
+                    errors.Add(new CompileError("Le fichier audio pour " + clip.ScriptName + " est manquant : " + clip.CacheFileName));
                 }
             }
 
 			if (!IsEnoughSpaceFreeOnDisk(MINIMUM_BYTES_FREE_TO_COMPILE))
 			{
-				errors.Add(new CompileError("There is not enough space on the disk."));
+				errors.Add(new CompileError("Espace disque insuffisant."));
 			}
         }
 
@@ -1072,7 +1072,7 @@ namespace AGS.Editor
 				{
 					if (viewNames.ContainsKey(view.Name.ToLower()))
 					{
-						errors.Add(new CompileError("There are two or more views with the same name '" + view.Name + "'"));
+						errors.Add(new CompileError("Il y a au moins deux vues qui partagent le même nom '" + view.Name + "'"));
 					}
 					else
 					{
@@ -1101,7 +1101,7 @@ namespace AGS.Editor
 					return true;
 				}
 			}
-			throw new AGSEditorException("Unable to find drive for game path: " + _game.DirectoryPath);
+			throw new AGSEditorException("Impossible de trouver le disque du nom de fichier : " + _game.DirectoryPath);
 		}
 
 		public CompileMessages CompileGame(bool forceRebuild, bool createMiniExeForDebug)
@@ -1130,7 +1130,7 @@ namespace AGS.Editor
 
 			if (!errors.HasErrors)
 			{
-				CompileMessage result = (CompileMessage)BusyDialog.Show("Please wait while your scripts are compiled...", new BusyDialog.ProcessingHandler(CompileScripts), new CompileScriptsParameters(errors, forceRebuild));
+				CompileMessage result = (CompileMessage)BusyDialog.Show("Patientez durant la compilation du script...", new BusyDialog.ProcessingHandler(CompileScripts), new CompileScriptsParameters(errors, forceRebuild));
 				if (result != null)
 				{
 					errors.Add(result);
@@ -1140,7 +1140,7 @@ namespace AGS.Editor
 					string sourceEXE = Path.Combine(this.EditorDirectory, ENGINE_EXE_FILE_NAME);
 					if (!File.Exists(sourceEXE))
 					{
-						errors.Add(new CompileError("Cannot find the file '" + sourceEXE + "'. This file is required in order to compile your game."));
+						errors.Add(new CompileError("Fichier '" + sourceEXE + "' introuvable. La compilation du jeu requiert la présence de ce fichier."));
 					}
 					else if (createMiniExeForDebug)
 					{
@@ -1277,7 +1277,7 @@ namespace AGS.Editor
             }
             catch (Exception ex)
             {
-                errors.Add(new CompileError("Unexpected error: " + ex.Message));
+                errors.Add(new CompileError("Erreur inattendue : " + ex.Message));
             }
         }
 
@@ -1296,7 +1296,7 @@ namespace AGS.Editor
                     }
                     catch (AGSEditorException ex)
                     {
-                        Factory.GUIController.ShowMessage("An problem occurred setting your custom icon onto the EXE file. The error was: " + ex.Message, MessageBoxIcon.Warning);
+                        Factory.GUIController.ShowMessage("Il y a eu un problème durant l'association de votre icône au fichier EXE. L'erreur est la suivante : " + ex.Message, MessageBoxIcon.Warning);
                     }
                 }
 
@@ -1306,7 +1306,7 @@ namespace AGS.Editor
 				}
 				catch (Exception ex)
 				{
-					errors.Add(new CompileError("Unable to register for Vista Game Explorer: " + ex.Message));
+					errors.Add(new CompileError("Impossible d'enregistrer pour l'Explorateur de Jeux Vista : " + ex.Message));
 				}
 
                 try
@@ -1315,10 +1315,10 @@ namespace AGS.Editor
                 }
                 catch (Exception ex)
                 {
-                    errors.Add(new CompileError("Unable to set EXE name/description: " + ex.Message));
+                    errors.Add(new CompileError("Impossible de définir le nom/la description du fichier EXE : " + ex.Message));
                 }
 
-                BusyDialog.Show("Please wait while your game is created...", new BusyDialog.ProcessingHandler(CreateCompiledFiles), forceRebuild);
+                BusyDialog.Show("Patientez durant la création du jeu...", new BusyDialog.ProcessingHandler(CreateCompiledFiles), forceRebuild);
 
                 foreach (Plugin plugin in _game.Plugins)
                 {
@@ -1327,7 +1327,7 @@ namespace AGS.Editor
             }
             catch (Exception ex)
             {
-                errors.Add(new CompileError("Unexpected error: " + ex.Message));
+                errors.Add(new CompileError("Erreur inattendue : " + ex.Message));
             }
         }
 
@@ -1344,7 +1344,7 @@ namespace AGS.Editor
                 }
                 catch (AGSEditorException ex)
                 {
-                    Factory.GUIController.ShowMessage("An problem occurred setting your custom icon onto the setup file. The error was: " + ex.Message, MessageBoxIcon.Warning);
+                    Factory.GUIController.ShowMessage("Il y a eu un problème durant l'association de votre icône au fichier EXE. L'erreur est la suivante : " + ex.Message, MessageBoxIcon.Warning);
                 }
             }
 
@@ -1414,21 +1414,21 @@ namespace AGS.Editor
             string usageReport = new SpriteUsageChecker().GetSpriteUsageReport(sprite.Number, _game);
             if (usageReport != null)
             {
-                throw new SpriteInUseException("Cannot delete a sprite because it is in use:" + Environment.NewLine + usageReport);
+                throw new SpriteInUseException("Une image n'a pas pu être supprimée car elle est actuellement utilisée :" + Environment.NewLine + usageReport);
             }
             else if (AboutToDeleteSprite(sprite.Number))
             {
                 SpriteFolder parent = _game.RootSpriteFolder.FindFolderThatContainsSprite(sprite.Number);
                 if (parent == null)
                 {
-                    throw new AGSEditorException("The sprite " + sprite.Number + " could not be found in any sprite folders");
+                    throw new AGSEditorException("L'image " + sprite.Number + " n'a été trouvée dans aucun dossier d'images");
                 }
                 parent.Sprites.Remove(sprite);
                 Factory.NativeProxy.DeleteSprite(sprite);
             }
             else
             {
-                throw new SpriteInUseException("An editor component did not allow sprite " + sprite.Number + " to be deleted");
+                throw new SpriteInUseException("Un composant de l'éditeur a empêché l'image " + sprite.Number + " d'être supprimée");
             }
         }
 
@@ -1476,7 +1476,7 @@ namespace AGS.Editor
             }
 			if (!IsEnoughSpaceFreeOnDisk(MINIMUM_BYTES_FREE_TO_SAVE))
 			{
-				Factory.GUIController.ShowMessage("The disk is full. Please clear some space then try again", MessageBoxIcon.Warning);
+				Factory.GUIController.ShowMessage("Le disque est plein. Libérez de l'espace puis réessayez", MessageBoxIcon.Warning);
 				return false;
 			}
 
@@ -1484,7 +1484,7 @@ namespace AGS.Editor
 			// case the user has just changed it
 			this.RecentGames.AddRecentGame(_game.DirectoryPath, _game.Settings.GameName);
 
-            bool result = (bool)BusyDialog.Show("Please wait while your files are saved...", new BusyDialog.ProcessingHandler(SaveGameFilesProcess), null);
+            bool result = (bool)BusyDialog.Show("Patientez durant la sauvegarde de vos fichiers...", new BusyDialog.ProcessingHandler(SaveGameFilesProcess), null);
 
 			if (!evArgs.SaveSucceeded)
 			{
@@ -1562,7 +1562,7 @@ namespace AGS.Editor
 			}
 			catch (Exception ex)
 			{
-				Factory.GUIController.ShowMessage("Error creating backup of game file: " + ex.Message, MessageBoxIcon.Warning);
+				Factory.GUIController.ShowMessage("Erreur lors de la création du fichier de restauration : " + ex.Message, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -1572,7 +1572,7 @@ namespace AGS.Editor
             XmlTextWriter writer = new XmlTextWriter(sw);
             writer.Formatting = Formatting.Indented;
             writer.WriteProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + Encoding.Default.WebName + "\"");
-            writer.WriteComment("DO NOT EDIT THIS FILE. It is automatically generated by the AGS Editor, changing it manually could break your game");
+            writer.WriteComment("N'ÉDITEZ PAS CE FICHIER. Il est automatiquement généré par l'Éditeur d'AGS, le modifier manuellement pourrait endommager votre jeu.");
             writer.WriteStartElement(XML_USER_DATA_ROOT_NODE_NAME);
             writer.WriteAttributeString(XML_ATTRIBUTE_VERSION, LATEST_USER_DATA_VERSION);
 
@@ -1590,11 +1590,11 @@ namespace AGS.Editor
             }
             catch (UnauthorizedAccessException ex)
             {
-                Factory.GUIController.ShowMessage("Unable to write the user data file. Ensure that you have write access to the game folder, and that the file is not already open.\n\n" + ex.Message, MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Impossible d'écrire le fichier de données utilisateur. Assurez-vous de disposer des droits d'écriture dans le dossier du jeu et que le fichier n'est pas déjà ouvert.\n\n" + ex.Message, MessageBoxIcon.Warning);
             }
             catch (IOException ex)
             {
-                Factory.GUIController.ShowMessage("Unable to write the user data file. Ensure that you have write access to the game folder, and that the file is not already open.\n\n" + ex.Message, MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Impossible d'écrire le fichier de données utilisateur. Assurez-vous de disposer des droits d'écriture dans le dossier du jeu et que le fichier n'est pas déjà ouvert.\n\n" + ex.Message, MessageBoxIcon.Warning);
             }
         }
 
@@ -1608,7 +1608,7 @@ namespace AGS.Editor
             XmlTextWriter writer = new XmlTextWriter(sw);
             writer.Formatting = Formatting.Indented;
 			writer.WriteProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + Encoding.Default.WebName + "\"");
-            writer.WriteComment("DO NOT EDIT THIS FILE. It is automatically generated by the AGS Editor, changing it manually could break your game");
+            writer.WriteComment("N'ÉDITEZ PAS CE FICHIER. Il est automatiquement généré par l'Éditeur d'AGS, le modifier manuellement pourrait endommager votre jeu.");
             writer.WriteStartElement(XML_ROOT_NODE_NAME);
             writer.WriteAttributeString(XML_ATTRIBUTE_VERSION, LATEST_XML_VERSION);
             writer.WriteAttributeString(XML_ATTRIBUTE_VERSION_INDEX, LATEST_XML_VERSION_INDEX.ToString());
@@ -1654,7 +1654,7 @@ namespace AGS.Editor
             }
             catch (UnauthorizedAccessException e)
             {
-                Factory.GUIController.ShowMessage("Unable to save the game file. Make sure the file " + GAME_FILE_NAME + " is not set as read-only. The error was: " + e.Message, MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Impossible de sauvegarder le fichier du jeu. Assurez-vous que le fichier " + GAME_FILE_NAME + " n'est pas en lecture seule. L'erreur était : " + e.Message, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -1675,7 +1675,7 @@ namespace AGS.Editor
                     }
                     catch (Exception ex)
                     {
-                        Factory.GUIController.ShowMessage("Unable to remove file '" + fileName + "' because of an error: " + ex.Message, MessageBoxIcon.Warning);
+                        Factory.GUIController.ShowMessage("Impossible de supprimer le fichier '" + fileName + "' à cause de l'erreur suivante : " + ex.Message, MessageBoxIcon.Warning);
                     }
                 }
             }
