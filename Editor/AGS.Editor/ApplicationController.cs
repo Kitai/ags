@@ -79,7 +79,7 @@ namespace AGS.Editor
 			List<string> missingComponents = _componentController.NotifyLoadedGameAndReturnMissingComponents(rootNode);
 			foreach (string componentID in missingComponents)
 			{
-				_guiController.ShowMessage("This game contains data from a plugin or component '" + componentID + "' which you do not have installed. If you save the game, this data will be lost.", AGS.Types.MessageBoxIconType.Warning);
+				_guiController.ShowMessage("Ce jeu contient des données provenant d'un greffon ou élément '" + componentID + "' que vous n'avez pas installé. Si vous sauvegardez le jeu, ces données seront perdues.", AGS.Types.MessageBoxIconType.Warning);
 			}
 		}
 
@@ -161,9 +161,9 @@ namespace AGS.Editor
 			}
 			catch
 			{
-				_guiController.ShowMessage("An unexpected error occurred. Please post the following information on the AGS Technical Forum." + Environment.NewLine + Environment.NewLine + ex.ToString(), MessageBoxIcon.Stop);
+				_guiController.ShowMessage("Une erreur imprévue est survenue. Veuillez transmettre les informations suivantes sur le Forum Technique d'AGS." + Environment.NewLine + Environment.NewLine + ex.ToString(), MessageBoxIcon.Stop);
 			}
-            _guiController.ShowMessage("A serious error occurred and the AGS Editor may now be in an unstable state. You are STRONGLY ADVISED to shut down the editor and restart it. Before saving your work, make a backup copy of your game folder in case any data has been corrupted."
+            _guiController.ShowMessage("Une erreur sérieuse est survenue et l'Éditeur AGS se trouve peut-être désormais dans un état instable. Vous êtes FORTEMENT INVITÉ à fermer l'éditeur et à le relancer. Avant de sauver votre travail, faites une copie du dossier de votre jeu au cas où des données auraient été corrompues."
                  + Environment.NewLine + Environment.NewLine + "Error: " + ex.ToString(), MessageBoxIcon.Error);
         }
 
