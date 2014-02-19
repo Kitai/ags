@@ -77,7 +77,7 @@ namespace AGS.Editor
             Sprite sprite = _agsEditor.CurrentGame.RootSpriteFolder.FindSpriteByID(spriteNumber, true);
             if (sprite == null)
             {
-                throw new AGSEditorException("Unable to find sprite " + spriteNumber + " in any sprite folders");
+                throw new AGSEditorException("L'image " + spriteNumber + " est introuvable dans les dossiers d'images.");
             }
 
             Factory.NativeProxy.ReplaceSpriteWithBitmap(sprite, newImage, (SpriteImportMethod)((int)transparencyType), true, false, useAlphaChannel);
@@ -112,7 +112,7 @@ namespace AGS.Editor
             Sprite sprite = _agsEditor.CurrentGame.RootSpriteFolder.FindSpriteByID(spriteNumber, true);
             if (sprite == null)
             {
-                throw new AGSEditorException("The sprite " + spriteNumber + " could not be found");
+                throw new AGSEditorException("L'image " + spriteNumber + " est introuvable.");
             }
             _agsEditor.DeleteSprite(sprite);
             _agsEditor.CurrentGame.RootSpriteFolder.NotifyClientsOfUpdate();
