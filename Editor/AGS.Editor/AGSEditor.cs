@@ -1258,7 +1258,7 @@ namespace AGS.Editor
 				Utilities.DeleteFileIfExists(this.CompiledEXEFileName);
                 File.Copy(sourceEXE, this.BaseGameFileName + ".exe", true);
 
-                BusyDialog.Show("Please wait while we prepare to run the game...", new BusyDialog.ProcessingHandler(CreateDebugFiles), null);
+                BusyDialog.Show("Patientez durant le chargement du jeu...", new BusyDialog.ProcessingHandler(CreateDebugFiles), null);
 
 				Utilities.DeleteFileIfExists(this.DebugEXEFileName);
 				File.Move(this.BaseGameFileName + ".exe", this.DebugEXEFileName);
