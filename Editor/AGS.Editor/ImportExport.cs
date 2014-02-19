@@ -62,7 +62,7 @@ namespace AGS.Editor
                 }
                 else
                 {
-                    Factory.GUIController.ShowMessage("Invalid file extension '" + extension + "'. Format not recognised.", System.Windows.Forms.MessageBoxIcon.Warning);
+                    Factory.GUIController.ShowMessage("L'extension '" + extension + "' est invalide. Format non reconnu.", System.Windows.Forms.MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
@@ -120,7 +120,7 @@ namespace AGS.Editor
                 Bitmap bmp = new Bitmap(filename);
                 if (bmp.PixelFormat != PixelFormat.Format8bppIndexed)
                 {
-                    throw new AGSEditorException("Selected bitmap file is not a 256-colour bitmap. Only 8-bit images can have a palette imported.");
+                    throw new AGSEditorException("Le fichier bitmap sélectionné n'est pas un fichier bitmap 256 couleurs. Seules les images 8-bit peuvent avoir une palette importée.");
                 }
                 for (int i = 0; i < newPalette.Length; i++)
                 {
@@ -159,7 +159,7 @@ namespace AGS.Editor
 						interactions.ScriptFunctionNames[i] = funcName;
 						if (script.Text.IndexOf(funcScriptLine) >= 0)
 						{
-							errors.Add(new CompileWarning("Function " + funcName + " already exists in script and could not be created"));
+							errors.Add(new CompileWarning("La fonction " + funcName + " existe déjà dans le script et ne peut donc être à nouveau déclarée."));
 						}
 						else
 						{
@@ -238,7 +238,7 @@ namespace AGS.Editor
             int version = reader.ReadInt32();
             if (version != EDITOR_DAT_LATEST_FILE_VERSION)
             {
-                throw new AGS.Types.InvalidDataException("This game is from an unsupported version of AGS. This editor can only import games saved with AGS 2.72.");
+                throw new AGS.Types.InvalidDataException("Ce jeu provient d'une version d'AGS non supportée. Cet éditeur peut uniquement importer des jeux sauvegardés avec AGS 2.72.");
             }
             game.RootScriptFolder.Clear();
 
@@ -312,7 +312,7 @@ namespace AGS.Editor
             if (reader.ReadInt32() != 1)
             {
                 reader.Close();
-                throw new AGS.Types.InvalidDataException("This module requires a newer version of AGS.");
+                throw new AGS.Types.InvalidDataException("Ce module requiert une version plus récente d'AGS.");
             }
 
             string author = ReadNullTerminatedString(reader);
@@ -702,7 +702,7 @@ namespace AGS.Editor
             }
             if (SerializeUtils.GetAttributeString(doc.DocumentElement, CHARACTER_XML_VERSION_ATTRIBUTE) != CHARACTER_XML_CURRENT_VERSION)
             {
-                throw new AGS.Types.InvalidDataException("This file requires a newer version of AGS to import it.");
+                throw new AGS.Types.InvalidDataException("Ce fichier requiert une version plus récente d'AGS pour être importé.");
             }
 
             Character newChar = new Character(doc.DocumentElement.FirstChild);
@@ -891,13 +891,13 @@ namespace AGS.Editor
         {
             if (view.Loops.Count > 16)
             {
-                throw new AGS.Types.InvalidDataException("This view has more than 16 loops and cannot be exported in a format compatible with previous AGS versions.");
+                throw new AGS.Types.InvalidDataException("Cette vue contient plus de 16 séquences d'animation et ne peut être exportée dans un format compatible avec les précédentes versions d'AGS.");
             }
             foreach (ViewLoop loop in view.Loops)
             {
                 if (loop.Frames.Count > 20)
                 {
-                    throw new AGS.Types.InvalidDataException("This view has a loop with more than 20 frames and cannot be exported in a format compatible with previous AGS versions.");
+                    throw new AGS.Types.InvalidDataException("Cette vue a une séquence d'animation contenant plus de 20 vignettes et ne peut être exportée dans un format compatible avec les précédentes versions d'AGS.");
                 }
             }
 
@@ -1161,7 +1161,7 @@ namespace AGS.Editor
             }
             if (SerializeUtils.GetAttributeString(doc.DocumentElement, GUI_XML_VERSION_ATTRIBUTE) != GUI_XML_CURRENT_VERSION)
             {
-                throw new AGS.Types.InvalidDataException("This file requires a newer version of AGS to import it.");
+                throw new AGS.Types.InvalidDataException("Ce fichier requiert une version plus récente d'AGS pour pouvoir être importé.");
             }
 
             GUI newGui;
@@ -1263,7 +1263,7 @@ namespace AGS.Editor
                 Sprite sprite = Factory.AGSEditor.CurrentGame.RootSpriteFolder.FindSpriteByID(spriteNumber, true);
                 if (sprite == null)
                 {
-                    throw new AGSEditorException("Sprite not found: " + spriteNumber);
+                    throw new AGSEditorException("Image introuvable: " + spriteNumber);
                 }
 
                 writer.WriteStartElement(GUI_XML_SPRITE_NODE);
