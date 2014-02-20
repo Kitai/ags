@@ -67,7 +67,7 @@ namespace AGS.Editor
             }
             catch (Exception ex)
             {
-                Factory.GUIController.ShowMessage("There was an error exporting the file. The error message was: '" + ex.Message + "'. Please try again", System.Windows.Forms.MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Erreur lors de l'export du fichier. Le message était : '" + ex.Message + "'. Veuillez réessayer.", System.Windows.Forms.MessageBoxIcon.Warning);
             }
         }
 
@@ -95,7 +95,7 @@ namespace AGS.Editor
             }
             else
             {
-                throw new AGSEditorException("Invalid file format requested for export. Supports PAL and BMP.");
+                throw new AGSEditorException("Format de fichier à l'export invalide. Support du PAL et du BMP.");
             }
         }
 
@@ -130,7 +130,7 @@ namespace AGS.Editor
             }
             else
             {
-                throw new AGSEditorException("Invalid file format requested for import. Supports PAL and BMP.");
+                throw new AGSEditorException("Format de fichier à l'import invalide. Support du PAL et du BMP.");
             }
 
             return newPalette;
@@ -233,7 +233,7 @@ namespace AGS.Editor
             string fileSig = Encoding.ASCII.GetString(reader.ReadBytes(14));
             if (fileSig != "AGSEditorInfo\0")
             {
-                throw new AGS.Types.InvalidDataException("This is not a valid AGS game file.");
+                throw new AGS.Types.InvalidDataException("Ceci n'est pas un fichier de jeu AGS valide.");
             }
             int version = reader.ReadInt32();
             if (version != EDITOR_DAT_LATEST_FILE_VERSION)
@@ -251,7 +251,7 @@ namespace AGS.Editor
 
             if (reader.ReadInt32() != 1)
             {
-                throw new AGS.Types.InvalidDataException("Error in game files: invalid header for script modules");
+                throw new AGS.Types.InvalidDataException("Erreur dans les fichiers du jeu : en-tête de script invalide.");
             }
 
             int moduleCount = reader.ReadInt32();
@@ -307,7 +307,7 @@ namespace AGS.Editor
             if (fileSig != MODULE_FILE_SIGNATURE)
             {
                 reader.Close();
-                throw new AGS.Types.InvalidDataException("This is not a valid AGS script module.");
+                throw new AGS.Types.InvalidDataException("Ceci n'est pas un module de script AGS valide.");
             }
             if (reader.ReadInt32() != 1)
             {
@@ -369,7 +369,7 @@ namespace AGS.Editor
         {
             int scriptHeaderLength = reader.ReadInt32() - 1;
             string scriptHeaderText = Encoding.Default.GetString(reader.ReadBytes(scriptHeaderLength));
-            string extraScript = "// Automatically converted interaction variables" + Environment.NewLine;
+            string extraScript = "// Variables d'interaction automatiquement converties" + Environment.NewLine;
             foreach (OldInteractionVariable var in game.OldInteractionVariables)
             {
                 extraScript += "import int " + var.ScriptName + ";" + Environment.NewLine;
@@ -380,7 +380,7 @@ namespace AGS.Editor
 
             int globalScriptLength = reader.ReadInt32() - 1;
             string globalScriptText = Encoding.Default.GetString(reader.ReadBytes(globalScriptLength));
-            extraScript = "// Automatically converted interaction variables" + Environment.NewLine;
+            extraScript = "// Variables d'interaction automatiquement converties" + Environment.NewLine;
             foreach (OldInteractionVariable var in game.OldInteractionVariables)
             {
                 extraScript += string.Format("int {0} = {1};{2}export {0};{2}", var.ScriptName, var.Value, Environment.NewLine);
@@ -460,7 +460,7 @@ namespace AGS.Editor
                     }
                     catch (AGSEditorException ex)
                     {
-                        importErrors.Add(new CompileError("There was an error saving the script for room " + roomNumber + ": " + ex.Message));
+                        importErrors.Add(new CompileError("Erreur lors de la sauvegarde du script de la pièce " + roomNumber + " : " + ex.Message));
                     }
 
                     UnloadedRoom newUnloadedRoom = new UnloadedRoom(roomNumber);
@@ -469,7 +469,7 @@ namespace AGS.Editor
                 }
                 else
                 {
-                    importErrors.Add(new CompileWarning("The room file '" + roomFileFullPath + "' does not have a recognised name and will not be part of the game."));
+                    importErrors.Add(new CompileWarning("Le fichier de pièce '" + roomFileFullPath + "' possède un nom non-reconnu et ne sera pas intégré au jeu."));
                 }
             }
 
@@ -513,7 +513,7 @@ namespace AGS.Editor
                         }
                         else
                         {
-                            importErrors.Add(new CompileWarning("Sprite " + spriteNum + " not found whilst importing the sprite folder list"));
+                            importErrors.Add(new CompileWarning("Image " + spriteNum + " non trouvée à l'import de la liste du dossier image."));
                         }
                     }
                 }
@@ -522,7 +522,7 @@ namespace AGS.Editor
                 {
                     if (!spriteFolders.ContainsKey(parentFolder))
                     {
-                        throw new AGS.Types.InvalidDataException("Invalid sprite folder structure found: folder " + i + " has parent " + parentFolder);
+                        throw new AGS.Types.InvalidDataException("Structure de dossier image invalide : le dossier " + i + " a pour parent " + parentFolder);
                     }
                     spriteFolders[parentFolder].SubFolders.Add(spriteFolders[i]);
                 }
@@ -561,7 +561,7 @@ namespace AGS.Editor
             }
             XmlTextWriter writer = new XmlTextWriter(fileName, Encoding.Default);
             writer.WriteProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + Encoding.Default.WebName + "\"");
-            writer.WriteComment("AGS Exported Character file. DO NOT EDIT THIS FILE BY HAND, IT IS GENERATED AUTOMATICALLY BY THE AGS EDITOR.");
+            writer.WriteComment("Fichier de Personnage AGS Exporté. N'ÉDITEZ PAS CE FICHIER MANUELLEMENT, IL EST AUTOMATIQUEMENT GÉNÉRÉ PAR L'ÉDITEUR AGS.");
             writer.WriteStartElement(CHARACTER_XML_ROOT_NODE);
             writer.WriteAttributeString(CHARACTER_XML_VERSION_ATTRIBUTE, CHARACTER_XML_CURRENT_VERSION);
 
@@ -693,12 +693,12 @@ namespace AGS.Editor
             }
             catch (XmlException ex)
             {
-                throw new AGS.Types.InvalidDataException("This does not appear to be a valid AGS Character file." + Environment.NewLine + Environment.NewLine + ex.Message, ex);
+                throw new AGS.Types.InvalidDataException("Ceci ne semble pas être un fichier de Personnage AGS valide." + Environment.NewLine + Environment.NewLine + ex.Message, ex);
             }
 
             if (doc.DocumentElement.Name != CHARACTER_XML_ROOT_NODE)
             {
-                throw new AGS.Types.InvalidDataException("Not a valid AGS Character file.");
+                throw new AGS.Types.InvalidDataException("Fichier de Personnage AGS invalide.");
             }
             if (SerializeUtils.GetAttributeString(doc.DocumentElement, CHARACTER_XML_VERSION_ATTRIBUTE) != CHARACTER_XML_CURRENT_VERSION)
             {
@@ -768,13 +768,13 @@ namespace AGS.Editor
             if (fileSig != CHARACTER_FILE_SIGNATURE)
             {
                 reader.Close();
-                throw new AGS.Types.InvalidDataException("This is not a valid AGS character file.");
+                throw new AGS.Types.InvalidDataException("Ceci n'est pas un fichier de Personnage AGS valide.");
             }
             int fileVersion = reader.ReadInt32();
             if ((fileVersion < 5) || (fileVersion > 6))
             {
                 reader.Close();
-                throw new AGS.Types.InvalidDataException("This character file is not supported by this version of AGS.");
+                throw new AGS.Types.InvalidDataException("Ce fichier de Personnage n'est pas supporté par cette version d'AGS.");
             }
 
             Color []palette = new Color[256];
@@ -1147,7 +1147,7 @@ namespace AGS.Editor
                 case PixelFormat.Format32bppRgb:
                     return 32;
             }
-            throw new AGSEditorException("Invalid pixel format: " + format.ToString());
+            throw new AGSEditorException("Format de pixel invalide : " + format.ToString());
         }
 
         public static GUI ImportGUIFromFile(string fileName, Game game)
@@ -1157,7 +1157,7 @@ namespace AGS.Editor
 
             if (doc.DocumentElement.Name != GUI_XML_ROOT_NODE)
             {
-                throw new AGS.Types.InvalidDataException("Not a valid AGS GUI file.");
+                throw new AGS.Types.InvalidDataException("Fichier d'Interace AGS invalide.");
             }
             if (SerializeUtils.GetAttributeString(doc.DocumentElement, GUI_XML_VERSION_ATTRIBUTE) != GUI_XML_CURRENT_VERSION)
             {
@@ -1221,7 +1221,7 @@ namespace AGS.Editor
             }
             XmlTextWriter writer = new XmlTextWriter(fileName, Encoding.Default);
 			writer.WriteProcessingInstruction("xml", "version=\"1.0\" encoding=\"" + Encoding.Default.WebName + "\"");
-			writer.WriteComment("AGS Exported GUI file. DO NOT EDIT THIS FILE BY HAND, IT IS GENERATED AUTOMATICALLY BY THE AGS EDITOR.");
+			writer.WriteComment("Fichier AGS d'Interface Exportée. N'ÉDITEZ PAS CE FICHIER MANUELLEMENT, IL A ÉTÉ AUTOMATIQUEMENT GÉNÉRÉ PAR L'ÉDITEUR AGS.");
             writer.WriteStartElement(GUI_XML_ROOT_NODE);
             writer.WriteAttributeString(GUI_XML_VERSION_ATTRIBUTE, GUI_XML_CURRENT_VERSION);
 
@@ -1263,7 +1263,7 @@ namespace AGS.Editor
                 Sprite sprite = Factory.AGSEditor.CurrentGame.RootSpriteFolder.FindSpriteByID(spriteNumber, true);
                 if (sprite == null)
                 {
-                    throw new AGSEditorException("Image introuvable: " + spriteNumber);
+                    throw new AGSEditorException("Image introuvable : " + spriteNumber);
                 }
 
                 writer.WriteStartElement(GUI_XML_SPRITE_NODE);
