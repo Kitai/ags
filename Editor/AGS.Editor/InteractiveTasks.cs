@@ -29,7 +29,7 @@ namespace AGS.Editor
         public bool BrowseForAndLoadGame()
         {
             bool loadedSuccessfully = false;
-            string gameToLoad = Factory.GUIController.ShowOpenFileDialog("Select game to open", "AGS game files (*.agf, ac2game.dta)|*.agf;ac2game.dta|AGS 3.x games (*.agf)|*.agf|AGS 2.72 games (*.dta)|ac2game.dta", false);
+            string gameToLoad = Factory.GUIController.ShowOpenFileDialog("Sélectionnez le jeu à ouvrir", "Fichiers jeu AGS (*.agf, ac2game.dta)|*.agf;ac2game.dta|Jeux AGS 3.x (*.agf)|*.agf|Jeux AGS 2.72 (*.dta)|ac2game.dta", false);
             if (gameToLoad != null)
             {
                 try
@@ -38,11 +38,11 @@ namespace AGS.Editor
                 }
                 catch (AGS.Types.InvalidDataException e)
                 {
-                    Factory.GUIController.ShowMessage("Unable to import the game.\n\n" + e.Message, MessageBoxIcon.Warning);
+                    Factory.GUIController.ShowMessage("Impossible d'importer le jeu.\n\n" + e.Message, MessageBoxIcon.Warning);
                 }
                 catch (AGS.Types.AGSEditorException e)
                 {
-                    Factory.GUIController.ShowMessage("Unable to import the game.\n\n" + e.Message, MessageBoxIcon.Warning);
+                    Factory.GUIController.ShowMessage("Impossible d'importer le jeu.\n\n" + e.Message, MessageBoxIcon.Warning);
                 }
             }
             return loadedSuccessfully;
@@ -61,9 +61,9 @@ namespace AGS.Editor
                     ((game.SavedXmlVersionIndex != null) &&
                      (game.SavedXmlVersionIndex != AGSEditor.LATEST_XML_VERSION_INDEX)))
 				{
-					Factory.GUIController.ShowMessage("This game was last saved with " +
-                        ((game.SavedXmlEditorVersion == null) ? "an older version" : ("version " + game.SavedXmlEditorVersion))
-                        + " of AGS. If you save it now, the game will be upgraded and previous versions of AGS will be unable to open it.", MessageBoxIcon.Information);
+					Factory.GUIController.ShowMessage("Ce jeu a été dernièrement sauvé avec " +
+                        ((game.SavedXmlEditorVersion == null) ? "une version plus ancienne" : ("la version " + game.SavedXmlEditorVersion))
+                        + " d'AGS. Si vous le sauvez maintenant, le jeu sera mis à niveau et les version précédentes d'AGS ne pourront pas l'ouvrir.", MessageBoxIcon.Information);
 				}
 
 				return success;
@@ -74,16 +74,16 @@ namespace AGS.Editor
                 if ((!(ex is AGS.Types.InvalidDataException)) &&
                     (!(ex is AGS.Types.AGSEditorException)))
                 {
-                    messageDetails = "\r\n\r\nError details: " + ex.ToString();
+                    messageDetails = "\r\n\r\nDétails de l'erreur : " + ex.ToString();
                 }
-                Factory.GUIController.ShowMessage("An error occurred whilst trying to load your game. The error was: " + Environment.NewLine + Environment.NewLine + ex.Message + "\r\n\r\nIf you cannot resolve the error, please post on the AGS Technical Forum for assistance." + messageDetails, MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Une erreur est survenue au chargement de votre jeu. L'erreur est la suivante : " + Environment.NewLine + Environment.NewLine + ex.Message + "\r\n\r\nSi vous ne pouvez pas résourdre le problème, veuillez demander de l'aide sur le Forum Technique d'AGS." + messageDetails, MessageBoxIcon.Warning);
                 return false;
             }
         }
 
         public void CreateTemplateFromCurrentGame(string templateFileName)
         {
-            BusyDialog.Show("Please wait while the template is created...", new BusyDialog.ProcessingHandler(CreateTemplateFromCurrentGameProcess), templateFileName);
+            BusyDialog.Show("Patientez durant la création du modèle...", new BusyDialog.ProcessingHandler(CreateTemplateFromCurrentGameProcess), templateFileName);
         }
 
         private object CreateTemplateFromCurrentGameProcess(object templateFileName)
@@ -133,7 +133,7 @@ namespace AGS.Editor
             }
             else
             {
-                Factory.GUIController.ShowMessage("The game engine does not appear to have shut down properly. If the problem persists, post the problem on the Tech forum.", MessageBoxIcon.Warning);
+                Factory.GUIController.ShowMessage("Le moteur du jeu ne semble pas s'être fermé correctement. Si le problème persiste, reportez-le sur le Forum Technique.", MessageBoxIcon.Warning);
             }
 
             if (TestGameFinished != null)
