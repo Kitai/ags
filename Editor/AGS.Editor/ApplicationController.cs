@@ -164,7 +164,7 @@ namespace AGS.Editor
 				_guiController.ShowMessage("Une erreur imprévue est survenue. Veuillez transmettre les informations suivantes sur le Forum Technique d'AGS." + Environment.NewLine + Environment.NewLine + ex.ToString(), MessageBoxIcon.Stop);
 			}
             _guiController.ShowMessage("Une erreur sérieuse est survenue et l'Éditeur AGS se trouve peut-être désormais dans un état instable. Vous êtes FORTEMENT INVITÉ à fermer l'éditeur et à le relancer. Avant de sauver votre travail, faites une copie du dossier de votre jeu au cas où des données auraient été corrompues."
-                 + Environment.NewLine + Environment.NewLine + "Error: " + ex.ToString(), MessageBoxIcon.Error);
+                 + Environment.NewLine + Environment.NewLine + "Erreur : " + ex.ToString(), MessageBoxIcon.Error);
         }
 
         private void GUIController_OnEditorShutdown()
